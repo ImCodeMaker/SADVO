@@ -151,6 +151,7 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.RazorAssemblyInfo.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.RazorAssemblyInfo.cs
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.sourcelink.json
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\bundle\SADVO.styles.css
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\projectbundle\SADVO.bundle.scp.css

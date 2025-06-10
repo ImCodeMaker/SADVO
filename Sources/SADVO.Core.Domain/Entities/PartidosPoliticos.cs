@@ -9,7 +9,6 @@ namespace SADVO.Core.Domain.Entities
 		public required string Descripcion { get; set; }
 		public required string Siglas { get; set; }
 		public required string Logo { get; set;}
-
 		public required ICollection<AlianzasPoliticas> AlianzasPoliticas { get; set; }
 		public required ICollection<AsignacionCandidatos> AsignacionCandidatos { get; set; }
 

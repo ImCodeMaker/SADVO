@@ -8,6 +8,7 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Applicati
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.AssemblyInfoInputs.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.AssemblyInfo.cs
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.csproj.CoreCompileInputs.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.sourcelink.json
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Co.58C1C2FC.Up2Date
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\refint\SADVO.Core.Application.dll

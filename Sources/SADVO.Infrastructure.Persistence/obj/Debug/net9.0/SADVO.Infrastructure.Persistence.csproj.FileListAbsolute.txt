@@ -11,6 +11,7 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure.Persistence\obj\Debug\net9.0\SADVO.Infrastructure.Persistence.AssemblyInfoInputs.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure.Persistence\obj\Debug\net9.0\SADVO.Infrastructure.Persistence.AssemblyInfo.cs
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure.Persistence\obj\Debug\net9.0\SADVO.Infrastructure.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure.Persistence\obj\Debug\net9.0\SADVO.Infrastructure.Persistence.sourcelink.json
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure.Persistence\obj\Debug\net9.0\SADVO.In.DFE06169.Up2Date
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure.Persistence\obj\Debug\net9.0\SADVO.Infrastructure.Persistence.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Infrastructure.Persistence\obj\Debug\net9.0\refint\SADVO.Infrastructure.Persistence.dll

@@ -5,8 +5,7 @@ namespace SADVO.Core.Domain.Entities
 {
 	public class Ciudadanos : SharedEntity<int>
 	{
-		public required string FirstName { get; set; }
-		public required string LastName { get; set; }
+		public required string NombreCompleto { get; set; }
 		public required string Email { get; set; }
 		public required string Documento_Identidad { get; set; }
 

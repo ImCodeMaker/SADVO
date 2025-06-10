@@ -9,7 +9,7 @@ namespace SADVO.Core.Domain.Entities
 		public required string Apellido { get; set; }
 		public required string Foto { get; set; }
 		public required int PartidoPoliticoId { get; set; }
-		public required bool Estado { get; set; } = true;
+		public required string Estado { get; set; } = "Activo";
 		public DateTime FechaCreacion { get; set; } = DateTime.Now;
 		public DateTime FechaModificacion { get; set; }
 

@@ -14,13 +14,9 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 
 			#region Propiedades
 
-			modelBuilder.Property(c => c.FirstName)
+			modelBuilder.Property(c => c.NombreCompleto)
 				.IsRequired()
-				.HasMaxLength(100);
-
-			modelBuilder.Property(c => c.LastName)
-				.IsRequired()
-				.HasMaxLength(100);
+				.HasMaxLength(255);
 
 			modelBuilder.Property(c => c.Email)
 				.IsRequired()
