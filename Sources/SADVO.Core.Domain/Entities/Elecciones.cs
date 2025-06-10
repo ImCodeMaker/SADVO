@@ -1,0 +1,18 @@
+﻿using SADVO.Core.Domain.Common;
+
+namespace SADVO.Core.Domain.Entities
+{
+	public class Elecciones : SharedIdEntity<int>
+	{
+		public required string Nombre { get; set; }
+		public required DateTime FechaRealizacion { get; set; }
+		public required string Estado { get; set; }
+		public DateTime FechaCreacion { get; set; }
+		public DateTime FechaFinalizacion { get; set; }
+
+		#region Relacion uno a muchos  - Una eleccion Puede tener varios historiales y votos
+		public ICollection<HistorialVotaciones> HistorialVotaciones { get; set; } = new List<HistorialVotaciones>();
+		public ICollection<Votos> Votos { get; set; } = new List<Votos>();
+		#endregion
+	}
+}

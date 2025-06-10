@@ -1,0 +1,15 @@
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\bin\Debug\net9.0\SADVO.Core.Application.deps.json
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\bin\Debug\net9.0\SADVO.Core.Application.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\bin\Debug\net9.0\SADVO.Core.Application.pdb
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\bin\Debug\net9.0\SADVO.Core.Domain.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\bin\Debug\net9.0\SADVO.Core.Domain.pdb
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.csproj.AssemblyReference.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.AssemblyInfoInputs.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.AssemblyInfo.cs
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.csproj.CoreCompileInputs.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Co.58C1C2FC.Up2Date
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\refint\SADVO.Core.Application.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\SADVO.Core.Application.pdb
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Application\obj\Debug\net9.0\ref\SADVO.Core.Application.dll

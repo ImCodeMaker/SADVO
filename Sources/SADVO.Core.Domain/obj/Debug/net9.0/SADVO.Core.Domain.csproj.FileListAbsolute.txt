@@ -1,0 +1,11 @@
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\bin\Debug\net9.0\SADVO.Core.Domain.deps.json
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\bin\Debug\net9.0\SADVO.Core.Domain.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\bin\Debug\net9.0\SADVO.Core.Domain.pdb
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\SADVO.Core.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\SADVO.Core.Domain.AssemblyInfoInputs.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\SADVO.Core.Domain.AssemblyInfo.cs
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\SADVO.Core.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\SADVO.Core.Domain.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\refint\SADVO.Core.Domain.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\SADVO.Core.Domain.pdb
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO.Core.Domain\obj\Debug\net9.0\ref\SADVO.Core.Domain.dll
