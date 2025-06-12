@@ -44,7 +44,6 @@ namespace SADVO.Core.Application.Services
 				throw;
 			}
 		}
-
 		public async Task<bool> CreateAdminUser(CrearUsuarioDTO crearUsuarioDTO)
 		{
 			if (crearUsuarioDTO == null)
@@ -123,7 +122,7 @@ namespace SADVO.Core.Application.Services
 
 			try
 			{
-				await _userRepository.DeleteAsync(Id);
+				await _userRepository.DeleteAsync<Usuarios>(Id);
 				return true;
 			}
 			catch (Exception ex)

@@ -6,6 +6,7 @@ namespace SADVO.Core.Domain.Entities
 	{
 		public required int UsuarioId { get; set; }
 		public required int PartidoPoliticoId { get; set; }
+		public required bool Estado { get; set; } = true;
 		public required PartidosPoliticos PartidosPoliticos { get; set; }
 		public DateTime FechaAsignacion { get; set; } = DateTime.Now;
 

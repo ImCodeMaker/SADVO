@@ -10,6 +10,6 @@ namespace SADVO.Core.Application.Dtos
 		public required string NombreUsuario { get; set; }
 		public required string Contraseña { get; set; }
 		public string? Rol { get; set; }
-		public string? Estado { get; set; } = "Activo";
+		public bool Estado { get; set; } = true;
 	}
 }

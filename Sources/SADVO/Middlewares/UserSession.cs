@@ -34,5 +34,27 @@ namespace SADVO.Middlewares
 			}
 			return userViewModel;
 		}
+
+		public bool IsAdmin()
+		{
+			UserViewModel? userViewModel = _httpContextAccessor.HttpContext?.Session.Get<UserViewModel>("User");
+
+			if (userViewModel == null)
+			{
+				return false!; 
+			}
+			return userViewModel.Rol == "Administrador";
+		}
+
+		public bool IsDirigente()
+		{
+			UserViewModel? userViewModel = _httpContextAccessor.HttpContext?.Session.Get<UserViewModel>("User");
+
+			if (userViewModel == null)
+			{
+				return false!;
+			}
+			return userViewModel.Rol == "Dirigente";
+		}
 	}
 }

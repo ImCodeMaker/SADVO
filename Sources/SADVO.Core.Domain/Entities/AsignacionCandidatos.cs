@@ -7,6 +7,7 @@ namespace SADVO.Core.Domain.Entities
 		public required int CandidatoId { get; set; }
 		public required int PuestoElectivoId {  get; set; }
 		public required int PartidoPoliticoId { get; set; }
+		public required bool Estado { get; set; } = true;
 		public DateTime FechaAsignacion { get; set; } = DateTime.Now;
 
 		#region Relacion muchos a uno con Candidatos, Puestos Electivos, Partidos Politicos 

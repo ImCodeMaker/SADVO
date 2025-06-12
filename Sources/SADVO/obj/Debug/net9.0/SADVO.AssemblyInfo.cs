@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SADVO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c39e36a3915d66cb15ca625df2e682af6d016fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9aaa65fbc6830fd25083747f098b72763c4f0cf1")]
 [assembly: System.Reflection.AssemblyProductAttribute("SADVO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SADVO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

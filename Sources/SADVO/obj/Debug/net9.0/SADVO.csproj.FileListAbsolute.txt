@@ -99,6 +99,8 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.CSharp.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.CommandLine.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
@@ -108,6 +110,7 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Xml.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Diagnostics.Abstractions.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Diagnostics.dll
@@ -135,7 +138,10 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.EventSource.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.TraceSource.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.ObjectPool.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Options.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.Primitives.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Extensions.WebEncoders.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.JSInterop.dll
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\refs\Microsoft.Net.Http.Headers.dll
@@ -451,6 +457,7 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\SADVO.Core.Domain.pdb
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\bin\Debug\net9.0\SADVO.Infrastructure.Persistence.pdb
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.csproj.AssemblyReference.cache
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\rpswa.dswa.cache.json
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.AssemblyInfoInputs.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.AssemblyInfo.cs
@@ -460,9 +467,16 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.RazorAssemblyInfo.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.RazorAssemblyInfo.cs
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.sourcelink.json
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\rjimswa.dswa.cache.json
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_LayoutAdmin.cshtml.rz.scp.css
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_LayoutAnonymous.cshtml.rz.scp.css
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_LayoutDirigente.cshtml.rz.scp.css
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\bundle\SADVO.styles.css
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\projectbundle\SADVO.bundle.scp.css
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\eqyj6mkt4v-gfo37xnim3.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\j7hasgsmeq-mvzjofvg5q.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\tdp8zzzci1-61n19gt1b8.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\erm7ayt40x-xtxxf3hu2r.gz
@@ -525,6 +539,8 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\entovi6d19-muycvpuwrr.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\9jmn5lvf9h-87fc7y1x7t.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\pwkobrll09-mlv21k5csn.gz
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\fo7r2y6lsb-9mbxby38yg.gz
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\e0z66ffr0p-9mbxby38yg.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\staticwebassets.development.json
@@ -536,8 +552,3 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.pdb
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.genruntimeconfig.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\ref\SADVO.dll
-C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_LayoutAdmin.cshtml.rz.scp.css
-C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_LayoutAnonymous.cshtml.rz.scp.css
-C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\fo7r2y6lsb-1wtt0dvtkg.gz
-C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\e0z66ffr0p-1wtt0dvtkg.gz
-C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\eqyj6mkt4v-gfo37xnim3.gz

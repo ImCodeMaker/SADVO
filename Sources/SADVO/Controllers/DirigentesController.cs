@@ -3,11 +3,11 @@ using SADVO.Core.Application.Interfaces;
 
 namespace SADVO.Controllers
 {
-	public class AdminController : Controller
+	public class DirigenteController : Controller
 	{
 		private readonly IUserSession _userSession;
 
-		public AdminController(IUserSession userSession)
+		public DirigenteController(IUserSession userSession)
 		{
 			_userSession = userSession;
 		}
@@ -19,7 +19,7 @@ namespace SADVO.Controllers
 				return RedirectToRoute(new { controller = "Auth", action = "Index" });
 			}
 
-			if (!_userSession.IsAdmin())
+			if (!_userSession.IsDirigente())
 			{
 				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
 			}

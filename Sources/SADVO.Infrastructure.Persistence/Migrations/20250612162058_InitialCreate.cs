@@ -37,7 +37,7 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     FechaRealizacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Estado = table.Column<bool>(type: "bit", maxLength: 50, nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFinalizacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -94,7 +94,7 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     NombreUsuario = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Contraseña = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Rol = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Estado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,7 +138,7 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PartidoSolicitanteId = table.Column<int>(type: "int", nullable: false),
                     PartidoDestinoId = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Estado = table.Column<bool>(type: "bit", maxLength: 10, nullable: false),
                     FechaSolicitud = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaRespuesta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PartidosPoliticosId = table.Column<int>(type: "int", nullable: true)
@@ -175,9 +175,8 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     Apellido = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Foto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PartidoPoliticoId = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Estado = table.Column<bool>(type: "bit", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -198,6 +197,7 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
                     PartidoPoliticoId = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<bool>(type: "bit", nullable: false),
                     FechaAsignacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     partidosPoliticosId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -233,6 +233,7 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     CandidatoId = table.Column<int>(type: "int", nullable: false),
                     PuestoElectivoId = table.Column<int>(type: "int", nullable: false),
                     PartidoPoliticoId = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<bool>(type: "bit", nullable: false),
                     FechaAsignacion = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PartidosPoliticosId = table.Column<int>(type: "int", nullable: true)
                 },

@@ -31,7 +31,7 @@ namespace SADVO.Controllers
 					return userSession.Rol switch
 					{
 						"Administrador" => RedirectToRoute(new { controller = "Admin", action = "Index" }),
-						"Dirigente" => RedirectToRoute(new { controller = "Dirigentes", action = "Index" }),
+						"Dirigente" => RedirectToRoute(new { controller = "Dirigente", action = "Index" }),
 						_ => RedirectToRoute(new { controller = "Auth", action = "Index" }),
 					};
 				}
@@ -52,7 +52,7 @@ namespace SADVO.Controllers
 					return userSession.Rol switch
 					{
 						"Administrador" => RedirectToRoute(new { controller = "Admin", action = "Index" }),
-						"Dirigente" => RedirectToRoute(new { controller = "Dirigentes", action = "Index" }),
+						"Dirigente" => RedirectToRoute(new { controller = "Dirigente", action = "Index" }),
 						_ => RedirectToRoute(new { controller = "Auth", action = "Index" }),
 					};
 				}
@@ -77,7 +77,7 @@ namespace SADVO.Controllers
 				return userViewModel.Rol switch
 				{
 					"Administrador" => RedirectToRoute(new { controller = "Admin", action = "Index" }),
-					"Dirigente" => RedirectToRoute(new { controller = "Dirigentes", action = "Index" }),
+					"Dirigente" => RedirectToRoute(new { controller = "Dirigente", action = "Index" }),
 					_ => RedirectToAction("Index")
 				};
 			}
@@ -90,6 +90,15 @@ namespace SADVO.Controllers
 		{
 			HttpContext.Session.Remove("User");
 			HttpContext.Session.Clear();
+			return RedirectToRoute(new { controller = "Auth", action = "Index" });
+		}
+
+		public IActionResult AcessDenied()
+		{
+			if (_userSession.hasUser())
+			{
+				return View();
+			}
 			return RedirectToRoute(new { controller = "Auth", action = "Index" });
 		}
 	}

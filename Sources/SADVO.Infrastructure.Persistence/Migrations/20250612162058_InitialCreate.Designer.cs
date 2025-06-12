@@ -12,7 +12,7 @@ using SADVO.Infrastructure.Persistence.Contexts;
 namespace SADVO.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SADVODbContext))]
-    [Migration("20250612003953_InitialCreate")]
+    [Migration("20250612162058_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,10 +33,9 @@ namespace SADVO.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
+                    b.Property<bool>("Estado")
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaRespuesta")
                         .HasColumnType("datetime2");
@@ -75,6 +74,9 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     b.Property<int>("CandidatoId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("FechaAsignacion")
                         .HasColumnType("datetime2");
 
@@ -107,6 +109,9 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaAsignacion")
                         .HasColumnType("datetime2");
@@ -145,14 +150,10 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Foto")
@@ -225,10 +226,9 @@ namespace SADVO.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
+                    b.Property<bool>("Estado")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
@@ -378,9 +378,8 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .IsRequired()

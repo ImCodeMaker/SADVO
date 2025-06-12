@@ -6,7 +6,7 @@ namespace SADVO.Core.Domain.Entities
 	{
 		public required int PartidoSolicitanteId { get; set; }
 		public required int PartidoDestinoId { get; set; }
-		public required string Estado { get; set; }
+		public required bool Estado { get; set; } = true;
 		public required DateTime FechaSolicitud {  get; set; }
 		public required DateTime FechaRespuesta { get; set; }
 

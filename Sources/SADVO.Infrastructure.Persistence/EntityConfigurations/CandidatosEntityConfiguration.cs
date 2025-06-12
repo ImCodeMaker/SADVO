@@ -46,8 +46,6 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 			modelBuilder.Property(c => c.FechaCreacion)
 				.IsRequired();
 
-			modelBuilder.Property(c => c.FechaModificacion)
-				.IsRequired();
 
 			#endregion
 		}

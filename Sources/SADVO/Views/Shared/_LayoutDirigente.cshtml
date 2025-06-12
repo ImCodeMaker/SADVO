@@ -15,34 +15,22 @@
     <!-- Header -->
     <header class="border-b shadow-sm bg-white">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a asp-area="" asp-controller="Admin" asp-action="Index" class="text-xl font-semibold text-blue-600">
-                SADVO - Administradores
+            <a asp-area="" asp-controller="Dirigente" asp-action="Index" class="text-xl font-semibold text-blue-600">
+                SADVO - Dirigentes
             </a>
 
             <nav class="flex flex-wrap gap-3 items-center">
                 <a asp-area="" asp-controller="Auth" asp-action="Index"
                    class="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition">
-                    Puestos Electivos
+                    Candidatos
                 </a>
                 <a asp-area="" asp-controller="Auth" asp-action="Index"
                    class="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition">
-                    Ciudadanos
+                    Asignar Candidatos a Puestos
                 </a>
                 <a asp-area="" asp-controller="Auth" asp-action="Index"
                    class="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition">
-                    Partidos Políticos
-                </a>
-                <a asp-area="" asp-controller="Auth" asp-action="Index"
-                   class="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition">
-                    Usuarios
-                </a>
-                <a asp-area="" asp-controller="Auth" asp-action="Index"
-                   class="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition">
-                    Dirigentes Políticos
-                </a>
-                <a asp-area="" asp-controller="Auth" asp-action="Index"
-                   class="px-4 py-2 text-sm text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition">
-                    Elecciones
+                    Alianzas Politicas
                 </a>
                     <form asp-area="" asp-controller="Auth" asp-action="Logout" method="post" class="ml-3">
                         <button type="submit"

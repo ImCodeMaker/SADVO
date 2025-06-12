@@ -132,6 +132,8 @@
           "Microsoft.CSharp.Reference": "9.0.0.0",
           "Microsoft.Extensions.Caching.Abstractions.Reference": "9.0.0.0",
           "Microsoft.Extensions.Caching.Memory.Reference": "9.0.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions.Reference": "9.0.0.0",
+          "Microsoft.Extensions.Configuration.Binder.Reference": "9.0.0.0",
           "Microsoft.Extensions.Configuration.CommandLine": "9.0.0.0",
           "Microsoft.Extensions.Configuration": "9.0.0.0",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "9.0.0.0",
@@ -141,6 +143,7 @@
           "Microsoft.Extensions.Configuration.KeyPerFile": "9.0.0.0",
           "Microsoft.Extensions.Configuration.UserSecrets": "9.0.0.0",
           "Microsoft.Extensions.Configuration.Xml": "9.0.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions.Reference": "9.0.0.0",
           "Microsoft.Extensions.DependencyInjection.Reference": "9.0.0.0",
           "Microsoft.Extensions.Diagnostics.Abstractions": "9.0.0.0",
           "Microsoft.Extensions.Diagnostics": "9.0.0.0",
@@ -168,7 +171,10 @@
           "Microsoft.Extensions.Logging.EventSource": "9.0.0.0",
           "Microsoft.Extensions.Logging.TraceSource": "9.0.0.0",
           "Microsoft.Extensions.ObjectPool.Reference": "9.0.0.0",
+          "Microsoft.Extensions.Options.ConfigurationExtensions.Reference": "9.0.0.0",
           "Microsoft.Extensions.Options.DataAnnotations": "9.0.0.0",
+          "Microsoft.Extensions.Options.Reference": "9.0.0.0",
+          "Microsoft.Extensions.Primitives.Reference": "9.0.0.0",
           "Microsoft.Extensions.WebEncoders": "9.0.0.0",
           "Microsoft.JSInterop": "9.0.0.0",
           "Microsoft.Net.Http.Headers.Reference": "9.0.0.0",
@@ -1015,9 +1021,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.625.26613"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration.Binder/9.0.6": {
@@ -1029,9 +1032,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.625.26613"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Configuration.Binder.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/9.0.5": {
@@ -1051,9 +1051,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.625.26613"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyModel/9.0.6": {
@@ -1107,9 +1104,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.625.26613"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Options.dll": {}
         }
       },
       "Microsoft.Extensions.Options.ConfigurationExtensions/9.0.6": {
@@ -1125,9 +1119,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.625.26613"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {}
         }
       },
       "Microsoft.Extensions.Primitives/9.0.6": {
@@ -1136,9 +1127,6 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.625.26613"
           }
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
       "Microsoft.Identity.Client/4.61.3": {
@@ -2170,6 +2158,18 @@
         },
         "compileOnly": true
       },
+      "Microsoft.Extensions.Configuration.Abstractions.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Configuration.Abstractions.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.Configuration.Binder.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Configuration.Binder.dll": {}
+        },
+        "compileOnly": true
+      },
       "Microsoft.Extensions.Configuration.CommandLine/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Configuration.CommandLine.dll": {}
@@ -2221,6 +2221,12 @@
       "Microsoft.Extensions.Configuration.Xml/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Configuration.Xml.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         },
         "compileOnly": true
       },
@@ -2386,9 +2392,27 @@
         },
         "compileOnly": true
       },
+      "Microsoft.Extensions.Options.ConfigurationExtensions.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Options.ConfigurationExtensions.dll": {}
+        },
+        "compileOnly": true
+      },
       "Microsoft.Extensions.Options.DataAnnotations/9.0.0.0": {
         "compile": {
           "Microsoft.Extensions.Options.DataAnnotations.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.Options.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Options.dll": {}
+        },
+        "compileOnly": true
+      },
+      "Microsoft.Extensions.Primitives.Reference/9.0.0.0": {
+        "compile": {
+          "Microsoft.Extensions.Primitives.dll": {}
         },
         "compileOnly": true
       },
@@ -4558,6 +4582,16 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.Extensions.Configuration.Abstractions.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Configuration.Binder.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Microsoft.Extensions.Configuration.CommandLine/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -4599,6 +4633,11 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Configuration.Xml/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions.Reference/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -4738,7 +4777,22 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.Extensions.Options.ConfigurationExtensions.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Microsoft.Extensions.Options.DataAnnotations/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Options.Reference/9.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Primitives.Reference/9.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

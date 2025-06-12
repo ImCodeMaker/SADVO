@@ -4,7 +4,7 @@
 	  where Entity : class
 	{
 		Task<Entity?> AddAsync(Entity entity);
-		Task DeleteAsync(int Id);
+		Task DeleteAsync<T>(int id) where T : class;
 		Task<List<Entity>> GetAllList();
 		Task<Entity?> GetById(int Id);
 		IQueryable<Entity> GetAllQuery();

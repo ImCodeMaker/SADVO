@@ -6,5 +6,7 @@ namespace SADVO.Core.Application.Interfaces
 	{
 		UserViewModel GetUserSession();
 		bool hasUser();
+		bool IsAdmin();
+		bool IsDirigente();
 	}
 }

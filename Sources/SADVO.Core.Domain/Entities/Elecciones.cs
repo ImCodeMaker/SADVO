@@ -6,7 +6,7 @@ namespace SADVO.Core.Domain.Entities
 	{
 		public required string Nombre { get; set; }
 		public required DateTime FechaRealizacion { get; set; }
-		public required string Estado { get; set; }
+		public required bool Estado { get; set; } = true;
 		public DateTime FechaCreacion { get; set; }
 		public DateTime FechaFinalizacion { get; set; }
 
