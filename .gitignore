@@ -1,25 +1,82 @@
+###############
 # Build results
+###############
 bin/
 obj/
+publish/
+out/
 
+#########################
 # User-specific files
+#########################
 *.user
-*.suo
 *.userosscache
+*.suo
 *.sln.docstates
 
-# Visual Studio
+#########################
+# Visual Studio settings
+#########################
 .vs/
+.vscode/
 
+#########################
+# ASP.NET + EF Core
+#########################
+*.dbmdl
+*.db
+*.mdf
+*.ldf
+App_Data/
+
+#########################
 # NuGet
-packages/
+#########################
 *.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
 
-# Logs and temporary files
+#########################
+# Logs and temp files
+#########################
 *.log
 *.tmp
+*.temp
 
-# Others
-*.dbmdl
-*.env
-publish/
+#########################
+# Env, secrets
+#########################
+.env
+.env.*.local
+secrets.json
+
+#########################
+# Frontend
+#########################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+
+#########################
+# Rider & JetBrains IDEs
+#########################
+.idea/
+*.sln.iml
+
+#########################
+# Docker
+#########################
+docker-compose.override.yml
+**/.dockerignore
+
+#########################
+# System-specific
+#########################
+.DS_Store
+Thumbs.db

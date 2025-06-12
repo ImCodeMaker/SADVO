@@ -2,7 +2,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="pt-10">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold">SADVO - Centro de Votaciones 🇩🇴</h1>
+        <p class="text-md font-semibold">Para proseguir con la votacion, favor e ingresa tu documento de identidad.</p>
+    </div>
+    <div class="flex items-center justify-center mt-20 flex-col">
+            <form class="flex flex-col items-center space-y-4 mt-4" asp-action="Privacy" >
+            <label class="font-bold text-center">Ingresa tu cedula de identidad</label>
+                <input type="text" placeholder="001-0000000-1" class="px-10 h-12 w-96 border-2 border-black rounded-md placeholder:text-center" />
+                <button class="mt-6 bg-blue-500 text-white h-10 w-32 font-bold rounded-md hover:bg-blue-800" type="submit">Votar</button>
+            </form>
+    </div>
+
+</section>

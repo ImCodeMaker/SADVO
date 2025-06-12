@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SADVO.Core.Application.Interfaces;
 using SADVO.Models;
 using System.Diagnostics;
 
@@ -6,27 +7,22 @@ namespace SADVO.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
+		private readonly IUserServices _userServices;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(IUserServices userServices)
 		{
-			_logger = logger;
+			_userServices = userServices;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
+			await _userServices.addAdminUser();
 			return View();
 		}
 
-		public IActionResult Privacy()
+		public IActionResult Votaciones()
 		{
 			return View();
-		}
-
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 	}
 }

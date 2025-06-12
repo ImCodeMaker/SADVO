@@ -1,13 +1,25 @@
-using Microsoft.EntityFrameworkCore;
-using SADVO.Infrastructure.Persistence.Contexts;
+using SADVO.Core.Application;
+using SADVO.Core.Application.Interfaces;
+using SADVO.Infrastructure.Persistence;
+using SADVO.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<SADVODbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSession(opt =>
+{
+	opt.IdleTimeout = TimeSpan.FromMinutes(60);
+	opt.Cookie.HttpOnly = true;
+	opt.Cookie.IsEssential = true;
+});
+
+builder.Services.AddPersistenceLayerIOC(builder.Configuration);
+builder.Services.AddServicesLayerIOC(builder.Configuration);
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IUserSession, UserSession>();
+
 
 var app = builder.Build();
 
@@ -21,6 +33,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+    var votaciones = false;
+}
+
+<section class="pt-10">
+    <div class="flex items-center justify-center"></div>
+
+    @{
+        if (votaciones)
+        {
+            <h1>Selecciona tu candidato</h1>
+        }
+        else {
+            <div class="text-center flex justify-center items-center ">
+                <h1 class="text-4xl font-bold">No hay ningun proceso electoral activo en estos momentos.</h1>
+            </div>
+        }
+    }
+</section>

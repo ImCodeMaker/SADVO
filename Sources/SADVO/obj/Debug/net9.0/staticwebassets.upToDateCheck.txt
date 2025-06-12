@@ -22,6 +22,7 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\jq
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\jquery\dist\jquery.slim.min.js
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\css\output.css
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\js\site.js
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
@@ -60,6 +61,7 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bo
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+wwwroot\css\output.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js

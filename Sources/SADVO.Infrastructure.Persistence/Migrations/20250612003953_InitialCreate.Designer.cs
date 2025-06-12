@@ -12,7 +12,7 @@ using SADVO.Infrastructure.Persistence.Contexts;
 namespace SADVO.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SADVODbContext))]
-    [Migration("20250610041432_InitialCreate")]
+    [Migration("20250612003953_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -145,8 +145,9 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
@@ -194,21 +195,16 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Fecha_Creacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
+                    b.Property<string>("NombreCompleto")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -301,10 +297,10 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("FechaModificacion")
+                    b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Fecha_Creacion")
+                    b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Logo")
@@ -343,10 +339,10 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("FechaModificacion")
+                    b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Fecha_Creacion")
+                    b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")
@@ -381,6 +377,10 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()

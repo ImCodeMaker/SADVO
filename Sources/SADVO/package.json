@@ -1,0 +1,20 @@
+{
+  "name": "sadvo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}
