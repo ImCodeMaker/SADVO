@@ -16,6 +16,7 @@ namespace SADVO.Core.Application
 			services.AddTransient<IUserServices, UsersServices>();
 			services.AddTransient<IPuestosElectivosServices, PuestosElectivosServices>();
 			services.AddTransient<ICiudadanosServices, CiudadanosServices>();
+			services.AddTransient<IPartidoPoliticoServices, PartidosPoliticosServices>();
 		}
 	}
 }

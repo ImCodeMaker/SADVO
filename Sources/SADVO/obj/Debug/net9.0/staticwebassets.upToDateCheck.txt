@@ -64,6 +64,8 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\wwwroot\lib\bo
 wwwroot\css\output.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\Images\PartidosPoliticos\0\47ad56fd-e688-47ca-baee-4a8510fa19b9.png
+wwwroot\Images\PartidosPoliticos\4\faf0314f-2439-4b6a-8c7c-1e2759b8f28f.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

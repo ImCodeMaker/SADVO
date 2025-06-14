@@ -1,0 +1,33 @@
+﻿@model CiudadanosViewModel
+
+@{
+    Layout = "_LayoutAdmin";
+
+    var accion = Model.Estado ? "desactivar" : "activar";
+    var colorBoton = Model.Estado ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700";
+    var textoBoton = Model.Estado ? "Sí, desactivar" : "Sí, activar";
+    var textoAccion = Model.Estado ? "desactivar" : "activar";
+    var textoColor = Model.Estado ? "text-red-600" : "text-green-600";
+}
+
+<div class="h-screen overflow-hidden">
+    <section class="h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+        <div class="max-w-lg w-full bg-white rounded-xl shadow-lg p-8 border border-gray-100 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Confirmar @accion</h2>
+            <p class="text-gray-700 mb-6">
+                ¿Estás seguro que quieres <span class="font-semibold @textoColor">@textoAccion</span> al ciudadano
+                <strong>@Model.NombreCompleto</strong>?
+            </p>
+
+            <form asp-action="ToggleEstado" asp-controller="Ciudadanos" asp-route-id="@Model.Id" method="post" class="space-y-4">
+                <button type="submit" class="w-full @colorBoton text-white py-3 rounded-lg font-semibold shadow transition-colors duration-200">
+                    @textoBoton
+                </button>
+
+                <a asp-action="Index" class="block mt-2 text-blue-600 hover:underline">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </section>
+</div>

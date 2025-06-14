@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using SADVO.Core.Application.Dtos.Ciudadanos;
+using SADVO.Core.Application.Dtos.PartidosPoliticos;
 using SADVO.Core.Application.Dtos.PuestoElectivo;
 using SADVO.Core.Application.Dtos.Usuarios;
+using SADVO.Core.Application.ViewModels.Ciudadanos;
+using SADVO.Core.Application.ViewModels.PartidosPoliticos;
 using SADVO.Core.Application.ViewModels.PuestosElectivos;
 using SADVO.Core.Application.ViewModels.Usuarios;
 using SADVO.Core.Domain.Entities;
@@ -28,6 +32,16 @@ namespace SADVO.Core.Application.Mappings
 			#region Puestos Electivos
 			CreateMap<PuestosElectivos, PuestoElectivoDTO>().ReverseMap();
 			CreateMap<PuestoElectivoDTO, PuestoElectivoViewModel>().ReverseMap();
+			#endregion
+
+			#region Ciudadanos
+			CreateMap<Ciudadanos,CiudadanosDTO>().ReverseMap();
+			CreateMap<CiudadanosDTO, CiudadanosViewModel>().ReverseMap();
+			#endregion
+
+			#region PartidosPoliticos
+			CreateMap<PartidosPoliticos, PartidosPoliticosDTO>().ReverseMap();
+			CreateMap<PartidosPoliticosDTO, PartidosPoliticosViewModel>().ReverseMap();		
 			#endregion
 		}
 	}

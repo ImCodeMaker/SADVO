@@ -1,0 +1,79 @@
+﻿@model List<PartidosPoliticosViewModel>
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<div class="h-screen overflow-hidden">
+    <section class="h-full overflow-y-auto bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header con Botón Agregar -->
+            <div class="mb-8 text-center">
+                <h1 class="text-4xl font-bold text-gray-800 mb-6">Partidos Políticos</h1>
+                <a asp-controller="PartidosPoliticos" asp-action="Create"
+                   class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    Agregar Partido
+                </a>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-2 md:px-0">
+                    @foreach (var partido in Model)
+                    {
+                        <div class="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 flex flex-col h-[510px] w-full">
+                            <!-- Estado -->
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full
+                                    @(partido.Estado ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800")">
+                                    @(partido.Estado ? "Activo" : "Inactivo")
+                                </span>
+                            </div>
+
+                            <!-- Logo -->
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border shadow-inner bg-gray-100">
+                                <img src="/@partido.Logo" alt="Logo del partido" class="object-contain w-full h-full" />
+                            </div>
+
+                            <!-- Información -->
+                            <h2 class="text-xl font-bold text-center text-gray-800 mb-1">@partido.Nombre</h2>
+                            <p class="text-sm text-center text-gray-500 mb-2">Siglas: <strong>@partido.Siglas</strong></p>
+
+                            <!-- Acciones -->
+                            <div class="mt-6 space-y-3 flex-shrink-0">
+                                <a asp-controller="PartidosPoliticos" asp-action="Update" asp-route-Id="@partido.Id"
+                                   class="block text-center bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition duration-200">
+                                    Editar
+                                </a>
+
+                                <form asp-controller="PartidosPoliticos" asp-action="ChangeStatus" asp-route-id="@partido.Id" method="get">
+                                    <button type="submit"
+                                            class="w-full text-center @(partido.Estado ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600") text-white py-2 rounded-lg font-medium transition duration-200">
+                                        @(partido.Estado ? "Desactivar" : "Activar")
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-16">
+                    <div class="bg-white rounded-3xl shadow-lg p-12 max-w-md mx-auto">
+                        <div class="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-3">No hay partidos registrados</h3>
+                        <p class="text-gray-500 mb-6">Comienza agregando tu primer partido político al sistema</p>
+                        <a asp-controller="PartidosPoliticos" asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200">
+                            Agregar Partido
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>

@@ -27,5 +27,7 @@ namespace SADVO.Core.Application.Services
 			}
 			return await base.AddAsync(dto);
 		}
+
+
 	}
 }

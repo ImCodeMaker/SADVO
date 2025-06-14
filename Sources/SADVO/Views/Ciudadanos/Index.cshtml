@@ -1,0 +1,93 @@
+﻿@model List<CiudadanosViewModel>
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<div class="h-screen overflow-hidden">
+    <section class="h-full overflow-y-auto bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header con Botón Agregar -->
+            <div class="mb-8 text-center">
+                <h1 class="text-4xl font-bold text-gray-800 mb-6">Ciudadanos</h1>
+                <a asp-action="Create" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    Agregar Ciudadano
+                </a>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-2 md:px-0">
+                    @foreach (var ciudadano in Model)
+                    {
+                        <div class="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 flex flex-col h-[510px] w-full">
+                            <!-- Estado -->
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full
+                                    @(ciudadano.Estado ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800")">
+                                    @(ciudadano.Estado ? "Activo" : "Inactivo")
+                                </span>
+                            </div>
+
+                            <!-- Info personal - Contenido que crece -->
+                            <div class="flex-1 flex flex-col">
+                                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl font-bold mb-4 mx-auto shadow-inner">
+                                    @(ciudadano.NombreCompleto?[0])
+                                </div>
+                                <h2 class="text-xl font-bold text-center text-gray-800 mb-2">@ciudadano.NombreCompleto</h2>
+                                <p class="text-sm text-center text-gray-500 mb-4">ID: @ciudadano.Id</p>
+
+                                <div class="text-sm text-gray-600 space-y-3 flex-1">
+                                    <div class="flex flex-col space-y-1">
+                                        <span class="font-medium text-gray-700">Cédula:</span>
+                                        <span class="text-gray-600">@ciudadano.Documento_Identidad</span>
+                                    </div>
+                                    <div class="flex flex-col space-y-1">
+                                        <span class="font-medium text-gray-700">Correo:</span>
+                                        <span class="text-gray-600 break-all">@ciudadano.Email</span>
+                                    </div>
+                                    <div class="flex flex-col space-y-1">
+                                        <span class="font-medium text-gray-700">Fecha de Registro:</span>
+                                        <span class="text-gray-600">@ciudadano.FechaCreacion.ToString("dd/MM/yyyy HH:mm")</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Acciones - Siempre al final -->
+                            <div class="mt-6 space-y-3 flex-shrink-0">
+                                <a asp-action="Update" asp-route-Id="@ciudadano.Id"
+                                   class="block text-center bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition duration-200">
+                                    Editar
+                                </a>
+
+                                <form asp-action="ChangeStatus" asp-route-id="@ciudadano.Id" method="get">
+                                    <button type="submit"
+                                            class="w-full text-center @(ciudadano.Estado ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600") text-white py-2 rounded-lg font-medium transition duration-200">
+                                        @(ciudadano.Estado ? "Desactivar" : "Activar")
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-16">
+                    <div class="bg-white rounded-3xl shadow-lg p-12 max-w-md mx-auto">
+                        <div class="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-3">No hay ciudadanos registrados</h3>
+                        <p class="text-gray-500 mb-6">Comienza agregando tu primer ciudadano al sistema</p>
+                        <a asp-action="Create" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200">
+                            Agregar Ciudadano
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>

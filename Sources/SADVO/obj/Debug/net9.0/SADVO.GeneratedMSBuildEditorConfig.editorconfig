@@ -40,6 +40,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Ciudadanos/ConfirmarEstado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l1ZGFkYW5vc1xDb25maXJtYXJFc3RhZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Ciudadanos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l1ZGFkYW5vc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Ciudadanos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l1ZGFkYW5vc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Ciudadanos/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l1ZGFkYW5vc1xVcGRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Dirigente/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlyaWdlbnRlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -50,6 +66,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Home/Votaciones.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWb3RhY2lvbmVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/PartidosPoliticos/ConfirmarEstado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlkb3NQb2xpdGljb3NcQ29uZmlybWFyRXN0YWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/PartidosPoliticos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlkb3NQb2xpdGljb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/PartidosPoliticos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlkb3NQb2xpdGljb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/PartidosPoliticos/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlkb3NQb2xpdGljb3NcVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/PuestosElectivos/ConfirmarEstado.cshtml]

@@ -138,6 +138,16 @@ namespace SADVO.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(int id, PuestoElectivoViewModel vm)
 		{
+			if (!_userSession.hasUser())
+			{
+				return RedirectToRoute(new { controller = "Auth", action = "Index" });
+			}
+
+			if (!_userSession.checkRole())
+			{
+				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
+			}
+
 			if (!ModelState.IsValid)
 			{
 				return View(vm);

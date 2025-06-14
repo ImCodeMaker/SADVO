@@ -3,28 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\controllers\\ciudadanoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\controllers\\ciudadanoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\controllers\\dirigentescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\controllers\\dirigentescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3C3F96A-21CF-4EAC-92B8-338BC3A1E0A3}|Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo.core.application\\servicesregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3C3F96A-21CF-4EAC-92B8-338BC3A1E0A3}|Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj|solutionrelative:sources\\sadvo.core.application\\servicesregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\partidospoliticos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\partidospoliticos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,80 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DirigentesController.cs",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\DirigentesController.cs",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Controllers\\DirigentesController.cs",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\DirigentesController.cs",
-              "RelativeToolTip": "Sources\\SADVO\\Controllers\\DirigentesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T01:23:20.183Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "Sources\\SADVO\\Controllers\\AdminController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T01:23:16.73Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Sources\\SADVO\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T01:23:15.635Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CiudadanosController.cs",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\CiudadanosController.cs",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Controllers\\CiudadanosController.cs",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\CiudadanosController.cs",
-              "RelativeToolTip": "Sources\\SADVO\\Controllers\\CiudadanosController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T01:22:50.281Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Sources\\SADVO\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T01:22:32.551Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ServicesRegistration.cs",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\ServicesRegistration.cs",
-              "RelativeDocumentMoniker": "Sources\\SADVO.Core.Application\\ServicesRegistration.cs",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\ServicesRegistration.cs",
-              "RelativeToolTip": "Sources\\SADVO.Core.Application\\ServicesRegistration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T00:40:26.012Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
+              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
+              "RelativeToolTip": "Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-14T08:08:05.017Z",
               "EditorCaption": ""
             }
           ]
