@@ -476,7 +476,6 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\Views\Shared\_LayoutDirigente.cshtml.rz.scp.css
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\bundle\SADVO.styles.css
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\scopedcss\projectbundle\SADVO.bundle.scp.css
-C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\eqyj6mkt4v-gfo37xnim3.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\j7hasgsmeq-mvzjofvg5q.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\tdp8zzzci1-61n19gt1b8.gz
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\erm7ayt40x-xtxxf3hu2r.gz
@@ -552,3 +551,4 @@ C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.pdb
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\SADVO.genruntimeconfig.cache
 C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\ref\SADVO.dll
+C:\Users\Teudy Encarnacion\Documents\Projects\SADVO\Sources\SADVO\obj\Debug\net9.0\compressed\eqyj6mkt4v-qzb0zostqh.gz

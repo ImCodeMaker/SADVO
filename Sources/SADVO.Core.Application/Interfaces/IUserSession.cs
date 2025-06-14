@@ -1,4 +1,4 @@
-﻿using SADVO.Core.Application.ViewModels;
+﻿using SADVO.Core.Application.ViewModels.Usuarios;
 
 namespace SADVO.Core.Application.Interfaces
 {
@@ -6,7 +6,6 @@ namespace SADVO.Core.Application.Interfaces
 	{
 		UserViewModel GetUserSession();
 		bool hasUser();
-		bool IsAdmin();
-		bool IsDirigente();
+		bool checkRole();
 	}
 }

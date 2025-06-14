@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SADVO.Core.Application.Dtos;
 using SADVO.Core.Application.Interfaces;
-using SADVO.Core.Application.ViewModels;
+using SADVO.Core.Application.ViewModels.Usuarios;
 using SADVO.Core.Application.Helpers;
+using SADVO.Core.Application.Dtos.Usuarios;
 
 namespace SADVO.Controllers
 {
@@ -37,7 +37,7 @@ namespace SADVO.Controllers
 				}
 			}
 
-			return View(new LoginViewModel { Email = "", Contraseña = "" });
+			return View(new LoginViewModel { NombreUsuario = "", Contraseña = "" });
 		}
 
 		[HttpPost]

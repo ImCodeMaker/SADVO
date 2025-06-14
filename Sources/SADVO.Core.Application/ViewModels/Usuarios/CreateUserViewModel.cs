@@ -1,6 +1,6 @@
 ﻿using SADVO.Core.Application.ViewModels.Common;
 
-namespace SADVO.Core.Application.ViewModels
+namespace SADVO.Core.Application.ViewModels.Usuarios
 {
 	public class CreateUserViewModel : SharedIdEntity<int>
 	{

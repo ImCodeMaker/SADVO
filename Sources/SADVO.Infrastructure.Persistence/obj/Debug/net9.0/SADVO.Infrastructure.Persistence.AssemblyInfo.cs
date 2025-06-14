@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SADVO.Infrastructure.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9aaa65fbc6830fd25083747f098b72763c4f0cf1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9b61c667f84224acd7fffef6f2b1b1bc976773c")]
 [assembly: System.Reflection.AssemblyProductAttribute("SADVO.Infrastructure.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SADVO.Infrastructure.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

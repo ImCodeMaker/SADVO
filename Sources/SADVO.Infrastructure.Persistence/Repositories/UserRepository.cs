@@ -15,12 +15,11 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			_context = context;
 		}
 
-
-		public async Task<Usuarios?> LoginAsync(string email, string password)
+		public async Task<Usuarios?> LoginAsync(string username, string password)
 		{
 			string encriptedPassword = PasswordEncryption.ComputeSha256Hash(password);
 
-			Usuarios? usuario = await _context.Set<Usuarios>().FirstOrDefaultAsync(u => u.Email == email && u.Contraseña == encriptedPassword);
+			Usuarios? usuario = await _context.Set<Usuarios>().FirstOrDefaultAsync(u => u.NombreUsuario == username && u.Contraseña == encriptedPassword);
 
 			return usuario;
 		}

@@ -1,6 +1,6 @@
 ﻿using SADVO.Core.Application.Helpers;
 using SADVO.Core.Application.Interfaces;
-using SADVO.Core.Application.ViewModels;
+using SADVO.Core.Application.ViewModels.Usuarios;
 
 namespace SADVO.Middlewares
 {
@@ -35,18 +35,29 @@ namespace SADVO.Middlewares
 			return userViewModel;
 		}
 
-		public bool IsAdmin()
-		{
-			UserViewModel? userViewModel = _httpContextAccessor.HttpContext?.Session.Get<UserViewModel>("User");
+		//public bool IsAdmin()
+		//{
+		//	UserViewModel? userViewModel = _httpContextAccessor.HttpContext?.Session.Get<UserViewModel>("User");
 
-			if (userViewModel == null)
-			{
-				return false!; 
-			}
-			return userViewModel.Rol == "Administrador";
-		}
+		//	if (userViewModel == null)
+		//	{
+		//		return false!; 
+		//	}
+		//	return userViewModel.Rol == "Administrador";
+		//}
 
-		public bool IsDirigente()
+		//public bool IsDirigente()
+		//{
+		//	UserViewModel? userViewModel = _httpContextAccessor.HttpContext?.Session.Get<UserViewModel>("User");
+
+		//	if (userViewModel == null)
+		//	{
+		//		return false!;
+		//	}
+		//	return userViewModel.Rol == "Dirigente";
+		//}
+		
+		public bool checkRole()
 		{
 			UserViewModel? userViewModel = _httpContextAccessor.HttpContext?.Session.Get<UserViewModel>("User");
 
@@ -54,7 +65,13 @@ namespace SADVO.Middlewares
 			{
 				return false!;
 			}
-			return userViewModel.Rol == "Dirigente";
+
+			if (userViewModel.Rol == "Administrador")
+			{
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

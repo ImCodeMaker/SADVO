@@ -19,7 +19,7 @@ namespace SADVO.Controllers
 				return RedirectToRoute(new { controller = "Auth", action = "Index" });
 			}
 
-			if (!_userSession.IsAdmin())
+			if (!_userSession.checkRole())
 			{
 				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
 			}

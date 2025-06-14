@@ -4,8 +4,6 @@ using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Application.Mappings;
 using SADVO.Core.Application.Services;
 
-
-
 namespace SADVO.Core.Application
 {
 	public static class ServiceLayerRegistration
@@ -14,7 +12,10 @@ namespace SADVO.Core.Application
 		{
 			services.AddAutoMapper(typeof(MappingProfiles));
 
-			services.AddTransient<IUserServices, UsersServices>();		
+			services.AddTransient(typeof(IGenericServices<,>), typeof(GenericService<,>));
+			services.AddTransient<IUserServices, UsersServices>();
+			services.AddTransient<IPuestosElectivosServices, PuestosElectivosServices>();
+			services.AddTransient<ICiudadanosServices, CiudadanosServices>();
 		}
 	}
 }

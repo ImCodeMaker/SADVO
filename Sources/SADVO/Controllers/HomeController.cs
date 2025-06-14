@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SADVO.Core.Application.Interfaces;
-using SADVO.Models;
-using System.Diagnostics;
+
 
 namespace SADVO.Controllers
 {
@@ -16,7 +15,7 @@ namespace SADVO.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			await _userServices.addAdminUser();
+			await _userServices.AddAdminUser();
 			return View();
 		}
 

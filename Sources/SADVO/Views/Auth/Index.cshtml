@@ -1,4 +1,4 @@
-@model SADVO.Core.Application.ViewModels.LoginViewModel
+@model LoginViewModel;
 
 
 @{
@@ -13,10 +13,10 @@
 
         <form method="post" asp-controller="Auth" asp-action="ConfirmSignUp">
             <div class="mb-4">
-                <label asp-for="Email" class="block text-md font-bold mb-1">Usuario:</label>
-                <input asp-for="Email" type="text" name="Email" placeholder="Ingresa tu usuario"
+                <label asp-for="NombreUsuario" class="block text-md font-bold mb-1">Usuario:</label>
+                <input asp-for="NombreUsuario" type="text" name="NombreUsuario" placeholder="Ingresa tu usuario"
                        class="w-full h-12 border-2 border-gray-300 rounded-md px-4 focus:outline-none focus:border-blue-500 placeholder:text-gray-400" />
-                <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
+                <span asp-validation-for="NombreUsuario" class="text-red-500 text-sm"></span>
             </div>
 
             <div class="mb-6">

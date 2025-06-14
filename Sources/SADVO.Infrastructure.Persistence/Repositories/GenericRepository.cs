@@ -25,20 +25,19 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 
 		//Get by id
 
-		public async Task DeleteAsync<T>(int id) where T : class
+		public async Task UpdateEstadoAsync(int id, bool nuevoEstado)
 		{
-			var entity = await _context.Set<T>().FindAsync(id);
+			var entity = await _context.Set<Entity>().FindAsync(id);
 			if (entity == null) return;
 
-			var estadoProp = typeof(T).GetProperty("Estado");
+			var estadoProp = typeof(Entity).GetProperty("Estado");
 			if (estadoProp != null && estadoProp.CanWrite)
 			{
-				estadoProp.SetValue(entity, "Eliminado");
-				_context.Set<T>().Update(entity);
+				estadoProp.SetValue(entity, nuevoEstado);
+				_context.Set<Entity>().Update(entity);
+				await _context.SaveChangesAsync();
 			}
-			await _context.SaveChangesAsync();
 		}
-
 
 		//Get all elements
 		public async Task<List<Entity>> GetAllList()

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SADVO.Core.Application.Dtos;
+using SADVO.Core.Application.Dtos.Usuarios;
 using SADVO.Core.Application.Helpers;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Domain.Entities;
@@ -7,149 +7,71 @@ using SADVO.Core.Domain.Interfaces;
 
 namespace SADVO.Core.Application.Services
 {
-	public class UsersServices : IUserServices
+	public class UsersServices : GenericService<UsuarioDTO, Usuarios>, IUserServices
 	{
 		private readonly IUserRepository _userRepository;
-		private readonly IMapper _mapper;
 
 		public UsersServices(IUserRepository userRepository, IMapper mapper)
+			: base(userRepository, mapper)
 		{
 			_userRepository = userRepository;
-			_mapper = mapper;
 		}
-
-		public async Task addAdminUser()
+		public override async Task<bool> AddAsync(UsuarioDTO dto)
 		{
-			try
-			{
-				var getUserList = await _userRepository.GetAllList();
-				if (getUserList.Count == 0)
-				{
-					CrearUsuarioDTO newUser = new()
-					{
-						Id = 0,
-						Nombre = "Admin",
-						Apellido = "",
-						Email = "admin@gmail.com",
-						Contraseña = "10062802@", // Nota: Considera cambiarla a una más segura
-						NombreUsuario = "SuperAdmin"
-					};
+			if (dto == null) throw new ArgumentNullException(nameof(dto));
 
-					await CreateAdminUser(newUser);
-				}
-			}
-			catch (Exception ex)
+			if (string.IsNullOrWhiteSpace(dto.Email))
+				throw new Exception("El email es obligatorio.");
+
+			dto.Contraseña = PasswordEncryption.ComputeSha256Hash(dto.Contraseña);
+
+			return await base.AddAsync(dto);
+		}
+		public override async Task<bool> UpdateAsync(int id, UsuarioDTO dto)
+		{
+			if (dto == null) throw new ArgumentNullException(nameof(dto));
+
+			if (!string.IsNullOrWhiteSpace(dto.Contraseña))
+				dto.Contraseña = PasswordEncryption.ComputeSha256Hash(dto.Contraseña);
+			else
+				dto.Contraseña = null!; // Para no modificar la contraseña si no viene en dto
+
+			return await base.UpdateAsync(id, dto);
+		}
+
+		// Método para crear usuario admin si no existe ninguno
+		public async Task AddAdminUser()
+		{
+			var getUserList = await _userRepository.GetAllList();
+			if (getUserList.Count == 0)
 			{
-				Console.WriteLine($"Error in addAdminUser: {ex.Message}");
-				throw;
+				CrearUsuarioDTO newUser = new()
+				{
+					Id = 0,
+					Nombre = "Admin",
+					Apellido = "",
+					Email = "admin@gmail.com",
+					Contraseña = "10062802@",
+					NombreUsuario = "SuperAdmin"
+				};
+				await CreateAdminUser(newUser);
 			}
 		}
+
 		public async Task<bool> CreateAdminUser(CrearUsuarioDTO crearUsuarioDTO)
 		{
-			if (crearUsuarioDTO == null)
-				throw new ArgumentNullException(nameof(crearUsuarioDTO));
+			var usuario = _mapper.Map<Usuarios>(crearUsuarioDTO);
+			usuario.Contraseña = PasswordEncryption.ComputeSha256Hash(crearUsuarioDTO.Contraseña);
+			usuario.Rol = "Administrador";
 
-			try
-			{
-				var mapUsertoDto = _mapper.Map<Usuarios>(crearUsuarioDTO);
-				mapUsertoDto.Contraseña = PasswordEncryption.ComputeSha256Hash(crearUsuarioDTO.Contraseña);
-				mapUsertoDto.Rol = "Administrador";
-
-				await _userRepository.AddAsync(mapUsertoDto);
-				return true;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error completo: {ex}");
-				throw;
-			}
-		}
-
-		public async Task<bool> AddAsync(CrearUsuarioDTO crearUsuarioDTO)
-		{
-			if (crearUsuarioDTO == null)
-				throw new ArgumentNullException(nameof(crearUsuarioDTO));
-
-			try
-			{
-				var mapUsertoDto = _mapper.Map<Usuarios>(crearUsuarioDTO);
-				mapUsertoDto.Contraseña = PasswordEncryption.ComputeSha256Hash(crearUsuarioDTO.Contraseña);
-				mapUsertoDto.Rol = "Dirigente";
-
-				await _userRepository.AddAsync(mapUsertoDto);
-				return true;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error en AddAsync: {ex.Message}");
-				throw;
-			}
-		}
-
-		public async Task<bool> UpdateUserAsync(int Id, UsuarioDTO usuarioDTO)
-		{
-			if (usuarioDTO == null)
-				throw new ArgumentNullException(nameof(usuarioDTO));
-
-			try
-			{
-				if (!string.IsNullOrWhiteSpace(usuarioDTO.Contraseña))
-				{
-					usuarioDTO.Contraseña = PasswordEncryption.ComputeSha256Hash(usuarioDTO.Contraseña);
-				}
-				else
-				{
-					usuarioDTO.Contraseña = null!;
-				}
-
-				var MapEntity = _mapper.Map<Usuarios>(usuarioDTO);
-
-				await _userRepository.UpdateAsync(Id, MapEntity);
-
-				return true;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error en UpdateUserAsync: {ex.Message}");
-				throw;
-			}
-		}
-
-		public async Task<bool> DeleteUserAsync(int Id)
-		{
-			if (Id < 0)
-				throw new InvalidOperationException("El campo Id no puede ser menor a 0");
-
-			try
-			{
-				await _userRepository.DeleteAsync<Usuarios>(Id);
-				return true;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error en DeleteUserAsync: {ex.Message}");
-				throw;
-			}
-		}
-
-		public async Task<List<UsuarioDTO>> GetAllUsers()
-		{
-			var userList = await _userRepository.GetAllList();
-			return _mapper.Map<List<UsuarioDTO>>(userList);
+			await _userRepository.AddAsync(usuario);
+			return true;
 		}
 
 		public async Task<UsuarioDTO> LoginAsync(LoginDto loginDto)
 		{
-			if (loginDto == null)
-				throw new ArgumentNullException(nameof(loginDto));
-
-			var user = await _userRepository.LoginAsync(loginDto.Email, loginDto.Contraseña);
-
-			if (user == null)
-				return null!;
-
-			var mappedUser = _mapper.Map<UsuarioDTO>(user);
-			return mappedUser;
+			var user = await _userRepository.LoginAsync(loginDto.NombreUsuario, loginDto.Contraseña);
+			return _mapper.Map<UsuarioDTO>(user);
 		}
 	}
 }
