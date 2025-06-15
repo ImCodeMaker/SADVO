@@ -6,28 +6,42 @@ using SADVO.Core.Domain.Interfaces;
 
 namespace SADVO.Core.Application.Services
 {
-	public class CiudadanosServices : GenericService<CiudadanosDTO, Ciudadanos>, ICiudadanosServices
+	public class CiudadanosServices : GenericService<CrearCiudadanos, UpdateCiudadanosDTO, CiudadanosDTO, Ciudadanos>,
+									 ICiudadanosServices
 	{
-		private readonly ICiudadanosRepository _ciudadanosRepository;
+		private readonly ICiudadanosRepository _repository;
 
-		public CiudadanosServices(ICiudadanosRepository ciudadanosRepository, IMapper mapper) : base(ciudadanosRepository,mapper)
+		public CiudadanosServices(ICiudadanosRepository ciudadanosRepository, IMapper mapper)
+			: base(ciudadanosRepository, mapper)
 		{
-			_ciudadanosRepository = ciudadanosRepository;
+			_repository = ciudadanosRepository;
 		}
 
-		public override async Task<bool> AddAsync(CiudadanosDTO dto)
+		public override async Task<bool> AddAsync(CrearCiudadanos dto)
 		{
-			if (dto == null) throw new ArgumentNullException(nameof(dto));
-			var puestosElectivos = await _ciudadanosRepository.GetAllList();
+			if (dto == null)
+				throw new ArgumentNullException(nameof(dto));
 
-			bool isDuplicated = puestosElectivos.Any(p => p.Documento_Identidad == dto.Documento_Identidad || p.Email == dto.Email);
-			if (isDuplicated)
-			{
-				return false;
-			}
+			if (await ExisteCiudadanoConDocumentoOEmail(dto.Documento_Identidad, dto.Email))
+				throw new InvalidOperationException("Ya existe un ciudadano con este documento o email.");
+
 			return await base.AddAsync(dto);
 		}
 
+		public override async Task<bool> UpdateAsync(int id, UpdateCiudadanosDTO dto)
+		{
+			if (await ExisteCiudadanoConDocumentoOEmail(dto.Documento_Identidad, dto.Email, id))
+				throw new InvalidOperationException("Ya existe un ciudadano con este documento o email.");
 
+			return await base.UpdateAsync(id, dto);
+		}
+
+		private async Task<bool> ExisteCiudadanoConDocumentoOEmail(string documento, string email, int? idExcluir = null)
+		{
+			var ciudadanos = await _repository.GetAllList();
+			return ciudadanos.Any(c =>
+				(c.Documento_Identidad == documento || c.Email == email) &&
+				(idExcluir == null || c.Id != idExcluir.Value));
+		}
 	}
 }

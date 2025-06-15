@@ -4,169 +4,130 @@ using SADVO.Core.Application.Dtos.PuestoElectivo;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Application.ViewModels.PuestosElectivos;
 
-
 namespace SADVO.Controllers
 {
 	public class PuestosElectivosController : Controller
 	{
-		private readonly IPuestosElectivosServices _puestosElectivosServices;
+		private readonly IPuestosElectivosServices _puestosService;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
 
-		public PuestosElectivosController(IPuestosElectivosServices puestosElectivosServices, IMapper mapper, IUserSession userSession)
+		public PuestosElectivosController(
+			IPuestosElectivosServices puestosService,
+			IMapper mapper,
+			IUserSession userSession)
 		{
-			_puestosElectivosServices = puestosElectivosServices;
+			_puestosService = puestosService;
 			_mapper = mapper;
 			_userSession = userSession;
 		}
 
+		private IActionResult CheckAuthorization()
+		{
+			if (!_userSession.hasUser())
+				return RedirectToAction("Index", "Auth");
+
+			if (!_userSession.checkRole())
+				return RedirectToAction("AccessDenied", "Auth");
+
+			return null;
+		}
+
 		public async Task<IActionResult> Index()
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
 
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var dtoList = await _puestosElectivosServices.GetAllAsync();
-			var viewModelList = _mapper.Map<List<PuestoElectivoViewModel>>(dtoList);
-			return View(viewModelList);
+			var puestos = await _puestosService.GetAllAsync();
+			return View(_mapper.Map<List<PuestoElectivoViewModel>>(puestos));
 		}
 
-		public IActionResult Create(int Id)
+		public IActionResult Create()
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			return View();
+			var authResult = CheckAuthorization();
+			return authResult ?? View();
 		}
 
-		public async Task<IActionResult> Update(int Id)
+		public async Task<IActionResult> Update(int id)
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
 
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-
-			var getPuestoElectivoId = await _puestosElectivosServices.GetByIdAsync(Id);
-			var MappedEntity = _mapper.Map<PuestoElectivoViewModel>(getPuestoElectivoId);
-			return View(MappedEntity);
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> Create(PuestoElectivoViewModel puestoElectivoViewModel)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-
-			if (!ModelState.IsValid) return View(puestoElectivoViewModel);
-
-			var mappedEntity = _mapper.Map<PuestoElectivoDTO>(puestoElectivoViewModel);
-			bool added = await _puestosElectivosServices.AddAsync(mappedEntity);
-
-			if (!added)
-			{
-				ModelState.AddModelError(nameof(puestoElectivoViewModel.Nombre), "El nombre ya existe.");
-				return View(puestoElectivoViewModel);
-			}
-
-			return RedirectToAction("Index");
-		}
-
-		public async Task<IActionResult> ChangeStatus(int id)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var dto = await _puestosElectivosServices.GetByIdAsync(id);
-			if (dto == null) return NotFound();
-
-			var vm = _mapper.Map<PuestoElectivoViewModel>(dto);
-			return View("ConfirmarEstado", vm);
-		}
-
-		// Acción para activar o desactivar
-		[HttpPost]
-		public async Task<IActionResult> ToggleEstado(int id)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var puesto = await _puestosElectivosServices.GetByIdAsync(id);
+			var puesto = await _puestosService.GetByIdAsync(id);
 			if (puesto == null) return NotFound();
 
-			bool nuevoEstado = !puesto.Estado;
-			await _puestosElectivosServices.UpdateEstadoAsync(id, nuevoEstado);
-
-			return RedirectToAction("Index");
+			return View(_mapper.Map<UpdatePuestoElectivoViewModel>(puesto));
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, PuestoElectivoViewModel vm)
+		public async Task<IActionResult> Create(CrearPuestoElectivoDTO model)
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
 
 			if (!ModelState.IsValid)
-			{
-				return View(vm);
-			}
+				return View(model);
 
 			try
 			{
-				var dto = _mapper.Map<PuestoElectivoDTO>(vm);
-
-				await _puestosElectivosServices.UpdateAsync(id, dto);
+				var createDto = _mapper.Map<CrearPuestoElectivoDTO>(model);
+				await _puestosService.AddAsync(createDto);
 
 				return RedirectToAction("Index");
 			}
 			catch (InvalidOperationException ex)
 			{
-				ModelState.AddModelError(string.Empty, ex.Message);
-				return View(vm);
+				ModelState.AddModelError(nameof(model.Nombre), ex.Message);
+				return View(model);
 			}
 		}
 
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, UpdatePuestoElectivoDTO model)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			if (!ModelState.IsValid)
+				return View("Update", model);
+
+			try
+			{
+				var updateDto = _mapper.Map<UpdatePuestoElectivoDTO>(model);
+				await _puestosService.UpdateAsync(id, updateDto);
+
+				return RedirectToAction("Index");
+			}
+			catch (InvalidOperationException ex)
+			{
+				ModelState.AddModelError(nameof(model.Nombre), ex.Message);
+				return View("Update", model);
+			}
+		}
+
+		public async Task<IActionResult> ChangeStatus(int id)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			var puesto = await _puestosService.GetByIdAsync(id);
+			if (puesto == null) return NotFound();
+
+			return View("ConfirmarEstado", _mapper.Map<PuestoElectivoViewModel>(puesto));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ToggleEstado(int id)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			var puesto = await _puestosService.GetByIdAsync(id);
+			if (puesto == null) return NotFound();
+
+			await _puestosService.UpdateEstadoAsync(id, !puesto.Estado);
+			return RedirectToAction("Index");
+		}
 	}
 }

@@ -65,7 +65,12 @@ wwwroot\css\output.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\Images\PartidosPoliticos\0\47ad56fd-e688-47ca-baee-4a8510fa19b9.png
+wwwroot\Images\PartidosPoliticos\1002\75e8a354-7833-4190-9be7-102d7966e03d.png
 wwwroot\Images\PartidosPoliticos\4\faf0314f-2439-4b6a-8c7c-1e2759b8f28f.png
+wwwroot\Images\PartidosPoliticos\5\31bfbe25-b5a0-42b6-aae5-fde5109ff2ac.jpg
+wwwroot\Images\PartidosPoliticos\5\991a7dfe-0560-46a3-bf6f-5d026eaf6d41.jpg
+wwwroot\Images\PartidosPoliticos\5\e4fbfc13-504a-4a21-bfad-2e4061d5edcb.png
+wwwroot\Images\PartidosPoliticos\6\0b7d77d6-7827-4f5d-b12f-039ca1852b73.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

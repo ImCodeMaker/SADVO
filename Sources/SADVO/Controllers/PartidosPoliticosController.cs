@@ -13,160 +13,203 @@ namespace SADVO.Controllers
 		private readonly IPartidoPoliticoServices _partidoPoliticoServices;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
+
 		public PartidosPoliticosController(IPartidoPoliticoServices partidoPoliticoServices, IMapper mapper, IUserSession userSession)
 		{
 			_partidoPoliticoServices = partidoPoliticoServices;
 			_mapper = mapper;
 			_userSession = userSession;
 		}
-		public async Task<IActionResult> Index()
+
+		// Método helper para verificar autorización (como en tu otro controller)
+		private IActionResult CheckAuthorization()
 		{
 			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
+				return RedirectToAction("Index", "Auth");
 			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
+				return RedirectToAction("AccessDenied", "Auth");
+			return null;
+		}
+
+		public async Task<IActionResult> Index()
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
 			var dtoList = await _partidoPoliticoServices.GetAllAsync();
 			var viewModelList = _mapper.Map<List<PartidosPoliticosViewModel>>(dtoList);
 			return View(viewModelList);
 		}
 
-		public IActionResult Create(int Id)
+		// GET: Create
+		public IActionResult Create()
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			return View();
+			var authResult = CheckAuthorization();
+			return authResult ?? View();
 		}
 
-		public async Task<IActionResult> Update(int Id)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-
-			var getPartidoPoliticoId = await _partidoPoliticoServices.GetByIdAsync(Id);
-			var MappedEntity = _mapper.Map<PartidosPoliticosViewModel>(getPartidoPoliticoId);
-			return View(MappedEntity);
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> Create(PartidosPoliticosViewModel partidosPoliticosViewModel)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-
-			if (!ModelState.IsValid)
-				return View(partidosPoliticosViewModel);
-
-			var mappedDto = _mapper.Map<PartidosPoliticosDTO>(partidosPoliticosViewModel);
-
-			bool added = await _partidoPoliticoServices.AddPartido(mappedDto, partidosPoliticosViewModel.LogoFile);
-
-			if (!added)
-			{
-				ModelState.AddModelError("", "El documento o email ya ha sido registrado.");
-				return View(partidosPoliticosViewModel);
-			}
-
-			return RedirectToAction("Index");
-		}
-
-
-		public async Task<IActionResult> ChangeStatus(int id)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var dto = await _partidoPoliticoServices.GetByIdAsync(id);
-			if (dto == null) return NotFound();
-
-			var vm = _mapper.Map<PartidosPoliticosViewModel>(dto);
-			return View("ConfirmarEstado", vm);
-		}
-
-		// Acción para activar o desactivar
-		[HttpPost]
-		public async Task<IActionResult> ToggleEstado(int id)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var puesto = await _partidoPoliticoServices.GetByIdAsync(id);
-			if (puesto == null) return NotFound();
-
-			bool nuevoEstado = !puesto.Estado;
-			await _partidoPoliticoServices.UpdateEstadoAsync(id, nuevoEstado);
-
-			return RedirectToAction("Index");
-		}
-
+		// POST: Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, PartidosPoliticosViewModel vm)
+		public async Task<IActionResult> Create(CrearPartidosPoliticosViewModel partidosPoliticosViewModel)
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
 
 			if (!ModelState.IsValid)
+				return View(partidosPoliticosViewModel);
+
+			try
 			{
-				return View(vm);
+				var mappedDto = _mapper.Map<CrearPartidosPoliticosDTO>(partidosPoliticosViewModel);
+				bool added = await _partidoPoliticoServices.AddPartido(mappedDto, partidosPoliticosViewModel.LogoFile);
+
+				if (!added)
+				{
+					ModelState.AddModelError("", "El documento o email ya ha sido registrado.");
+					return View(partidosPoliticosViewModel);
+				}
+
+				return RedirectToAction("Index");
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", "Error al crear el partido político: " + ex.Message);
+				return View(partidosPoliticosViewModel);
+			}
+		}
+
+		// GET: Update (cambiamos el nombre del método para que coincida con tu patrón)
+		public async Task<IActionResult> Update(int id)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			// Debug: Verificar que el ID llega correctamente
+			if (id <= 0)
+			{
+				TempData["Error"] = "ID inválido.";
+				return RedirectToAction("Index");
 			}
 
 			try
 			{
-				var dto = _mapper.Map<PartidosPoliticosDTO>(vm);
+				var getPartidoPoliticoId = await _partidoPoliticoServices.GetByIdAsync(id);
 
-				await _partidoPoliticoServices.UpdateAsync(id, dto);
+				if (getPartidoPoliticoId == null)
+				{
+					return NotFound();
+				}
 
+				// FIXED: Map to UpdatePartidosPoliticosViewModel instead of PartidosPoliticosViewModel
+				var mappedEntity = _mapper.Map<UpdatePartidosPoliticosViewModel>(getPartidoPoliticoId);
+
+				if (mappedEntity == null)
+				{
+					TempData["Error"] = "Error al mapear el modelo del partido político.";
+					return RedirectToAction("Index");
+				}
+
+				return View(mappedEntity);
+			}
+			catch (Exception ex)
+			{
+				TempData["Error"] = "Error al cargar el partido político: " + ex.Message;
 				return RedirectToAction("Index");
+			}
+		}
+
+		// POST: Edit (este método procesa la edición)
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, UpdatePartidosPoliticosViewModel vm)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			if (!ModelState.IsValid)
+			{
+				// IMPORTANTE: Devolver la vista "Update" con el modelo
+				return View("Update", vm);
+			}
+
+			try
+			{
+				var dto = _mapper.Map<UpdatePartidoPoliticoDTO>(vm);
+
+				// ✅ USAR EL NUEVO MÉTODO que maneja archivos
+				bool updated = await _partidoPoliticoServices.UpdateAsync(id, dto, vm.LogoFile);
+
+				if (updated)
+				{
+					TempData["Success"] = "Partido político actualizado correctamente.";
+					return RedirectToAction("Index");
+				}
+				else
+				{
+					ModelState.AddModelError(string.Empty, "Error al actualizar el partido político.");
+					return View("Update", vm);
+				}
 			}
 			catch (InvalidOperationException ex)
 			{
 				ModelState.AddModelError(string.Empty, ex.Message);
-				return View(vm);
+				return View("Update", vm); // Devolver la vista "Update"
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError(string.Empty, "Error al actualizar el partido político: " + ex.Message);
+				return View("Update", vm); // Devolver la vista "Update"
+			}
+		}
+
+		public async Task<IActionResult> ChangeStatus(int id)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			try
+			{
+				var dto = await _partidoPoliticoServices.GetByIdAsync(id);
+
+				if (dto == null)
+					return NotFound();
+
+				var vm = _mapper.Map<PartidosPoliticosViewModel>(dto);
+				return View("ConfirmarEstado", vm);
+			}
+			catch (Exception ex)
+			{
+				TempData["Error"] = "Error al cargar el partido político: " + ex.Message;
+				return RedirectToAction("Index");
+			}
+		}
+
+		// POST: Toggle Estado
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> ToggleEstado(int id)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			try
+			{
+				var partido = await _partidoPoliticoServices.GetByIdAsync(id);
+
+				if (partido == null)
+					return NotFound();
+
+				bool nuevoEstado = !partido.Estado;
+				await _partidoPoliticoServices.UpdateEstadoAsync(id, nuevoEstado);
+
+				TempData["Success"] = "Estado del partido político actualizado correctamente.";
+				return RedirectToAction("Index");
+			}
+			catch (Exception ex)
+			{
+				TempData["Error"] = "Error al cambiar el estado: " + ex.Message;
+				return RedirectToAction("Index");
 			}
 		}
 	}

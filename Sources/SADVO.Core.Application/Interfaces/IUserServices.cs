@@ -3,7 +3,7 @@ using SADVO.Core.Domain.Entities;
 
 namespace SADVO.Core.Application.Interfaces
 {
-	public interface IUserServices : IGenericServices<UsuarioDTO, Usuarios>
+	public interface IUserServices : IGenericServices<CrearUsuarioDTO,UpdateUsuarioDTO,UsuarioDTO, Usuarios>
 	{
 		Task AddAdminUser();
 		Task<bool> CreateAdminUser(CrearUsuarioDTO crearUsuarioDTO);

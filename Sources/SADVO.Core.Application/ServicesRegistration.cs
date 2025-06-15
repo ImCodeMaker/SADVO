@@ -12,7 +12,7 @@ namespace SADVO.Core.Application
 		{
 			services.AddAutoMapper(typeof(MappingProfiles));
 
-			services.AddTransient(typeof(IGenericServices<,>), typeof(GenericService<,>));
+			services.AddTransient(typeof(IGenericServices<,,,>), typeof(GenericService<,,,>));
 			services.AddTransient<IUserServices, UsersServices>();
 			services.AddTransient<IPuestosElectivosServices, PuestosElectivosServices>();
 			services.AddTransient<ICiudadanosServices, CiudadanosServices>();

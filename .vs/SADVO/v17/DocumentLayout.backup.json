@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\partidospoliticos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\partidospoliticos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\controllers\\partidospoliticoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\controllers\\partidospoliticoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3C3F96A-21CF-4EAC-92B8-338BC3A1E0A3}|Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo.core.application\\mappings\\mappingprofiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3C3F96A-21CF-4EAC-92B8-338BC3A1E0A3}|Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj|solutionrelative:sources\\sadvo.core.application\\mappings\\mappingprofiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\controllers\\puestoselectivoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\controllers\\puestoselectivoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\puestoselectivos\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\puestoselectivos\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\puestoselectivos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\puestoselectivos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +39,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "RelativeToolTip": "Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Title": "PartidosPoliticosController.cs",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\PartidosPoliticosController.cs",
+              "RelativeDocumentMoniker": "Sources\\SADVO\\Controllers\\PartidosPoliticosController.cs",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\PartidosPoliticosController.cs",
+              "RelativeToolTip": "Sources\\SADVO\\Controllers\\PartidosPoliticosController.cs",
+              "ViewState": "AgIAAK0AAAAAaGZmZmb0vwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-15T19:33:51.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Update.cshtml",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PuestosElectivos\\Update.cshtml",
+              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\PuestosElectivos\\Update.cshtml",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PuestosElectivos\\Update.cshtml",
+              "RelativeToolTip": "Sources\\SADVO\\Views\\PuestosElectivos\\Update.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-14T08:08:05.017Z",
+              "WhenOpened": "2025-06-15T19:26:51.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PuestosElectivos\\Create.cshtml",
+              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\PuestosElectivos\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PuestosElectivos\\Create.cshtml",
+              "RelativeToolTip": "Sources\\SADVO\\Views\\PuestosElectivos\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-15T19:26:46.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PuestosElectivosController.cs",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\PuestosElectivosController.cs",
+              "RelativeDocumentMoniker": "Sources\\SADVO\\Controllers\\PuestosElectivosController.cs",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Controllers\\PuestosElectivosController.cs",
+              "RelativeToolTip": "Sources\\SADVO\\Controllers\\PuestosElectivosController.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAIwDoAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-15T19:25:23.121Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MappingProfiles.cs",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\Mappings\\MappingProfiles.cs",
+              "RelativeDocumentMoniker": "Sources\\SADVO.Core.Application\\Mappings\\MappingProfiles.cs",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\Mappings\\MappingProfiles.cs",
+              "RelativeToolTip": "Sources\\SADVO.Core.Application\\Mappings\\MappingProfiles.cs",
+              "ViewState": "AgIAADkAAAAAMTMzMzMLwEEAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-15T18:45:46.289Z",
               "EditorCaption": ""
             }
           ]

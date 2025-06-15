@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SADVO.Core.Application.Interfaces
+﻿namespace SADVO.Core.Application.Interfaces
 {
-	public interface IGenericServices<TDto, TEntity>
-	   where TEntity : class
-	   where TDto : class
+	public interface IGenericServices<TCreateDto, TUpdateDto, TDto, TEntity>
+	where TEntity : class
+	where TCreateDto : class
+	where TUpdateDto : class
+	where TDto : class
 	{
-		Task<bool> AddAsync(TDto dto);
-		Task<bool> UpdateAsync(int id, TDto dto);
+		Task<bool> AddAsync(TCreateDto createDto);
+		Task<bool> UpdateAsync(int id, TUpdateDto updateDto);
 		Task UpdateEstadoAsync(int id, bool nuevoEstado);
 		Task<List<TDto>> GetAllAsync();
 		IQueryable<TDto> GetAllQuery();

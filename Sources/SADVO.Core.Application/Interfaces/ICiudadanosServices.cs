@@ -2,7 +2,7 @@
 
 namespace SADVO.Core.Application.Interfaces
 {
-	public interface ICiudadanosServices : IGenericServices<CiudadanosDTO,CiudadanosDTO>
+	public interface ICiudadanosServices : IGenericServices<CrearCiudadanos,UpdateCiudadanosDTO,CiudadanosDTO,CiudadanosDTO>
 	{
 	}
 }

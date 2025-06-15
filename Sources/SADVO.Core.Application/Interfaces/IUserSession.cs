@@ -4,7 +4,7 @@ namespace SADVO.Core.Application.Interfaces
 {
 	public interface IUserSession
 	{
-		UserViewModel GetUserSession();
+		UsuarioViewModel GetUserSession();
 		bool hasUser();
 		bool checkRole();
 	}

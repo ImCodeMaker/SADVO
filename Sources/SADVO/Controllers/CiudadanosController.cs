@@ -8,161 +8,126 @@ namespace SADVO.Controllers
 {
 	public class CiudadanosController : Controller
 	{
-		private readonly ICiudadanosServices _ciudadanosServices;
+		private readonly ICiudadanosServices _ciudadanosService;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
-		public CiudadanosController(ICiudadanosServices ciudadanosServices, IMapper mapper, IUserSession userSession)
+
+		public CiudadanosController(
+			ICiudadanosServices ciudadanosService,
+			IMapper mapper,
+			IUserSession userSession)
 		{
-			_ciudadanosServices = ciudadanosServices;
+			_ciudadanosService = ciudadanosService;
 			_mapper = mapper;
 			_userSession = userSession;
 		}
+
+		private IActionResult CheckAuthorization()
+		{
+			if (!_userSession.hasUser())
+				return RedirectToAction("Index", "Auth");
+
+			if (!_userSession.checkRole())
+				return RedirectToAction("AccessDenied", "Auth");
+
+			return null;
+		}
+
 		public async Task<IActionResult> Index()
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
 
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var dtoList = await _ciudadanosServices.GetAllAsync();
-			var viewModelList = _mapper.Map<List<CiudadanosViewModel>>(dtoList);
-			return View(viewModelList);
+			var ciudadanos = await _ciudadanosService.GetAllAsync();
+			return View(_mapper.Map<List<CiudadanosViewModel>>(ciudadanos));
 		}
 
-		public IActionResult Create(int Id)
+		public IActionResult Create()
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			return View();
+			var authResult = CheckAuthorization();
+			return authResult ?? View();
 		}
 
-		public async Task<IActionResult> Update(int Id)
+		public async Task<IActionResult> Update(int id)
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
 
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
+			var ciudadano = await _ciudadanosService.GetByIdAsync(id);
+			if (ciudadano == null) return NotFound();
 
-			var getPuestoElectivoId = await _ciudadanosServices.GetByIdAsync(Id);
-			var MappedEntity = _mapper.Map<CiudadanosViewModel>(getPuestoElectivoId);
-			return View(MappedEntity);
+			return View(_mapper.Map<UpdateCiudadanosViewModel>(ciudadano));
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create(CiudadanosViewModel ciudadanosViewModel)
+		public async Task<IActionResult> Create(CrearCiudadanosViewModel model)
 		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-
-			if (!ModelState.IsValid) return View(ciudadanosViewModel);
-
-			var mappedEntity = _mapper.Map<CiudadanosDTO>(ciudadanosViewModel);
-			bool added = await _ciudadanosServices.AddAsync(mappedEntity);
-
-			if (!added)
-			{
-				ModelState.AddModelError("", "El documento o email ya ha sido registrado.");
-				return View(ciudadanosViewModel);
-			}
-
-			return RedirectToAction("Index");
-		}
-
-		public async Task<IActionResult> ChangeStatus(int id)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var dto = await _ciudadanosServices.GetByIdAsync(id);
-			if (dto == null) return NotFound();
-
-			var vm = _mapper.Map<CiudadanosViewModel>(dto);
-			return View("ConfirmarEstado", vm);
-		}
-
-		// Acción para activar o desactivar
-		[HttpPost]
-		public async Task<IActionResult> ToggleEstado(int id)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
-			var puesto = await _ciudadanosServices.GetByIdAsync(id);
-			if (puesto == null) return NotFound();
-
-			bool nuevoEstado = !puesto.Estado;
-			await _ciudadanosServices.UpdateEstadoAsync(id, nuevoEstado);
-
-			return RedirectToAction("Index");
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, CiudadanosViewModel vm)
-		{
-			if (!_userSession.hasUser())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "Index" });
-			}
-
-			if (!_userSession.checkRole())
-			{
-				return RedirectToRoute(new { controller = "Auth", action = "AcessDenied" });
-			}
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
 
 			if (!ModelState.IsValid)
-			{
-				return View(vm);
-			}
+				return View(model);
 
 			try
 			{
-				var dto = _mapper.Map<CiudadanosDTO>(vm);
-
-				await _ciudadanosServices.UpdateAsync(id, dto);
+				var createDto = _mapper.Map<CrearCiudadanos>(model);
+				await _ciudadanosService.AddAsync(createDto);
 
 				return RedirectToAction("Index");
 			}
 			catch (InvalidOperationException ex)
 			{
-				ModelState.AddModelError(string.Empty, ex.Message);
-				return View(vm);
+				ModelState.AddModelError("", ex.Message);
+				return View(model);
 			}
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, UpdateCiudadanosViewModel model)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			if (!ModelState.IsValid)
+				return View("Update", model);
+
+			try
+			{
+				var updateDto = _mapper.Map<UpdateCiudadanosDTO>(model);
+				await _ciudadanosService.UpdateAsync(id, updateDto);
+
+				return RedirectToAction("Index");
+			}
+			catch (InvalidOperationException ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+				return View("Update", model);
+			}
+		}
+
+		public async Task<IActionResult> ChangeStatus(int id)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			var ciudadano = await _ciudadanosService.GetByIdAsync(id);
+			if (ciudadano == null) return NotFound();
+
+			return View("ConfirmarEstado", _mapper.Map<CiudadanosViewModel>(ciudadano));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ToggleEstado(int id)
+		{
+			var authResult = CheckAuthorization();
+			if (authResult != null) return authResult;
+
+			var ciudadano = await _ciudadanosService.GetByIdAsync(id);
+			if (ciudadano == null) return NotFound();
+
+			await _ciudadanosService.UpdateEstadoAsync(id, !ciudadano.Estado);
+			return RedirectToAction("Index");
 		}
 	}
 }

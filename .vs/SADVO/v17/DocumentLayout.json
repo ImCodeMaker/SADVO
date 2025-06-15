@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\puestoselectivos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\puestoselectivos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\partidospoliticos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\partidospoliticos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,37 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PuestosElectivos\\Index.cshtml",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\PuestosElectivos\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PuestosElectivos\\Index.cshtml",
-              "RelativeToolTip": "Sources\\SADVO\\Views\\PuestosElectivos\\Index.cshtml",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAwE0AAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-14T08:11:13.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "RelativeToolTip": "Sources\\SADVO\\Views\\PartidosPoliticos\\Index.cshtml",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-14T08:08:05.017Z",
-              "EditorCaption": ""
             }
           ]
         }

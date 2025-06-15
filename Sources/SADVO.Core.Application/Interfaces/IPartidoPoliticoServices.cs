@@ -4,8 +4,10 @@ using SADVO.Core.Domain.Entities;
 
 namespace SADVO.Core.Application.Interfaces
 {
-	public interface IPartidoPoliticoServices : IGenericServices<PartidosPoliticosDTO, PartidosPoliticos>
+	public interface IPartidoPoliticoServices : IGenericServices<CrearPartidosPoliticosDTO,UpdatePartidoPoliticoDTO,PartidosPoliticosDTO, PartidosPoliticos>
 	{
-		Task<bool> AddPartido(PartidosPoliticosDTO dto, IFormFile? logoFile);
+		Task<bool> AddPartido(CrearPartidosPoliticosDTO dto, IFormFile? logoFile);
+		Task<bool> UpdateAsync(int id, UpdatePartidoPoliticoDTO dto, IFormFile? logoFile = null);
+
 	}
 }

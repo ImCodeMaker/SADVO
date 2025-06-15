@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace SADVO.Core.Application.Services
 {
-	public class GenericService<TDto, TEntity> : IGenericServices<TDto, TEntity>
+	public class GenericService<TCreateDto, TUpdateDto, TDto, TEntity> : IGenericServices<TCreateDto, TUpdateDto, TDto, TEntity>
 		where TEntity : class
+		where TCreateDto : class
+		where TUpdateDto : class
 		where TDto : class
 	{
 		protected readonly IGenericRepository<TEntity> _repository;
@@ -21,22 +23,27 @@ namespace SADVO.Core.Application.Services
 			_mapper = mapper;
 		}
 
-		public virtual async Task<bool> AddAsync(TDto dto)
+		public virtual async Task<bool> AddAsync(TCreateDto createDto)
 		{
-			if (dto == null) throw new ArgumentNullException(nameof(dto));
+			if (createDto == null) throw new ArgumentNullException(nameof(createDto));
 
-			var entity = _mapper.Map<TEntity>(dto);
+			var entity = _mapper.Map<TEntity>(createDto);
 			await _repository.AddAsync(entity);
 
 			return true;
 		}
 
-		public virtual async Task<bool> UpdateAsync(int id, TDto dto)
+		public virtual async Task<bool> UpdateAsync(int id, TUpdateDto updateDto)
 		{
-			if (dto == null) throw new ArgumentNullException(nameof(dto));
+			if (updateDto == null) throw new ArgumentNullException(nameof(updateDto));
 
-			var entity = _mapper.Map<TEntity>(dto);
-			await _repository.UpdateAsync(id, entity);
+			// Obtener la entidad existente
+			var existingEntity = await _repository.GetById(id);
+			if (existingEntity == null) return false;
+
+			// Aplicar las actualizaciones
+			_mapper.Map(updateDto, existingEntity);
+			await _repository.UpdateAsync(id, existingEntity);
 
 			return true;
 		}
@@ -45,7 +52,6 @@ namespace SADVO.Core.Application.Services
 		{
 			await _repository.UpdateEstadoAsync(id, nuevoEstado);
 		}
-
 
 		public virtual async Task<List<TDto>> GetAllAsync()
 		{
@@ -63,7 +69,6 @@ namespace SADVO.Core.Application.Services
 			var entity = await _repository.GetById(id);
 			return entity == null ? null : _mapper.Map<TDto>(entity);
 		}
-
 
 		public virtual async Task<List<TDto>> GetAllListWithIncludeAsync(List<string> properties)
 		{

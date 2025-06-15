@@ -8,7 +8,7 @@ using SADVO.Core.Domain.Interfaces;
 
 namespace SADVO.Core.Application.Services
 {
-	public class PartidosPoliticosServices : GenericService<PartidosPoliticosDTO, PartidosPoliticos>, IPartidoPoliticoServices
+	public class PartidosPoliticosServices : GenericService<CrearPartidosPoliticosDTO,UpdatePartidoPoliticoDTO,PartidosPoliticosDTO, PartidosPoliticos>, IPartidoPoliticoServices
 	{
 		private readonly IPartidosPoliticosRepository _partidosPoliticosRepository;
 
@@ -17,7 +17,7 @@ namespace SADVO.Core.Application.Services
 			_partidosPoliticosRepository = partidosPoliticosRepository;
 		}
 
-		public async Task<bool> AddPartido(PartidosPoliticosDTO dto, IFormFile? logoFile)
+		public async Task<bool> AddPartido(CrearPartidosPoliticosDTO dto, IFormFile? logoFile)
 		{
 			var entity = _mapper.Map<PartidosPoliticos>(dto);
 
@@ -34,6 +34,34 @@ namespace SADVO.Core.Application.Services
 			}
 
 			return true;
+		}
+
+		public async Task<bool> UpdateAsync(int id, UpdatePartidoPoliticoDTO dto, IFormFile? logoFile = null)
+		{
+			try
+			{
+				var existingEntity = await _partidosPoliticosRepository.GetById(id);
+				if (existingEntity == null)
+					return false;
+
+				_mapper.Map(dto, existingEntity);
+
+				// Si hay un nuevo archivo de logo, procesarlo
+				if (logoFile != null)
+				{
+					string logoPath = UploadFile.Upload(logoFile, id, "PartidosPoliticos");
+					existingEntity.Logo = logoPath;
+				}
+				// Si no hay nuevo archivo, mantener el logo existente (no cambiar)
+
+				// Actualizar la entidad
+				await _partidosPoliticosRepository.UpdateAsync(id, existingEntity);
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

@@ -68,7 +68,7 @@ namespace SADVO.Controllers
 
 			if (loggedUser != null)
 			{
-				var userViewModel = _mapper.Map<UserViewModel>(loggedUser);
+				var userViewModel = _mapper.Map<UsuarioViewModel>(loggedUser);
 
 				HttpContext.Session.Set("User", userViewModel);
 
