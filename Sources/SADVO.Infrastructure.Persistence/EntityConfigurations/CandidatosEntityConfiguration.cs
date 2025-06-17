@@ -14,12 +14,6 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 			#region Relaciones
 
 			modelBuilder
-				.HasOne(c => c.PartidoPolitico)
-				.WithMany()
-				.HasForeignKey(c => c.PartidoPoliticoId)
-				.OnDelete(DeleteBehavior.Restrict);
-
-			modelBuilder
 				.HasMany(c => c.asignacionCandidato)
 				.WithOne(a => a.Candidato)
 				.HasForeignKey(a => a.CandidatoId)

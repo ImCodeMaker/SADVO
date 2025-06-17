@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using SADVO.Core.Application.Dtos.AsignacionDirigentes;
+using SADVO.Core.Application.Dtos.Candidatos;
 using SADVO.Core.Application.Dtos.Ciudadanos;
 using SADVO.Core.Application.Dtos.PartidosPoliticos;
 using SADVO.Core.Application.Dtos.PuestoElectivo;
 using SADVO.Core.Application.Dtos.Usuarios;
-using SADVO.Core.Application.Helpers;
+using SADVO.Core.Application.ViewModels.AsignacionDirigentes;
+using SADVO.Core.Application.ViewModels.Candidatos;
 using SADVO.Core.Application.ViewModels.Ciudadanos;
 using SADVO.Core.Application.ViewModels.PartidosPoliticos;
 using SADVO.Core.Application.ViewModels.PuestosElectivos;
@@ -92,6 +95,36 @@ namespace SADVO.Core.Application.Mappings
 			CreateMap<CrearPartidosPoliticosViewModel, CrearPartidosPoliticosDTO>();
 			CreateMap<UpdatePartidosPoliticosViewModel, UpdatePartidoPoliticoDTO>();
 			CreateMap<PartidosPoliticosDTO, UpdatePartidosPoliticosViewModel>();
+			#endregion
+
+			#region
+			CreateMap<Candidatos, CandidatosDTO>().ReverseMap();
+			CreateMap<CandidatosDTO, CandidatosViewModel>().ReverseMap();
+			CreateMap<CrearCandidatosViewModel, CrearCandidatosDTO>();
+			CreateMap<UpdateCandidatoViewModel, UpdateCiudadanosDTO>();
+			CreateMap<CandidatosDTO, UpdateCandidatoDTO>();
+			CreateMap<CrearCandidatosDTO, Candidatos>();
+			CreateMap<CandidatosDTO, UpdateCandidatoViewModel>().ReverseMap();
+			CreateMap<UpdateCandidatoDTO, Candidatos>().ReverseMap();
+			CreateMap<UpdateCandidatoViewModel, UpdateCandidatoDTO>().ReverseMap();
+			CreateMap<UpdateCandidatoDTO, Candidatos>()
+				.ForMember(dest => dest.Foto, opt => opt.Ignore());
+
+			#endregion
+
+			#region AsignacionDirigentes
+			CreateMap<AsignacionDirigentes, AsignacionDirigentesDTO>().ReverseMap();
+			CreateMap<AsignacionDirigentesDTO, AsignacionDirigentesViewModel>().ReverseMap();
+			CreateMap<CreateAsignacionDirigentesViewModel, CreateAsignacionDirigentesDTO>();
+
+			CreateMap<CreateAsignacionDirigentesDTO, AsignacionDirigentes>()
+				.ForMember(dest => dest.FechaAsignacion, opt => opt.MapFrom(_ => DateTime.Now))
+				.ForMember(dest => dest.Estado, opt => opt.MapFrom(src => src.Estado));
+
+			CreateMap<CreateAsignacionDirigentesViewModel, AsignacionDirigentes>()
+				.ForMember(dest => dest.UsuarioName, opt => opt.MapFrom(src => src.UsuarioName))
+				.ForMember(dest => dest.FechaAsignacion, opt => opt.MapFrom(_ => DateTime.Now))
+				.ForMember(dest => dest.Estado, opt => opt.MapFrom(src => src.Estado));
 			#endregion
 
 

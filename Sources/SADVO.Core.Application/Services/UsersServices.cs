@@ -30,10 +30,10 @@ namespace SADVO.Core.Application.Services
 
 			if (userExist) throw new InvalidOperationException("Este usuario o correo ya está siendo utilizado.");
 
-			// La encriptación de contraseña ahora se maneja en el mapeo automático
+			dto.Contraseña = PasswordEncryption.ComputeSha256Hash(dto.Contraseña);
 			return await base.AddAsync(dto);
 		}
-		public override async Task<bool> UpdateAsync(int id, UpdateUsuarioDTO dto) // Asegúrate de que esto sobrescriba o sea el método principal
+		public override async Task<bool> UpdateAsync(int id, UpdateUsuarioDTO dto) 
 		{
 			var currentUser = await _userRepository.GetById(id);
 			if (currentUser == null) return false;
@@ -74,10 +74,28 @@ namespace SADVO.Core.Application.Services
 			return true;
 		}
 
+		public async Task<List<UsuarioDTO>> GetActiveUsersAsync()
+		{
+			var allUsers = await _userRepository.GetAllList();
+
+			var activeUsers = allUsers.Where(u => u.Estado && u.Rol == "Dirigente").ToList();
+
+			return _mapper.Map<List<UsuarioDTO>>(activeUsers);
+		}
+
+
 		public async Task<UsuarioDTO> LoginAsync(LoginDto loginDto)
 		{
 			var user = await _userRepository.LoginAsync(loginDto.NombreUsuario, loginDto.Contraseña);
+
+			if (user == null) return null!;
+
+			if (!user.Estado)
+				throw new Exception("Usuario inactivo");
+
 			return _mapper.Map<UsuarioDTO>(user);
 		}
+
+
 	}
 }

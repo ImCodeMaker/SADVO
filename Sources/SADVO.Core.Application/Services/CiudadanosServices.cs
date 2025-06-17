@@ -9,7 +9,7 @@ namespace SADVO.Core.Application.Services
 	public class CiudadanosServices : GenericService<CrearCiudadanos, UpdateCiudadanosDTO, CiudadanosDTO, Ciudadanos>,
 									 ICiudadanosServices
 	{
-		private readonly ICiudadanosRepository _repository;
+		private new readonly ICiudadanosRepository _repository;
 
 		public CiudadanosServices(ICiudadanosRepository ciudadanosRepository, IMapper mapper)
 			: base(ciudadanosRepository, mapper)

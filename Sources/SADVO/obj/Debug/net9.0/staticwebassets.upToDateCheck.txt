@@ -65,6 +65,8 @@ wwwroot\css\output.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\Images\PartidosPoliticos\0\47ad56fd-e688-47ca-baee-4a8510fa19b9.png
+wwwroot\Images\PartidosPoliticos\1\051e41b9-0850-4178-8194-2d54774703b2.PNG
+wwwroot\Images\PartidosPoliticos\1\584f43c1-fb73-4c46-9294-69916fa4dcfc.png
 wwwroot\Images\PartidosPoliticos\1002\75e8a354-7833-4190-9be7-102d7966e03d.png
 wwwroot\Images\PartidosPoliticos\4\faf0314f-2439-4b6a-8c7c-1e2759b8f28f.png
 wwwroot\Images\PartidosPoliticos\5\31bfbe25-b5a0-42b6-aae5-fde5109ff2ac.jpg

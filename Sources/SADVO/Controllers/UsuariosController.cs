@@ -30,7 +30,7 @@ namespace SADVO.Controllers
 			if (!_userSession.checkRole())
 				return RedirectToAction("AcessDenied", "Auth");
 
-			return null;
+			return null!;
 		}
 
 		public async Task<IActionResult> Index()

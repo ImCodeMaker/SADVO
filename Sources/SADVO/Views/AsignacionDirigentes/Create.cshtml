@@ -1,0 +1,68 @@
+﻿@model CreateAsignacionDirigentesViewModel
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<div class="h-screen overflow-hidden">
+    <section class="h-full overflow-y-auto bg-gradient-to-br from-slate-50 to-blue-50 p-6">
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+            @if (!ViewData.ModelState.IsValid &&
+            ViewData.ModelState.TryGetValue(string.Empty, out var entry) &&
+            entry?.Errors?.Count > 0)
+            {
+                <div class="bg-red-100 text-red-700 border border-red-400 px-4 py-3 rounded relative text-sm">
+                    @foreach (var error in entry.Errors)
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                </div>
+            }
+
+
+            <!-- Título -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Asignar Dirigente</h2>
+                <p class="text-gray-500 text-sm">Selecciona un usuario activo y un partido político para realizar la asignación.</p>
+            </div>
+
+            <form asp-action="Create" method="post" class="space-y-6">
+                <!-- Usuario -->
+                <div>
+                    <label asp-for="UsuarioId" class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+                    <select asp-for="UsuarioId" class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            asp-items="@(new SelectList(Model.UsuariosActivos, "Id", "Nombre"))">
+                        <option value="">Seleccione un usuario</option>
+                    </select>
+                    <span asp-validation-for="UsuarioId" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Partido Político -->
+                <div>
+                    <label asp-for="PartidoPoliticoId" class="block text-sm font-medium text-gray-700 mb-1">Partido Político</label>
+                    <select asp-for="PartidoPoliticoId" class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            asp-items="@(new SelectList(Model.PartidosActivos, "Id", "Nombre"))">
+                        <option value="">Seleccione un partido</option>
+                    </select>
+                    <span asp-validation-for="PartidoPoliticoId" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Botones -->
+                <div class="flex justify-between items-center pt-4">
+                    <a asp-action="Index" class="text-gray-600 hover:text-gray-800 transition-colors text-sm font-medium">
+                        ← Volver a la lista
+                    </a>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow transition-all duration-200">
+                        Asignar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

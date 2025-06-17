@@ -100,5 +100,19 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			}
 			return query;
 		}
+
+		public virtual async Task<bool> DeleteFromDbAsync(int id)
+		{
+			var entity = await _context.Set<Entity>().FindAsync(id);
+
+			if (entity == null)
+				return false;
+
+			_context.Set<Entity>().Remove(entity);
+			await _context.SaveChangesAsync();
+
+			return true;
+		}
+
 	}
 }

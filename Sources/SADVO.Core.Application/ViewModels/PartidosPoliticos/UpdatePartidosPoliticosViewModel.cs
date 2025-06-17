@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SADVO.Core.Application.ViewModels.Common;
 using System.ComponentModel.DataAnnotations;
 
 namespace SADVO.Core.Application.ViewModels.PartidosPoliticos

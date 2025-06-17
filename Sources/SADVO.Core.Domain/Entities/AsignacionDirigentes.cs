@@ -1,22 +1,17 @@
 ﻿using SADVO.Core.Domain.Common;
+using System;
 
 namespace SADVO.Core.Domain.Entities
 {
 	public class AsignacionDirigentes : SharedIdEntity<int>
 	{
+		// Propiedades básicas
 		public required int UsuarioId { get; set; }
 		public required int PartidoPoliticoId { get; set; }
 		public required bool Estado { get; set; } = true;
-		public required PartidosPoliticos PartidosPoliticos { get; set; }
+		public required string UsuarioName { get; set;}
 		public DateTime FechaAsignacion { get; set; } = DateTime.Now;
-
-		#region Relacion de uno a uno - Un Dirigente puede ser un Usuario
 		public required Usuarios Usuario { get; set; }
-		#endregion
-
-		#region Relacion de muchos a uno - Un Dirigente puede ser dirigente de varios partidos 
-		public required PartidosPoliticos partidosPoliticos { get; set; }
-
-		#endregion
+		public required PartidosPoliticos PartidoPolitico { get; set; }
 	}
 }

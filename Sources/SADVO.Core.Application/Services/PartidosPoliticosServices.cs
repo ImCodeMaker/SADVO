@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using SADVO.Core.Application.Dtos.PartidosPoliticos;
+using SADVO.Core.Application.Dtos.Usuarios;
 using SADVO.Core.Application.Helpers;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Domain.Entities;
@@ -62,6 +63,15 @@ namespace SADVO.Core.Application.Services
 			{
 				return false;
 			}
+		}
+
+		public async Task<List<PartidosPoliticosDTO>> GetActivePartidosAsync()
+		{
+			var allUsers = await _partidosPoliticosRepository.GetAllList();
+
+			var activeUsers = allUsers.Where(u => u.Estado).ToList();
+
+			return _mapper.Map<List<PartidosPoliticosDTO>>(activeUsers);
 		}
 	}
 }

@@ -8,30 +8,25 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 	{
 		public void Configure(EntityTypeBuilder<AsignacionDirigentes> modelBuilder)
 		{
-			modelBuilder.ToTable(nameof(AsignacionDirigentes));
+			modelBuilder.ToTable("AsignacionDirigentes");
 			modelBuilder.HasKey(ad => ad.Id);
 
-			#region Relaciones
-
-			// Uno a uno: Usuario tiene una única Asignación
 			modelBuilder
 				.HasOne(ad => ad.Usuario)
 				.WithOne(u => u.AsignacionDirigente)
 				.HasForeignKey<AsignacionDirigentes>(ad => ad.UsuarioId)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			// Muchos a uno: Muchos dirigentes pueden pertenecer al mismo partido
 			modelBuilder
-				.HasOne(ad => ad.partidosPoliticos)
-				.WithMany()
+				.HasOne(ad => ad.PartidoPolitico)
+				.WithMany(pp => pp.Dirigentes)
 				.HasForeignKey(ad => ad.PartidoPoliticoId)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			#endregion
-
-			modelBuilder
-				.Property(ad => ad.FechaAsignacion)
-				.IsRequired();
+			// Configuración adicional
+			modelBuilder.Property(ad => ad.FechaAsignacion)
+				.IsRequired()
+				.HasDefaultValueSql("GETDATE()");
 		}
 	}
 }

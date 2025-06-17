@@ -8,6 +8,7 @@ namespace SADVO.Core.Application.Interfaces
 	{
 		Task<bool> AddPartido(CrearPartidosPoliticosDTO dto, IFormFile? logoFile);
 		Task<bool> UpdateAsync(int id, UpdatePartidoPoliticoDTO dto, IFormFile? logoFile = null);
+		Task<List<PartidosPoliticosDTO>> GetActivePartidosAsync();
 
 	}
 }

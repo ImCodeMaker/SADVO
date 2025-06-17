@@ -46,7 +46,6 @@ namespace SADVO.Controllers
 			if (_userSession.hasUser())
 			{
 				var userSession = _userSession.GetUserSession();
-
 				if (userSession != null)
 				{
 					return userSession.Rol switch
@@ -64,27 +63,44 @@ namespace SADVO.Controllers
 			}
 
 			var loginDto = _mapper.Map<LoginDto>(model);
-			var loggedUser = await _userServices.LoginAsync(loginDto);
 
-			if (loggedUser != null)
+			try
 			{
-				var userViewModel = _mapper.Map<UsuarioViewModel>(loggedUser);
+				var loggedUser = await _userServices.LoginAsync(loginDto);
 
-				HttpContext.Session.Set("User", userViewModel);
-
-				TempData["Message"] = "Login Exitoso";
-
-				return userViewModel.Rol switch
+				if (loggedUser != null)
 				{
-					"Administrador" => RedirectToRoute(new { controller = "Admin", action = "Index" }),
-					"Dirigente" => RedirectToRoute(new { controller = "Dirigente", action = "Index" }),
-					_ => RedirectToAction("Index")
-				};
+					var userViewModel = _mapper.Map<UsuarioViewModel>(loggedUser);
+
+					HttpContext.Session.Set("User", userViewModel);
+					TempData["Message"] = "Login Exitoso";
+
+					return userViewModel.Rol switch
+					{
+						"Administrador" => RedirectToRoute(new { controller = "Admin", action = "Index" }),
+						"Dirigente" => RedirectToRoute(new { controller = "Dirigente", action = "Index" }),
+						_ => RedirectToAction("Index")
+					};
+				}
+			}
+			catch (Exception ex)
+			{
+				if (ex.Message == "Usuario inactivo")
+				{
+					TempData["ErrorMessage"] = "Este usuario está inactivo.";
+				}
+				else
+				{
+					TempData["ErrorMessage"] = "Error al iniciar sesión.";
+				}
+
+				return RedirectToAction("Index");
 			}
 
 			TempData["ErrorMessage"] = "Credenciales incorrectas, intente de nuevo.";
 			return RedirectToAction("Index");
 		}
+
 
 		public IActionResult Logout()
 		{

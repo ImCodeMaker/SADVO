@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SADVO.Core.Application.Services
 {
@@ -80,6 +76,11 @@ namespace SADVO.Core.Application.Services
 		{
 			var query = _repository.GetAllLQueryWithInclude(properties);
 			return query.Cast<TEntity>().Select(e => _mapper.Map<TDto>(e));
+		}
+
+		public virtual async Task<bool> DeleteFromDb(int Id)
+		{
+			return await _repository.DeleteFromDbAsync(Id);
 		}
 	}
 }

@@ -32,12 +32,40 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/AsignacionDirigentes/ConfirmarEstado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hY2lvbkRpcmlnZW50ZXNcQ29uZmlybWFyRXN0YWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/AsignacionDirigentes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hY2lvbkRpcmlnZW50ZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/AsignacionDirigentes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hY2lvbkRpcmlnZW50ZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Auth/AcessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxBY2Vzc0RlbmllZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Auth/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Candidatos/ConfirmarEstado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xDb25maXJtYXJFc3RhZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Candidatos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Candidatos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Candidatos/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuZGlkYXRvc1xVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Teudy Encarnacion/Documents/Projects/SADVO/Sources/SADVO/Views/Ciudadanos/ConfirmarEstado.cshtml]

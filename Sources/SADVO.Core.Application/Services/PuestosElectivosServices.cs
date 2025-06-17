@@ -9,7 +9,7 @@ namespace SADVO.Core.Application.Services
 	public class PuestosElectivosServices : GenericService<CrearPuestoElectivoDTO, UpdatePuestoElectivoDTO, PuestoElectivoDTO, PuestosElectivos>,
 										  IPuestosElectivosServices
 	{
-		private readonly IPuestosElectivosRepository _repository;
+		private new readonly IPuestosElectivosRepository _repository;
 
 		public PuestosElectivosServices(IPuestosElectivosRepository repository, IMapper mapper)
 			: base(repository, mapper)

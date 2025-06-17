@@ -7,6 +7,7 @@ namespace SADVO.Core.Application.Interfaces
 	{
 		Task AddAdminUser();
 		Task<bool> CreateAdminUser(CrearUsuarioDTO crearUsuarioDTO);
+		Task<List<UsuarioDTO>> GetActiveUsersAsync();
 		Task<UsuarioDTO> LoginAsync(LoginDto loginDto);
 	}
 }
