@@ -22,6 +22,7 @@ builder.Services.AddServicesLayerIOC(builder.Configuration);
 builder.Services.AddSharedLayerIOC(builder.Configuration);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserSession, UserSession>();
+builder.Services.AddScoped<ICiudadanoSession,CiudadanoSession>();
 
 
 var app = builder.Build();

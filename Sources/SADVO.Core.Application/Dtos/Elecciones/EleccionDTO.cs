@@ -10,7 +10,7 @@ namespace SADVO.Core.Application.Dtos.Elecciones
 	{
 		public int Id { get; set; }
 		public required string Nombre { get; set; }
-		public DateTime FechaRealizacion { get; set; }
+		public required int Año { get; set; }
 		public bool Estado { get; set; }
 		public DateTime FechaCreacion { get; set; }
 		public DateTime FechaFinalizacion { get; set; }

@@ -40,7 +40,7 @@ namespace SADVO.Controllers
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -49,11 +49,11 @@ namespace SADVO.Controllers
 			return View(_mapper.Map<List<UsuarioViewModel>>(users));
 		}
 
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
 			var authCheck = RedirectIfNotAuthenticated();
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -66,7 +66,7 @@ namespace SADVO.Controllers
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -83,7 +83,7 @@ namespace SADVO.Controllers
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -110,7 +110,7 @@ namespace SADVO.Controllers
 			var authResult = RedirectIfNotAuthenticated();
 			if (authResult != null) return authResult;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -137,7 +137,7 @@ namespace SADVO.Controllers
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -152,7 +152,7 @@ namespace SADVO.Controllers
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}

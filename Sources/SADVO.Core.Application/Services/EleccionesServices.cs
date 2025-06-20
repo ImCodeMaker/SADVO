@@ -163,7 +163,6 @@ namespace SADVO.Core.Application.Services
 				{
 					EleccionId = eleccion.Id,
 					NombreEleccion = eleccion.Nombre,
-					FechaRealizacion = eleccion.FechaRealizacion,
 					CantidadPartidos = cantidadPartidos,
 					CantidadCandidatos = cantidadCandidatos,
 					TotalVotos = totalVotos,
@@ -180,7 +179,6 @@ namespace SADVO.Core.Application.Services
 		{
 			var errors = new List<string>();
 
-			// Validar primero las reglas existentes
 			var (isValidBase, baseErrors) = await ValidarCreacionEleccionAsync();
 			if (!isValidBase)
 			{
@@ -194,13 +192,24 @@ namespace SADVO.Core.Application.Services
 				errors.Add($"Ya existe una elección registrada para el año {dto.Año}. Solo se permite una elección por año.");
 			}
 
-			// Validar que el año del DTO coincida con el año de la fecha de realización
-			if (dto.FechaRealizacion.Year != dto.Año)
+			// NUEVA VALIDACIÓN: Permitir años pasados y futuros con advertencia
+			var añoActual = DateTime.Now.Year;
+			if (dto.Año < añoActual - 10)
 			{
-				errors.Add("El año especificado debe coincidir con el año de la fecha de realización.");
+				errors.Add($"El año {dto.Año} es demasiado antiguo. Las elecciones deben ser de los últimos 10 años o futuras.");
+			}
+			else if (dto.Año > añoActual + 5)
+			{
+				errors.Add($"El año {dto.Año} está muy lejos en el futuro. Las elecciones no pueden programarse con más de 5 años de anticipación.");
 			}
 
 			return (!errors.Any(), errors);
 		}
+
+		public async Task<bool> HayEleccionActivaAsync()
+		{
+			return await _eleccionesRepository.ExisteEleccionActivaAsync();
+		}
+
 	}
 }

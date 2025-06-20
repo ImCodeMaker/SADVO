@@ -43,7 +43,7 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -59,10 +59,13 @@ namespace SADVO.Controllers
 			return View(viewModelList);
 		}
 
-
-		// GET: Create
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
+			if (await _eleccionesServices.HayEleccionActivaAsync())
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var authResult = CheckAuthorization();
 			return authResult ?? View();
 		}
@@ -75,7 +78,7 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -113,7 +116,7 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -157,7 +160,7 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -202,7 +205,7 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
@@ -231,7 +234,7 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			if (await _eleccionesServices.HayEleccionActivaAsync())
 			{
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}

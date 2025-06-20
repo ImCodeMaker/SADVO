@@ -16,5 +16,6 @@ namespace SADVO.Core.Domain.Interfaces
 		Task<int> GetCantidadCandidatosPorEleccionAsync(int eleccionId);
 		Task<int> GetTotalVotosPorEleccionAsync(int eleccionId);
 		Task<bool> ExisteEleccionEnAnioAsync(int anio);
+		Task<bool> ExisteEleccionActivaAsync();
 	}
 }

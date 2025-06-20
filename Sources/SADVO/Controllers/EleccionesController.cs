@@ -58,10 +58,10 @@ namespace SADVO.Controllers
 				return RedirectToAction("Index");
 			}
 
-			// Crear el modelo con fecha actual
+			// Crear el modelo permitiendo diferentes años
 			var model = new CreateEleccionViewModel
 			{
-				FechaRealizacion = DateTime.Now
+				Año = DateTime.Now.Year // Valor por defecto, pero editable
 			};
 
 			return View(model);
@@ -73,23 +73,8 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			// Asegurar que la fecha no sea nula si no se especificó
-			if (model.FechaRealizacion == default(DateTime))
-			{
-				model.FechaRealizacion = DateTime.Now;
-			}
-
 			if (!ModelState.IsValid)
 			{
-				return View(model);
-			}
-
-			// Validar condiciones para crear elección
-			var (isValid, errors) = await _eleccionesService.ValidarCreacionEleccionAsync();
-
-			if (!isValid)
-			{
-				model.ErroresValidacion = errors;
 				return View(model);
 			}
 
@@ -160,42 +145,94 @@ namespace SADVO.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Resultados(int id)
 		{
-			var authResult = CheckAuthorization();
-			if (authResult != null) return authResult;
-
-			var eleccion = await _eleccionesService.GetByIdAsync(id);
-			if (eleccion == null || eleccion.EsActiva)
+			try
 			{
-				return NotFound();
-			}
+				// Verificar autorización
+				var authResult = CheckAuthorization();
+				if (authResult != null) return authResult;
 
-			var resultados = await _eleccionesService.GetResultadosEleccionAsync(id);
-
-			var viewModel = new ResultadosEleccionViewModel
-			{
-				EleccionId = eleccion.Id,
-				EleccionNombre = eleccion.Nombre
-			};
-
-			// Agrupar resultados por puesto
-			var resultadosPorPuesto = resultados.GroupBy(r => new { r.PuestoElectivoId, r.PuestoElectivoNombre })
-				.Select(g => new ResultadoPorPuestoViewModel
+				// Obtener la elección
+				var eleccion = await _eleccionesService.GetByIdAsync(id);
+				if (eleccion == null)
 				{
-					PuestoNombre = g.Key.PuestoElectivoNombre,
-					Candidatos = g.OrderByDescending(r => r.CantidadVotos)
-							   .Select((r, index) => new ResultadoCandidatoViewModel
-							   {
-								   CandidatoNombre = r.CandidatoNombre,
-								   PartidoPoliticoNombre = r.PartidoPoliticoNombre,
-								   CantidadVotos = r.CantidadVotos,
-								   Porcentaje = Math.Round(r.Porcentaje, 2),
-								   EsGanador = index == 0
-							   }).ToList()
-				}).ToList();
+					TempData["Error"] = "La elección solicitada no existe.";
+					return RedirectToAction("Index");
+				}
 
-			viewModel.ResultadosPorPuesto = resultadosPorPuesto;
+				// Verificar que la elección esté finalizada
+				if (eleccion.EsActiva)
+				{
+					TempData["Error"] = "No se pueden ver los resultados de una elección activa.";
+					return RedirectToAction("Index");
+				}
 
-			return View(viewModel);
+				// Obtener los resultados de la elección
+				var resultados = await _eleccionesService.GetResultadosEleccionAsync(id);
+				if (resultados == null || !resultados.Any())
+				{
+					TempData["Warning"] = "Esta elección no tiene votos registrados aún.";
+					// Aún así mostramos la vista pero con datos vacíos
+				}
+
+				// Crear el ViewModel
+				var viewModel = new ResultadosEleccionViewModel
+				{
+					EleccionId = eleccion.Id,
+					EleccionNombre = eleccion.Nombre,
+					EleccionAnio = eleccion.Año,
+					FechaFinalizacion = eleccion.FechaFinalizacion
+				};
+
+				// Agrupar resultados por puesto si existen
+				if (resultados != null && resultados.Any())
+				{
+					var resultadosPorPuesto = resultados.GroupBy(r => new { r.PuestoElectivoId, r.PuestoElectivoNombre })
+						.Select(g => new ResultadoPorPuestoViewModel
+						{
+							PuestoElectivoId = g.Key.PuestoElectivoId,
+							PuestoNombre = g.Key.PuestoElectivoNombre,
+							TotalVotos = g.Sum(r => r.CantidadVotos),
+							Candidatos = g.OrderByDescending(r => r.CantidadVotos)
+									   .ThenBy(r => r.CandidatoNombre) // Orden secundario por nombre
+									   .Select((r, index) => new ResultadoCandidatoViewModel
+									   {
+										   CandidatoId = r.CandidatoId,
+										   CandidatoNombre = r.CandidatoNombre,
+										   PartidoPoliticoNombre = r.PartidoPoliticoNombre,
+										   CantidadVotos = r.CantidadVotos,
+										   Porcentaje = Math.Round(r.Porcentaje, 2),
+										   EsGanador = index == 0 && r.CantidadVotos > 0, // Solo es ganador si tiene votos
+										   Posicion = index + 1
+									   }).ToList()
+						})
+						.OrderBy(p => p.PuestoNombre) // Ordenar puestos alfabéticamente
+						.ToList();
+
+					viewModel.ResultadosPorPuesto = resultadosPorPuesto;
+
+					// Calcular estadísticas generales
+					viewModel.TotalCandidatos = resultados.Count;
+					viewModel.TotalVotosEmitidos = resultados.Sum(r => r.CantidadVotos);
+					viewModel.TotalPuestosDisputados = resultadosPorPuesto.Count;
+				}
+				else
+				{
+					viewModel.ResultadosPorPuesto = new List<ResultadoPorPuestoViewModel>();
+					viewModel.TotalCandidatos = 0;
+					viewModel.TotalVotosEmitidos = 0;
+					viewModel.TotalPuestosDisputados = 0;
+				}
+
+				return View(viewModel);
+			}
+			catch (Exception ex)
+			{
+				// Log del error (si tienes sistema de logging)
+				// _logger.LogError(ex, "Error al cargar resultados de elección {EleccionId}", id);
+
+				TempData["Error"] = "Ocurrió un error al cargar los resultados de la elección. Por favor, intente nuevamente.";
+				return RedirectToAction("Index");
+			}
 		}
 	}
 }

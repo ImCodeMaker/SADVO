@@ -10,35 +10,29 @@ namespace SADVO.Web.Controllers
 	public class VotacionController : Controller
 	{
 		private readonly IVotacionService _votacionService;
-		private readonly IUserSession _userSession;
+		private readonly ICiudadanoSession _ciudadanoSession;
 		private readonly IMapper _mapper;
 
 		public VotacionController(
 			IVotacionService votacionService,
-			IUserSession userSession,
+			ICiudadanoSession ciudadanoSession,
 			IMapper mapper)
 		{
 			_votacionService = votacionService;
-			_userSession = userSession;
+			_ciudadanoSession = ciudadanoSession;
 			_mapper = mapper;
-		}
-
-		private int GetCurrentUserId()
-		{
-			var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			return int.TryParse(userIdClaim, out int userId) ? userId : 0;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
+			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
-				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(1);
+				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(Ciudadano.Id);
 				if (eleccionDto == null)
 				{
 					TempData["Info"] = "No hay elecciones activas disponibles en este momento.";
-					return View("NoEleccionesActivas");
 				}
 
 				var eleccionViewModel = _mapper.Map<EleccionVotacionViewModel>(eleccionDto);
@@ -54,9 +48,10 @@ namespace SADVO.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> VerificarEstado()
 		{
+			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
-				var puedeVotar = await _votacionService.PuedeVotarAsync(1);
+				var puedeVotar = await _votacionService.PuedeVotarAsync(Ciudadano.Id);
 
 				if (!puedeVotar)
 				{
@@ -64,7 +59,7 @@ namespace SADVO.Web.Controllers
 					return RedirectToAction("Confirmacion");
 				}
 
-				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(1);
+				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(Ciudadano.Id);
 				if (eleccionDto == null)
 				{
 					TempData["Info"] = "No hay elecciones activas disponibles.";
@@ -84,16 +79,17 @@ namespace SADVO.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Votar()
 		{
+			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
-				var puedeVotar = await _votacionService.PuedeVotarAsync(1);
+				var puedeVotar = await _votacionService.PuedeVotarAsync(Ciudadano.Id);
 				if (!puedeVotar)
 				{
 					TempData["Info"] = "Ya ha completado su votación en todos los puestos disponibles.";
 					return RedirectToAction("Confirmacion");
 				}
 
-				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(1);
+				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(Ciudadano.Id);
 				if (eleccionDto == null)
 				{
 					TempData["Info"] = "No hay elecciones activas disponibles.";
@@ -114,6 +110,7 @@ namespace SADVO.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> RegistrarVoto(RegistrarVotoViewModel viewModel)
 		{
+			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			if (!ModelState.IsValid)
 			{
 				TempData["Error"] = "Los datos del formulario no son válidos.";
@@ -129,18 +126,15 @@ namespace SADVO.Web.Controllers
 				{
 					TempData["Success"] = resultado.Mensaje ?? "Voto registrado exitosamente.";
 
-					// CAMBIO CLAVE: Verificar si completó toda la votación
-					var puedeVotarMas = await _votacionService.PuedeVotarAsync(1);
+					var puedeVotarMas = await _votacionService.PuedeVotarAsync(Ciudadano.Id);
 
 					if (puedeVotarMas)
 					{
-						// Aún puede votar en otros puestos, redirigir de vuelta a votar
 						TempData["Info"] = "Voto registrado. Continúe votando en los puestos restantes.";
 						return RedirectToAction("Votar");
 					}
 					else
 					{
-						// Ya completó toda la votación
 						return RedirectToAction("Confirmacion");
 					}
 				}
@@ -160,9 +154,10 @@ namespace SADVO.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ConfirmarVoto(int eleccionId, int puestoElectivoId, int candidatoId)
 		{
+			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
-				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(1); // Usar ciudadanoId = 1 para testing
+				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(Ciudadano.Id);
 				if (eleccionDto == null)
 				{
 					TempData["Error"] = "No hay elecciones activas disponibles.";
@@ -195,7 +190,7 @@ namespace SADVO.Web.Controllers
 					EleccionId = eleccionId,
 					PuestoElectivoId = puestoElectivoId,
 					CandidatoId = candidatoId,
-					CiudadanoId = 1, // Hardcodeado para testing
+					CiudadanoId = Ciudadano.Id, 
 					PartidoPoliticoId = candidato.PartidoPrincipalId
 				};
 
@@ -217,13 +212,14 @@ namespace SADVO.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ConfirmarVoto(RegistrarVotoViewModel model)
 		{
+			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			if (!ModelState.IsValid)
 			{
 				TempData["Error"] = "Los datos de confirmación no son válidos.";
 				return RedirectToAction("Votar");
 			}
 
-			model.CiudadanoId = 1; // Asegurar que el CiudadanoId esté seteado
+			model.CiudadanoId = Ciudadano.Id;
 
 			try
 			{
@@ -234,17 +230,14 @@ namespace SADVO.Web.Controllers
 				{
 					TempData["Success"] = resultado.Mensaje;
 
-					// CAMBIO CLAVE: Verificar si puede seguir votando
-					var puedeVotarMas = await _votacionService.PuedeVotarAsync(1);
+					var puedeVotarMas = await _votacionService.PuedeVotarAsync(Ciudadano.Id);
 
 					if (puedeVotarMas)
 					{
-						// Continuar votando
 						return RedirectToAction("Votar");
 					}
 					else
 					{
-						// Votación completa
 						return RedirectToAction("Confirmacion");
 					}
 				}

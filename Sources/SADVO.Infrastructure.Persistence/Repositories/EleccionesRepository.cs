@@ -17,14 +17,14 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 		public async Task<Elecciones?> GetEleccionActivaAsync()
 		{
 			return await _context.Elecciones
-				.FirstOrDefaultAsync(e => e.Estado == true );
+				.FirstOrDefaultAsync(e => e.Estado == true);
 		}
 
 		public async Task<List<Elecciones>> GetAllEleccionesOrderedAsync()
 		{
 			return await _context.Elecciones
 				.OrderByDescending(e => e.Estado)
-				.ThenByDescending(e => e.FechaRealizacion)
+				.ThenByDescending(e => e.Año)
 				.ToListAsync();
 		}
 
@@ -93,12 +93,10 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 						   .ToList();
 		}
 
-		// NUEVOS MÉTODOS PARA RESUMEN ELECTORAL
-
 		public async Task<List<int>> GetAniosDisponiblesAsync()
 		{
 			return await _context.Elecciones
-				.Where(e => e.Estado == false) 
+				.Where(e => e.Estado == false)
 				.Select(e => e.Año)
 				.Distinct()
 				.OrderByDescending(a => a)
@@ -109,7 +107,7 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 		{
 			return await _context.Elecciones
 				.Where(e => e.Año == anio && e.Estado == false)
-				.OrderByDescending(e => e.FechaRealizacion)
+				.OrderByDescending(e => e.Año)
 				.ToListAsync();
 		}
 
@@ -144,6 +142,11 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 		{
 			return await _context.Elecciones
 				.AnyAsync(e => e.Año == anio);
+		}
+
+		public async Task<bool> ExisteEleccionActivaAsync()
+		{
+			return await _context.Elecciones.AnyAsync(e => e.Estado == true);
 		}
 	}
 }

@@ -78,7 +78,6 @@ namespace SADVO.Core.Application.Services
 			{
 				EleccionId = eleccion.Id,
 				NombreEleccion = eleccion.Nombre,
-				FechaRealizacion = eleccion.FechaRealizacion,
 				PuestosElectivos = puestosElectivos,
 				YaVotoCompleto = puestosElectivos.Count > 0 && puestosElectivos.All(p => p.YaVotado)
 			};

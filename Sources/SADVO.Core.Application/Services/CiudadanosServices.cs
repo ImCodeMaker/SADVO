@@ -43,5 +43,12 @@ namespace SADVO.Core.Application.Services
 				(c.Documento_Identidad == documento || c.Email == email) &&
 				(idExcluir == null || c.Id != idExcluir.Value));
 		}
+
+		public async Task<CiudadanosDTO> GetCiudadanoByCedula(string cedula)
+		{
+			var entity = await _repository.getCiudadanoByCedula(cedula);
+			return _mapper.Map<CiudadanosDTO>(entity);
+		}
+
 	}
 }

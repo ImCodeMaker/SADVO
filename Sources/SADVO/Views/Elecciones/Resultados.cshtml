@@ -1,0 +1,171 @@
+﻿@model SADVO.Core.Application.ViewModels.Elecciones.ResultadosEleccionViewModel
+
+@{
+    ViewData["Title"] = "Resultados de Elección";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white shadow rounded-lg p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Resultados de Elección</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                        <span>@Model.EleccionNombre</span>
+                        <span> - Año @Model.EleccionAnio</span>
+                        @if (Model.FechaFinalizacion != default(DateTime))
+                        {
+                            <span class="block text-xs mt-1">Finalizada el @Model.FechaFinalizacion.ToString("dd/MM/yyyy HH:mm")</span>
+                        }
+                    </p>
+                </div>
+                <div>
+                    <a asp-action="Index"
+                       class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        <span class="mr-2">←</span>
+                        Volver al Listado
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensajes informativos -->
+        @if (TempData["Warning"] != null)
+        {
+            <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-6">
+                <div class="flex items-center">
+                    <span class="text-yellow-500 mr-2">⚠️</span>
+                    <p>@TempData["Warning"]</p>
+                </div>
+            </div>
+        }
+
+        <!-- Resultados por Puesto -->
+        @if (Model.TieneResultados)
+        {
+            @foreach (var puesto in Model.ResultadosPorPuesto)
+            {
+                <div class="bg-white shadow rounded-lg mb-6">
+                    <!-- Header del Puesto -->
+                    <div class="bg-blue-600 px-6 py-4 rounded-t-lg">
+                        <h2 class="text-xl font-bold text-white flex items-center justify-between">
+                            <span class="flex items-center">
+                                <span class="mr-2">🏛️</span>
+                                @puesto.PuestoNombre
+                            </span>
+                            <span class="text-sm font-normal">
+                                @puesto.TotalVotos.ToString("N0") votos emitidos
+                            </span>
+                        </h2>
+                    </div>
+
+                    <!-- Lista de Candidatos -->
+                    <div class="divide-y divide-gray-200">
+                        @foreach (var candidato in puesto.Candidatos)
+                        {
+                            <div class="px-6 py-4 @(candidato.EsGanador ? "bg-green-50" : "")">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <!-- Posición -->
+                                        <div class="flex-shrink-0">
+                                            @if (candidato.EsGanador)
+                                            {
+                                                <span class="inline-flex items-center justify-center w-8 h-8 bg-yellow-400 text-yellow-900 rounded-full font-bold text-sm">
+                                                    👑
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="inline-flex items-center justify-center w-8 h-8 bg-gray-200 text-gray-700 rounded-full font-bold text-sm">
+                                                    @candidato.Posicion
+                                                </span>
+                                            }
+                                        </div>
+
+                                        <!-- Información del Candidato -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-lg font-medium text-gray-900 @(candidato.EsGanador ? "text-green-800" : "")">
+                                                @candidato.CandidatoNombre
+                                            </p>
+                                            <p class="text-sm text-gray-500">
+                                                @candidato.PartidoPoliticoNombre
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Resultados -->
+                                    <div class="flex items-center space-x-6">
+                                        <!-- Barra de Progreso -->
+                                        <div class="flex items-center space-x-2 min-w-0 flex-1">
+                                            <div class="w-32 bg-gray-200 rounded-full h-3">
+                                                <div class="@(candidato.EsGanador ? "bg-green-500" : "bg-blue-500") h-3 rounded-full transition-all duration-500"
+                                                     style="width: @candidato.Porcentaje.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)%"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Estadísticas -->
+                                        <div class="text-right flex-shrink-0">
+                                            <p class="text-lg font-bold @(candidato.EsGanador ? "text-green-600" : "text-gray-900")">
+                                                @candidato.PorcentajeFormateado
+                                            </p>
+                                            <p class="text-sm text-gray-500">
+                                                @candidato.VotosFormateados votos
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Resumen del Puesto -->
+                        <div class="px-6 py-3 bg-gray-50">
+                            <div class="flex justify-between items-center text-sm text-gray-600">
+                                <span>Total de candidatos: <strong>@puesto.TotalCandidatos</strong></span>
+                                <span>Ganador: <strong>@puesto.Ganador?.CandidatoNombre</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Información General -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <span class="text-blue-400 text-xl">📊</span>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">
+                            Resumen General de la Elección
+                        </h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p>
+                                Puestos disputados: <strong>@Model.TotalPuestosDisputados</strong> |
+                                Total de candidatos: <strong>@Model.TotalCandidatos</strong> |
+                                Total de votos emitidos: <strong>@Model.TotalVotosEmitidos.ToString("N0")</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- Estado vacío -->
+            <div class="bg-white shadow rounded-lg">
+                <div class="text-center py-16">
+                    <div class="text-gray-400 text-6xl mb-4">📊</div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No hay resultados disponibles</h3>
+                    <p class="text-gray-500 mb-6">Esta elección no tiene votos registrados aún.</p>
+                    <a asp-action="Index"
+                       class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <span class="mr-2">←</span>
+                        Volver al Listado
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

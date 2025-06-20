@@ -18,9 +18,6 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 				.IsRequired()
 				.HasMaxLength(150);
 
-			modelBuilder.Property(e => e.FechaRealizacion)
-				.IsRequired();
-
 			modelBuilder.Property(e => e.Estado)
 				.IsRequired()
 				.HasMaxLength(50);

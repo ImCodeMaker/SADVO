@@ -235,7 +235,6 @@ namespace SADVO.Core.Application.Mappings
 			CreateMap<Elecciones, EleccionVotacionDTO>()
 			   .ForMember(dest => dest.EleccionId, opt => opt.MapFrom(src => src.Id))
 			   .ForMember(dest => dest.NombreEleccion, opt => opt.MapFrom(src => src.Nombre))
-			   .ForMember(dest => dest.FechaRealizacion, opt => opt.MapFrom(src => src.FechaRealizacion))
 			   .ForMember(dest => dest.PuestosElectivos, opt => opt.Ignore())
 			   .ForMember(dest => dest.YaVotoCompleto, opt => opt.Ignore());
 

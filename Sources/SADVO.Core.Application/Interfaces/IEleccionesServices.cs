@@ -15,6 +15,7 @@ namespace SADVO.Core.Application.Interfaces
 		Task<AniosDisponiblesDTO> GetAniosDisponiblesAsync();
 		Task<List<ResumenElectoralDTO>> GetResumenElectoralPorAnioAsync(int anio);
 		Task<(bool isValid, List<string> errors)> ValidarCreacionEleccionConAnioAsync(CrearEleccionDTO dto);
+		Task<bool> HayEleccionActivaAsync();
 
 	}
 }
