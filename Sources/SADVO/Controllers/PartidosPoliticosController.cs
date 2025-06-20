@@ -13,12 +13,15 @@ namespace SADVO.Controllers
 		private readonly IPartidoPoliticoServices _partidoPoliticoServices;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
+		private readonly IEleccionesServices _eleccionesServices;
 
-		public PartidosPoliticosController(IPartidoPoliticoServices partidoPoliticoServices, IMapper mapper, IUserSession userSession)
+		public PartidosPoliticosController(IPartidoPoliticoServices partidoPoliticoServices, IMapper mapper, IUserSession userSession, IEleccionesServices eleccionesServices)
 		{
 			_partidoPoliticoServices = partidoPoliticoServices;
 			_mapper = mapper;
 			_userSession = userSession;
+			_eleccionesServices = eleccionesServices;
+
 		}
 
 		// Método helper para verificar autorización (como en tu otro controller)
@@ -36,6 +39,11 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var dtoList = await _partidoPoliticoServices.GetAllAsync();
 			var viewModelList = _mapper.Map<List<PartidosPoliticosViewModel>>(dtoList);
 			return View(viewModelList);
@@ -44,6 +52,11 @@ namespace SADVO.Controllers
 		// GET: Create
 		public IActionResult Create()
 		{
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var authResult = CheckAuthorization();
 			return authResult ?? View();
 		}
@@ -55,6 +68,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			if (!ModelState.IsValid)
 				return View(partidosPoliticosViewModel);
@@ -84,6 +102,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			// Debug: Verificar que el ID llega correctamente
 			if (id <= 0)
@@ -127,6 +150,11 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			if (!ModelState.IsValid)
 			{
 				// IMPORTANTE: Devolver la vista "Update" con el modelo
@@ -168,6 +196,11 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			try
 			{
 				var dto = await _partidoPoliticoServices.GetByIdAsync(id);
@@ -192,6 +225,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			try
 			{

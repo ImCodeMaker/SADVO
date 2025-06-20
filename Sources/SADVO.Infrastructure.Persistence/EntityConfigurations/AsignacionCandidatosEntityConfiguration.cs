@@ -31,6 +31,12 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 				.HasForeignKey(ac => ac.PartidoPoliticoId)
 				.OnDelete(DeleteBehavior.Restrict);
 
+			modelBuilder
+			.HasOne(a => a.PartidoQueRespalda)
+			.WithMany()
+			.HasForeignKey(a => a.PartidoRespaldaId)
+			 .OnDelete(DeleteBehavior.Restrict);
+
 			#endregion
 
 			modelBuilder

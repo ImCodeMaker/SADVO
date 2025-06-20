@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SADVO.Core.Application.Dtos.Candidatos;
 using SADVO.Core.Application.Helpers;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Domain.Entities;
 using SADVO.Core.Domain.Interfaces;
+using AutoMapper.QueryableExtensions;
 
 namespace SADVO.Core.Application.Services
 {
-	public class CandidatosServices : GenericService<CrearCandidatosDTO,UpdateCandidatoDTO,CandidatosDTO,Candidatos>, ICandidatoServices
+	public class CandidatosServices : GenericService<CrearCandidatosDTO, UpdateCandidatoDTO, CandidatosDTO, Candidatos>, ICandidatoServices
 	{
 		private readonly ICandidatosRepository _candidatosRepository;
 
@@ -17,11 +19,13 @@ namespace SADVO.Core.Application.Services
 			_candidatosRepository = candidatosRepository;
 		}
 
-		public async Task<bool> AddCandidato(CrearCandidatosDTO dto, IFormFile? logoFile)
+		public async Task<bool> AddCandidato(CrearCandidatosDTO dto, IFormFile? logoFile, int PartidoId, string PartidoName)
 		{
 			var entity = _mapper.Map<Candidatos>(dto);
 
 			entity.Foto = "default.png";
+			entity.PartidoPoliticoId = PartidoId;
+			entity.PartidoName = PartidoName;
 			await _candidatosRepository.AddAsync(entity);
 
 			if (logoFile != null)
@@ -29,8 +33,7 @@ namespace SADVO.Core.Application.Services
 				string logoPath = UploadFile.Upload(logoFile, entity.Id, "Candidatos");
 				entity.Foto = logoPath;
 
-
-				await _candidatosRepository.UpdateAsync(entity.Id,entity);
+				await _candidatosRepository.UpdateAsync(entity.Id, entity);
 			}
 
 			return true;
@@ -60,5 +63,17 @@ namespace SADVO.Core.Application.Services
 				return false;
 			}
 		}
+
+		public async Task<bool> TienePuestoElectivo(int candidatoId)
+		{
+			var candidato = await _candidatosRepository.GetCandidatoConAsignacionesAsync(candidatoId);
+
+			if (candidato == null)
+				return false;
+
+			return candidato.Asignaciones != null && candidato.Asignaciones.Any();
+		}
+
+
 	}
 }

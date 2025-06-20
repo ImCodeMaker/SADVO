@@ -1,4 +1,5 @@
-﻿using SADVO.Core.Application.Dtos.Usuarios;
+﻿using SADVO.Core.Application.Dtos.PartidosPoliticos;
+using SADVO.Core.Application.Dtos.Usuarios;
 using SADVO.Core.Domain.Entities;
 
 namespace SADVO.Core.Application.Interfaces

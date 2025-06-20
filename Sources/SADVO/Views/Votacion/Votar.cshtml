@@ -1,0 +1,222 @@
+﻿@model SADVO.Core.Application.ViewModels.Votacion.EleccionVotacionViewModel
+
+@{
+    ViewData["Title"] = "Votar - " + Model.NombreEleccion;
+}
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <!-- Header -->
+    <div class="bg-white shadow-lg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">@Model.NombreEleccion</h1>
+                    <p class="text-gray-600 mt-1">Seleccione sus candidatos preferidos para cada puesto</p>
+                </div>
+                <div class="bg-blue-100 rounded-lg px-4 py-2">
+                    <span class="text-blue-800 font-medium text-sm">@Model.FechaRealizacion.ToString("dd/MM/yyyy")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            @{
+                var puestosVotados = Model.PuestosElectivos.Count(p => p.YaVotado);
+                var totalPuestos = Model.PuestosElectivos.Count;
+                var progreso = totalPuestos > 0 ? (puestosVotados * 100) / totalPuestos : 0;
+            }
+
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-medium text-gray-700">Progreso de Votación</span>
+                <span class="text-sm font-medium text-gray-700">@puestosVotados de @totalPuestos puestos completados</span>
+            </div>
+
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300"
+                     style="width: @progreso%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Instructions -->
+        <div class="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-6 mb-8">
+            <div class="flex items-center justify-center">
+                <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center mr-4">
+                    <span class="text-amber-600 font-bold">📋</span>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-semibold text-amber-800 mb-1">Instrucciones</h3>
+                    <p class="text-amber-700 text-sm">Debe votar en cada puesto electivo. Haga clic en "Votar por este candidato" debajo del candidato de su preferencia.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Positions -->
+        <div class="space-y-8">
+            @foreach (var puesto in Model.PuestosElectivos.OrderBy(p => p.YaVotado ? 1 : 0))
+            {
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden @(puesto.YaVotado ? "opacity-75" : "")">
+                    <!-- Position Header -->
+                    <div class="@(puesto.YaVotado ? "bg-gradient-to-r from-green-600 to-green-700" : "bg-gradient-to-r from-slate-600 to-slate-700") px-8 py-6">
+                        <div class="flex items-center justify-between">
+                            <div class="text-center w-full">
+                                <h2 class="text-2xl font-bold text-white mb-2">@puesto.NombrePuesto</h2>
+                                <p class="@(puesto.YaVotado ? "text-green-200" : "text-slate-200")">
+                                    @if (puesto.YaVotado)
+                                    {
+                                        <span>✓ Ya votaste en este puesto</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Seleccione un candidato</span>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Candidates Grid -->
+                    <div class="p-6">
+                        @if (puesto.YaVotado)
+                        {
+                            <div class="text-center py-8">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-green-600 text-2xl">✓</span>
+                                </div>
+                                <p class="text-gray-600 font-medium">Ya has votado en este puesto electivo</p>
+                                <p class="text-gray-500 text-sm mt-1">Tu voto ha sido registrado exitosamente</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                                @foreach (var candidato in puesto.Candidatos)
+                                {
+                                    <div class="border-2 border-gray-200 rounded-xl p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-200 h-full flex flex-col">
+
+                                        <!-- Candidate Photo -->
+                                        <div class="text-center mb-4">
+                                            @if (!string.IsNullOrEmpty(candidato.FotoCandidato))
+                                            {
+                                                <img src="/@candidato.FotoCandidato"
+                                                     alt="@candidato.NombreCandidato @candidato.ApellidoCandidato"
+                                                     class="w-20 h-20 rounded-full mx-auto object-cover border-4 border-gray-200" />
+                                            }
+                                            else
+                                            {
+                                                <div class="w-20 h-20 rounded-full mx-auto bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center border-4 border-gray-200">
+                                                    <span class="text-2xl font-bold text-white">
+                                                        @candidato.NombreCandidato.Substring(0, 1)@candidato.ApellidoCandidato.Substring(0, 1)
+                                                    </span>
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <!-- Candidate Info -->
+                                        <div class="text-center mb-4 flex-grow">
+                                            <h4 class="font-bold text-lg text-gray-900 mb-1">
+                                                @candidato.NombreCandidato @candidato.ApellidoCandidato
+                                            </h4>
+                                            <p class="text-sm text-gray-600 mb-3">@candidato.NombrePartidoPrincipal</p>
+
+                                            @if (!string.IsNullOrEmpty(candidato.SiglasPartidoPrincipal))
+                                            {
+                                                <div class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-2">
+                                                    @candidato.SiglasPartidoPrincipal
+                                                </div>
+                                            }
+
+                                            @if (candidato.PartidosRespaldo != null && candidato.PartidosRespaldo.Any())
+                                            {
+                                                <div class="mt-2">
+                                                    <p class="text-xs text-gray-500 mb-1">Respaldado por:</p>
+                                                    <div class="flex flex-wrap justify-center gap-1">
+                                                        @foreach (var respaldo in candidato.PartidosRespaldo)
+                                                        {
+                                                            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+                                                                @respaldo.Siglas
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <!-- Vote Button -->
+                                        <div class="text-center">
+                                            <a asp-action="ConfirmarVoto"
+                                               asp-controller="Votacion"
+                                               asp-route-eleccionId="@Model.EleccionId"
+                                               asp-route-puestoElectivoId="@puesto.PuestoElectivoId"
+                                               asp-route-candidatoId="@candidato.CandidatoId"
+                                               class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm">
+                                                Votar por este candidato
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Final Actions -->
+        <div class="mt-12 text-center">
+            @if (Model.PuestosElectivos.All(p => p.YaVotado))
+            {
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-8 mb-6">
+                    <div class="flex items-center justify-center mb-4">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                            <span class="text-green-600 text-3xl">🎉</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-green-800 mb-2">¡Felicitaciones!</h3>
+                    <p class="text-green-700 mb-4">Has completado tu participación en esta elección. Todos tus votos han sido registrados exitosamente.</p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a asp-action="MisVotaciones" asp-controller="Votacion"
+                           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center">
+                            Ver mis votaciones
+                        </a>
+
+                        <a asp-action="Index" asp-controller="Home"
+                           class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center">
+                            Volver al inicio
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-xl p-6">
+                    <div class="flex items-center justify-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <span class="text-yellow-600 text-xl">⚠️</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-2">Votación Pendiente</h3>
+                    <p class="text-yellow-700 text-sm">
+                        Aún tienes @(Model.PuestosElectivos.Count(p => !p.YaVotado)) puesto(s) electivo(s) por votar.
+                        Completa tu participación en todos los puestos disponibles.
+                    </p>
+                </div>
+            }
+        </div>
+
+        <!-- Back Button -->
+        <div class="flex justify-center mt-8 pt-8 border-t border-gray-200">
+            <a asp-action="Index" asp-controller="Votacion"
+               class="inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                ← Volver
+            </a>
+        </div>
+    </div>
+</div>

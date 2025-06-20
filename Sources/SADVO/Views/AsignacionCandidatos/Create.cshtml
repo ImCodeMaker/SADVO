@@ -1,0 +1,156 @@
+﻿@model CrearAsignacionCandidatoViewModel
+
+@{
+    ViewData["Title"] = "Nueva Asignación de Candidato";
+    Layout = "_LayoutDirigente";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- Header Section -->
+    <div class="bg-white shadow-lg border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                        Nueva Asignación
+                    </h1>
+                    <p class="text-gray-600 mt-1">Asigna un candidato a un puesto electivo</p>
+                </div>
+                <div>
+                    <a asp-action="Index"
+                       class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors duration-200">
+                        Volver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Form Card -->
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-4">
+                <h2 class="text-xl font-semibold text-white flex items-center">
+                    Formulario de Asignación
+                </h2>
+            </div>
+
+            <div class="p-8">
+                <form asp-action="Create" method="post" class="space-y-8">
+                    <div asp-validation-summary="ModelOnly" class="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg mb-6">
+                        <div class="flex items-center">
+                            <span class="text-red-700 font-medium">Por favor corrige los errores marcados</span>
+                        </div>
+                    </div>
+
+                    <input type="hidden" asp-for="PartidoPoliticoId" />
+
+                    <!-- Candidato Selection -->
+                    <div class="space-y-3">
+                        <label asp-for="CandidatoId" class="block text-lg font-semibold text-gray-900 flex items-center">
+                            Seleccionar Candidato
+                        </label>
+                        <div class="relative">
+                            <select asp-for="CandidatoId"
+                                    class="w-full px-4 py-4 text-base border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm hover:border-gray-300">
+                                <option value="">-- Selecciona un candidato --</option>
+                                @if (Model.CandidatosDisponibles != null)
+                                {
+                                    @foreach (var candidato in Model.CandidatosDisponibles)
+                                    {
+                                        <option value="@candidato.Id">@candidato.Nombre @candidato.Apellido</option>
+                                    }
+                                }
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                            </div>
+                        </div>
+                        <span asp-validation-for="CandidatoId" class="text-red-500 text-sm font-medium flex items-center">
+                        </span>
+                        @if (Model.CandidatosDisponibles == null || !Model.CandidatosDisponibles.Any())
+                        {
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                                <div class="flex items-center">
+                                    <span class="text-yellow-700">No hay candidatos disponibles para asignar</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Puesto Electivo Selection -->
+                    <div class="space-y-3">
+                        <label asp-for="PuestoElectivoId" class="block text-lg font-semibold text-gray-900 flex items-center">
+                            Seleccionar Puesto Electivo
+                        </label>
+                        <div class="relative">
+                            <select asp-for="PuestoElectivoId"
+                                    class="w-full px-4 py-4 text-base border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all duration-200 bg-white shadow-sm hover:border-gray-300">
+                                <option value="">-- Selecciona un puesto electivo --</option>
+                                @if (Model.PuestosDisponibles != null)
+                                {
+                                    @foreach (var puesto in Model.PuestosDisponibles)
+                                    {
+                                        <option value="@puesto.Id">@puesto.Nombre - @puesto.Descripcion</option>
+                                    }
+                                }
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                            </div>
+                        </div>
+                        <span asp-validation-for="PuestoElectivoId" class="text-red-500 text-sm font-medium flex items-center">
+                        </span>
+                        @if (Model.PuestosDisponibles == null || !Model.PuestosDisponibles.Any())
+                        {
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                                <div class="flex items-center">
+                                    <span class="text-yellow-700">No hay puestos electivos disponibles</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                        <button type="submit"
+                                class="flex-1 inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 hover:from-blue-700 hover:to-indigo-700">
+                            Crear Asignación
+                        </button>
+
+                        <a asp-action="Index"
+                           class="flex-1 inline-flex items-center justify-center px-6 py-4 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-colors duration-200 border border-gray-300">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="mt-8 bg-blue-50 border border-blue-200 rounded-2xl p-6">
+            <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-info-circle text-blue-500 text-xl mt-1"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-blue-900 mb-2">Información importante</h3>
+                    <div class="text-blue-800 space-y-2">
+                        <p class="flex items-center">
+                            <i class="fas fa-check text-blue-600 mr-2"></i>
+                            Solo se muestran candidatos y puestos disponibles para asignación
+                        </p>
+                        <p class="flex items-center">
+                            <i class="fas fa-check text-blue-600 mr-2"></i>
+                            La asignación debe cumplir con todas las reglas establecidas
+                        </p>
+                        <p class="flex items-center">
+                            <i class="fas fa-check text-blue-600 mr-2"></i>
+                            Un candidato solo puede ser asignado a un puesto a la vez
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

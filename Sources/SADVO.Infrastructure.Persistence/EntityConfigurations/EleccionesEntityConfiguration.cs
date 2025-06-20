@@ -25,9 +25,6 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 				.IsRequired()
 				.HasMaxLength(50);
 
-
-			modelBuilder.Property(e => e.FechaFinalizacion);
-
 			#endregion
 
 			#region Relaciones

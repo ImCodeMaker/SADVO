@@ -17,19 +17,22 @@ namespace SADVO.Controllers
 		private readonly IPartidoPoliticoServices _partidosPoliticosService;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
+		private readonly IEleccionesServices _eleccionesServices;
 
 		public AsignacionDirigentesController(
 			IAsignacionDirigentesServices asignacionDirigentesService,
 		IUserServices usuariosService,
 			IPartidoPoliticoServices partidosPoliticosService,
 			IMapper mapper,
-			IUserSession userSession)
+			IUserSession userSession,
+			IEleccionesServices eleccionesService)
 		{
 			_asignacionDirigentesService = asignacionDirigentesService;
 			_usuariosService = usuariosService;
 			_partidosPoliticosService = partidosPoliticosService;
 			_mapper = mapper;
 			_userSession = userSession;
+			_eleccionesServices = eleccionesService;
 		}
 
 		private IActionResult CheckAuthorization()
@@ -48,6 +51,11 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var items = await _asignacionDirigentesService.GetAllAsync();
 			var viewModel = _mapper.Map<List<AsignacionDirigentesViewModel>>(items);
 			return View(viewModel);
@@ -58,6 +66,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var usuarios = await _usuariosService.GetActiveUsersAsync();
 			var partidos = await _partidosPoliticosService.GetActivePartidosAsync();
@@ -77,6 +90,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			if (!ModelState.IsValid)
 			{
@@ -110,6 +128,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var entity = await _asignacionDirigentesService.GetByIdAsync(id);
 			if (entity == null) return NotFound();

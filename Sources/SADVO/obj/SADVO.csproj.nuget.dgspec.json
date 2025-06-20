@@ -81,6 +81,14 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Tesseract": {
+              "target": "Package",
+              "version": "[5.2.0, )"
             }
           },
           "imports": [
@@ -272,6 +280,94 @@
         }
       }
     },
+    "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Shared\\SADVO.Infrastructure.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Shared\\SADVO.Infrastructure.Shared.csproj",
+        "projectName": "SADVO.Infrastructure.Shared",
+        "projectPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Shared\\SADVO.Infrastructure.Shared.csproj",
+        "packagesPath": "C:\\Users\\Teudy Encarnacion\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Teudy Encarnacion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj": {
+                "projectPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj"
+              },
+              "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Domain\\SADVO.Core.Domain.csproj": {
+                "projectPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Domain\\SADVO.Core.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+              "version": "[9.0.301, 9.0.301]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\SADVO.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -308,6 +404,9 @@
               },
               "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Persistence\\SADVO.Infrastructure.Persistence.csproj": {
                 "projectPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Persistence\\SADVO.Infrastructure.Persistence.csproj"
+              },
+              "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Shared\\SADVO.Infrastructure.Shared.csproj": {
+                "projectPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Infrastructure.Shared\\SADVO.Infrastructure.Shared.csproj"
               }
             }
           }

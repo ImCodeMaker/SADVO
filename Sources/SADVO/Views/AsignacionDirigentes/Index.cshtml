@@ -16,7 +16,7 @@
             </div>
 
             @{
-                var activos = Model?.Where(x => x.Estado).ToList() ?? new List<SADVO.Core.Application.ViewModels.AsignacionDirigentes.AsignacionDirigentesViewModel>();
+                var activos = Model?.Where(x => x.Estado).ToList() ?? new List<AsignacionDirigentesViewModel>();
             }
             @if (activos.Any())
             {

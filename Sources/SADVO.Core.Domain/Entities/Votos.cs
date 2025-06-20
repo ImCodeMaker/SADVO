@@ -12,11 +12,11 @@ namespace SADVO.Core.Domain.Entities
 		public required DateTime FechaVoto { get; set; }
 
 		#region Relacion Muchos a uno - Varios Votos estan relacionados a una eleccion, ciudadano, puestos electivos, candidatos & etc
-		public required Elecciones Eleccion { get; set; }
-		public required Ciudadanos Ciudadano { get; set; }
-		public required PuestosElectivos PuestoElectivo { get; set; }
-		public required Candidatos Candidato { get; set; }
-		public required PartidosPoliticos PartidoPolitico { get; set; }
+		public  Elecciones? Eleccion { get; set; }
+		public  Ciudadanos? Ciudadano { get; set; }
+		public  PuestosElectivos? PuestoElectivo { get; set; }
+		public  Candidatos? Candidato { get; set; }
+		public  PartidosPoliticos? PartidoPolitico { get; set; }
 		#endregion
 	}
 }

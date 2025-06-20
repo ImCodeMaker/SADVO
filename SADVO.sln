@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SADVO.Core.Domain", "Source
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SADVO", "Sources\SADVO\SADVO.csproj", "{90FC8E3D-9236-48C7-A2F3-F72661B05548}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SADVO.Infrastructure.Shared", "Sources\SADVO.Infrastructure.Shared\SADVO.Infrastructure.Shared.csproj", "{EAC00C1F-683A-4EF1-AD97-3C94985B2BAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{90FC8E3D-9236-48C7-A2F3-F72661B05548}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90FC8E3D-9236-48C7-A2F3-F72661B05548}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90FC8E3D-9236-48C7-A2F3-F72661B05548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC00C1F-683A-4EF1-AD97-3C94985B2BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC00C1F-683A-4EF1-AD97-3C94985B2BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC00C1F-683A-4EF1-AD97-3C94985B2BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC00C1F-683A-4EF1-AD97-3C94985B2BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{4DFF25FC-2574-42CF-830F-749E7B9813FE} = {AE8E9B1F-C72D-4AFE-994F-26A7F1F63F8C}
 		{DC33D693-6413-41BB-A8ED-3E17F2A0EA6D} = {F4E8C3D4-946E-421F-8177-89FAEB7CFCC5}
 		{90FC8E3D-9236-48C7-A2F3-F72661B05548} = {4DFF25FC-2574-42CF-830F-749E7B9813FE}
+		{EAC00C1F-683A-4EF1-AD97-3C94985B2BAC} = {EEBBECEA-6ABC-4A52-8A93-AE33C67065B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {468FEFE8-D4A6-403A-81B2-AECA102F1183}

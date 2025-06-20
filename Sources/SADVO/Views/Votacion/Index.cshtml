@@ -1,0 +1,144 @@
+﻿@model SADVO.Core.Application.ViewModels.Votacion.EleccionVotacionViewModel
+
+@{
+    ViewData["Title"] = "Votación Electrónica";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <!-- Header Section -->
+    <div class="bg-white shadow-lg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">Sistema de Votación Electrónica</h1>
+                <p class="text-xl text-gray-600">Ejerciendo tu derecho democrático</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Election Info Card -->
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 mb-8 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
+                <h2 class="text-3xl font-bold text-white mb-2">@Model.NombreEleccion</h2>
+                <div class="flex items-center text-blue-100">
+                    <div class="bg-white bg-opacity-20 rounded-lg px-3 py-1 mr-4">
+                        <span class="text-sm font-medium">Fecha:</span>
+                        <span class="ml-1 font-semibold">@Model.FechaRealizacion.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    @if (Model.YaVotoCompleto)
+                    {
+                            <div class="bg-green-500 bg-opacity-90 rounded-lg px-3 py-1 flex items-center">
+                                <span class="text-sm font-medium">✓ Votación Completada</span>
+                            </div>
+                    }
+                    else
+                    {
+                            <div class="bg-yellow-500 bg-opacity-90 rounded-lg px-3 py-1 flex items-center">
+                                <span class="text-sm font-medium">⏳ Votación Pendiente</span>
+                            </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (!Model.YaVotoCompleto)
+        {
+                <!-- Instructions Card -->
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                                <span class="text-amber-600 font-bold text-lg">!</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-amber-800 mb-2">Instrucciones de Votación</h3>
+                            <ul class="text-amber-700 space-y-1 text-sm">
+                                <li>• Revise cuidadosamente todos los puestos electivos disponibles</li>
+                                <li>• Seleccione UN candidato por cada puesto electivo</li>
+                                <li>• Confirme su selección antes de proceder</li>
+                                <li>• Una vez confirmado su voto, no podrá modificarlo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center mb-12">
+                    <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+                        <a asp-action="Votar" asp-controller="Votacion"
+                           class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 text-lg">
+                            <span class="mr-2">🗳️</span>
+                            Iniciar Votación
+                        </a>
+
+                        <a asp-action="VerificarEstado" asp-controller="Votacion"
+                           class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 text-lg">
+                            <span class="mr-2">📊</span>
+                            Verificar Estado
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Positions Preview -->
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-100">
+                    <div class="px-8 py-6 border-b border-gray-200">
+                        <h3 class="text-2xl font-bold text-gray-900">Puestos Electivos Disponibles</h3>
+                        <p class="text-gray-600 mt-1">Estos son los cargos para los cuales podrá votar</p>
+                    </div>
+
+                    <div class="p-6">
+                        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        @foreach (var puesto in Model.PuestosElectivos)
+                        {
+                                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200">
+                                        <h4 class="font-semibold text-lg text-gray-900 mb-3">@puesto.NombrePuesto</h4>
+                                        <div class="space-y-2">
+                                            <div class="flex justify-between items-center text-sm">
+                                                <span class="text-gray-600">Candidatos:</span>
+                                                <span class="font-medium text-blue-600">@puesto.Candidatos.Count()</span>
+                                            </div>
+                                    @if (puesto.YaVotado)
+                                    {
+                                                    <div class="flex items-center text-sm text-green-600">
+                                                        <span class="mr-1">✓</span>
+                                                        <span class="font-medium">Ya votado</span>
+                                                    </div>
+                                    }
+                                    else
+                                    {
+                                                    <div class="flex items-center text-sm text-amber-600">
+                                                        <span class="mr-1">⏳</span>
+                                                        <span class="font-medium">Pendiente</span>
+                                                    </div>
+                                    }
+                                        </div>
+                                    </div>
+                        }
+                        </div>
+                    </div>
+                </div>
+        }
+        else
+        {
+                <!-- Already Voted Message -->
+                <div class="text-center py-16">
+                    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-12 max-w-2xl mx-auto">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-green-600 text-4xl">✓</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">¡Votación Completada!</h3>
+                        <p class="text-gray-600 mb-8">Su voto ha sido registrado exitosamente. Gracias por participar en el proceso democrático.</p>
+
+                        <a asp-action="Confirmacion" asp-controller="Votacion"
+                           class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                            Ver Confirmación
+                        </a>
+                    </div>
+                </div>
+        }
+    </div>
+</div>

@@ -13,10 +13,18 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 
 			#region Relaciones
 
+			// Un candidato tiene muchas asignaciones
 			modelBuilder
-				.HasMany(c => c.asignacionCandidato)
+				.HasMany(c => c.Asignaciones)
 				.WithOne(a => a.Candidato)
 				.HasForeignKey(a => a.CandidatoId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			// Un candidato pertenece a un partido político
+			modelBuilder
+				.HasOne(c => c.PartidoPolitico)
+				.WithMany()
+				.HasForeignKey(c => c.PartidoPoliticoId)
 				.OnDelete(DeleteBehavior.Restrict);
 
 			#endregion
@@ -39,7 +47,6 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 
 			modelBuilder.Property(c => c.FechaCreacion)
 				.IsRequired();
-
 
 			#endregion
 		}

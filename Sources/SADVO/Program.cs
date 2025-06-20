@@ -1,6 +1,8 @@
 using SADVO.Core.Application;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Infrastructure.Persistence;
+using SADVO.Infrastructure.Shared;
+
 using SADVO.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,7 @@ builder.Services.AddSession(opt =>
 
 builder.Services.AddPersistenceLayerIOC(builder.Configuration);
 builder.Services.AddServicesLayerIOC(builder.Configuration);
+builder.Services.AddSharedLayerIOC(builder.Configuration);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserSession, UserSession>();
 

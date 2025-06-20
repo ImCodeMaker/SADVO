@@ -117,6 +117,23 @@ namespace SADVO.Controllers
 			}
 			return RedirectToRoute(new { controller = "Auth", action = "Index" });
 		}
+
+		public IActionResult PeriodoElectoral()
+		{
+			if (_userSession.hasUser())
+			{
+				return View();
+			}
+			return RedirectToRoute(new { controller = "Auth", action = "Index" });
+		}
+		public IActionResult NoPartidoPolitico()
+		{
+			if (_userSession.hasUser())
+			{
+				return View();
+			}
+			return RedirectToRoute(new { controller = "Auth", action = "Index" });
+		}
 	}
 
 }

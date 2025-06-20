@@ -1,0 +1,169 @@
+﻿@model List<SADVO.Core.Application.ViewModels.Elecciones.EleccionViewModel>
+
+@{
+    ViewData["Title"] = "Gestión de Elecciones";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white shadow rounded-lg p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="text-center flex-1">
+                    <h1 class="text-3xl font-bold text-gray-900">Gestión de Elecciones</h1>
+                    <p class="mt-1 text-sm text-gray-600">Administra las elecciones del sistema</p>
+                </div>
+                <div class="ml-4">
+                    @if (ViewBag.HayEleccionActiva != true)
+                    {
+                        <a asp-action="Create"
+                           class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <span class="mr-2">+</span>
+                            Nueva Elección
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="inline-flex items-center px-4 py-2 bg-yellow-100 border border-yellow-300 rounded-md">
+                            <span class="text-yellow-800 text-sm font-medium">
+                                ⚠️ Ya existe una elección activa
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensajes informativos -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                <div class="flex items-center">
+                    <span class="text-green-500 mr-2">✓</span>
+                    <p>@TempData["Success"]</p>
+                </div>
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                <div class="flex items-center">
+                    <span class="text-red-500 mr-2">✗</span>
+                    <p>@TempData["Error"]</p>
+                </div>
+            </div>
+        }
+
+        <!-- Lista de Elecciones -->
+        <div class="bg-white shadow overflow-hidden sm:rounded-md">
+            @if (Model.Any())
+            {
+                <ul class="divide-y divide-gray-200">
+                    @foreach (var eleccion in Model)
+                    {
+                        <li class="px-6 py-4 hover:bg-gray-50">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0">
+                                            @if (eleccion.EsActiva)
+                                            {
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                    <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                                                    Activa
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                    <span class="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
+                                                    Finalizada
+                                                </span>
+                                            }
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-lg font-medium text-gray-900">
+                                                @eleccion.Nombre
+                                            </p>
+                                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 mt-1">
+                                                <span class="flex items-center">
+                                                    <span class="mr-1">📅</span>
+                                                    Creada: @eleccion.FechaCreacion.ToString("dd/MM/yyyy HH:mm")
+                                                </span>
+                                                @if (!eleccion.EsActiva)
+                                                {
+                                                    <span class="flex items-center">
+                                                        <span class="mr-1">🏁</span>
+                                                        Finalizada: @eleccion.FechaFinalizacion.ToString("dd/MM/yyyy HH:mm")
+                                                    </span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center space-x-2">
+                                    @if (eleccion.EsActiva)
+                                    {
+                                        <a asp-action="ConfirmarFinalizacion" asp-route-id="@eleccion.Id"
+                                           class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                            <span class="mr-2">🛑</span>
+                                            Finalizar
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Resultados" asp-route-id="@eleccion.Id"
+                                           class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <span class="mr-2">📊</span>
+                                            Ver Resultados
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="text-center py-16">
+                    <div class="text-gray-400 text-6xl mb-4">🗳️</div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No hay elecciones registradas</h3>
+                    <p class="text-gray-500 mb-6">Comience creando su primera elección en el sistema.</p>
+                    <a asp-action="Create"
+                       class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <span class="mr-2">+</span>
+                        Crear Elección
+                    </a>
+                </div>
+            }
+        </div>
+
+        <!-- Información adicional para administradores -->
+        @if (Model.Any())
+        {
+            <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <span class="text-blue-400 text-xl">ℹ️</span>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">
+                            Información del Sistema
+                        </h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p>
+                                Total de elecciones: <strong>@Model.Count</strong> |
+                                Activas: <strong>@Model.Count(e => e.EsActiva)</strong> |
+                                Finalizadas: <strong>@Model.Count(e => !e.EsActiva)</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SADVO.Core.Application.Dtos.PartidosPoliticos;
 using SADVO.Core.Application.Dtos.Usuarios;
 using SADVO.Core.Application.Helpers;
@@ -73,5 +74,8 @@ namespace SADVO.Core.Application.Services
 
 			return _mapper.Map<List<PartidosPoliticosDTO>>(activeUsers);
 		}
+
+
+
 	}
 }

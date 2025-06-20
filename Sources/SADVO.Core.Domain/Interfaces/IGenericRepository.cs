@@ -11,6 +11,5 @@
 		Task<Entity?> UpdateAsync(int Id, Entity entity);
 		Task<List<Entity>> GetAllListWithInclude(List<string> properties);
 		IQueryable GetAllLQueryWithInclude(List<string> properties);
-		Task<bool> DeleteFromDbAsync(int id);
 	}
 }

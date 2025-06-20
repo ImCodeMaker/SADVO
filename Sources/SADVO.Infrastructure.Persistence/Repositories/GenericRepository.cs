@@ -5,8 +5,8 @@ using SADVO.Infrastructure.Persistence.Contexts;
 
 namespace SADVO.Infrastructure.Persistence.Repositories
 {
-	public class GenericRepository<Entity> : IGenericRepository<Entity>
-		where Entity : class 
+	public class GenericRepository<Entity> :  IGenericRepository<Entity>
+		where Entity : class
 	{
 		private readonly SADVODbContext _context;
 
@@ -101,18 +101,6 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			return query;
 		}
 
-		public virtual async Task<bool> DeleteFromDbAsync(int id)
-		{
-			var entity = await _context.Set<Entity>().FindAsync(id);
-
-			if (entity == null)
-				return false;
-
-			_context.Set<Entity>().Remove(entity);
-			await _context.SaveChangesAsync();
-
-			return true;
-		}
 
 	}
 }

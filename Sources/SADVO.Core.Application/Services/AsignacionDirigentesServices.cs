@@ -36,9 +36,32 @@ namespace SADVO.Core.Application.Services
 			return await base.AddAsync(dto);
 		}
 
-		//public async Task<bool> ExisteEleccionActiva()
-		//{
-		//	return await _eleccionRepository.ExisteEleccionActivaAsync();
-		//}
+		public async Task<AsignacionDirigentesDTO> GetDirigente(int userId)
+		{
+			var getAllDirigentes = await _repository.GetAllList();
+			var dirigente = getAllDirigentes.FirstOrDefault(u => u.UsuarioId == userId);
+
+
+			if (dirigente!.Estado == false)
+			{
+				throw new InvalidOperationException("Este usuario no esta relacionado con ningún partido político.");
+			}
+
+			// Mapear la entidad al DTO
+			return _mapper.Map<AsignacionDirigentesDTO>(dirigente);
+		}
+
+		public async Task<int?> GetPartidoIdByUserIdAsync(int userId)
+		{
+			var asignacion = await _repository.GetByUserIdWithPartidoAsync(userId);
+
+			if (asignacion == null)
+				return null;
+
+			return asignacion.PartidoPoliticoId;
+		}
+
+
+
 	}
 }

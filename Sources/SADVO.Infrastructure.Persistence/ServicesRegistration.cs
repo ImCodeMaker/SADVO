@@ -5,7 +5,6 @@ using SADVO.Core.Domain.Interfaces;
 using SADVO.Infrastructure.Persistence.Contexts;
 using SADVO.Infrastructure.Persistence.Repositories;
 
-
 namespace SADVO.Infrastructure.Persistence
 {
 	public static class ServicesRegistration
@@ -26,6 +25,10 @@ namespace SADVO.Infrastructure.Persistence
 			services.AddTransient<IPartidosPoliticosRepository, PartidosPoliticosRepository>();
 			services.AddTransient<IAsignacionDirigentesRepository, AsignacionDirigentesRepository>();
 			services.AddTransient<ICandidatosRepository, CandidatosRepository>();
+			services.AddTransient<IAlianzasPoliticasRepository, AlianzasPoliticasRepository>();
+			services.AddTransient<IAsignacionCandidatosRepository, AsignacionCandidatosRepository>();
+			services.AddTransient<IEleccionesRepository, EleccionesRepository>();
+			services.AddTransient<IVotacionRepository, VotacionRepository>();
 			#endregion
 		}
 

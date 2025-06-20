@@ -29,13 +29,15 @@ namespace SADVO.Infrastructure.Persistence.EntityConfigurations
 
 			modelBuilder.Property(a => a.Estado)
 				.IsRequired()
-				.HasMaxLength(10);
+				.HasDefaultValue(true);
+
+			modelBuilder.Property(a => a.EstadoAlianza)
+				.HasConversion<int>()
+				.IsRequired();
 
 			modelBuilder.Property(a => a.FechaSolicitud)
 				.IsRequired();
 
-			modelBuilder.Property(a => a.FechaRespuesta)
-				.IsRequired();
 		}
 	}
 }

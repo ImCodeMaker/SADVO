@@ -78,9 +78,5 @@ namespace SADVO.Core.Application.Services
 			return query.Cast<TEntity>().Select(e => _mapper.Map<TDto>(e));
 		}
 
-		public virtual async Task<bool> DeleteFromDb(int Id)
-		{
-			return await _repository.DeleteFromDbAsync(Id);
-		}
 	}
 }

@@ -1,0 +1,145 @@
+﻿@model SADVO.Core.Application.ViewModels.Elecciones.ConfirmarFinalizacionViewModel
+
+@{
+    ViewData["Title"] = "Confirmar Finalización";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol class="flex items-center space-x-4">
+                    <li>
+                        <a asp-action="Index" class="text-gray-400 hover:text-gray-500">
+                            Elecciones
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <span class="text-gray-400 mx-2">/</span>
+                            <span class="text-gray-500">Confirmar Finalización</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <!-- Header de advertencia -->
+            <div class="bg-red-50 border-b border-red-200 px-6 py-4">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-red-400 text-3xl">⚠️</span>
+                    </div>
+                    <div class="ml-4">
+                        <h2 class="text-lg font-medium text-red-800">
+                            Confirmar Finalización de Elección
+                        </h2>
+                        <p class="text-sm text-red-600">
+                            Esta acción no se puede deshacer
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="px-6 py-6">
+                <div class="space-y-6">
+                    <!-- Información de la elección -->
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">
+                            Elección a Finalizar
+                        </h3>
+                        <p class="text-xl font-semibold text-blue-600">
+                            @Model.EleccionNombre
+                        </p>
+                        <p class="text-sm text-gray-500 mt-1">
+                            ID: @Model.EleccionId
+                        </p>
+                    </div>
+
+                    <!-- Advertencias -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <span class="text-yellow-400 text-xl">⚠️</span>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">
+                                    Antes de finalizar, tenga en cuenta:
+                                </h3>
+                                <div class="mt-2 text-sm text-yellow-700">
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Una vez finalizada, no se podrán registrar más votos</li>
+                                        <li>Los resultados quedarán permanentemente guardados</li>
+                                        <li>Esta acción es irreversible</li>
+                                        <li>Se generarán automáticamente los reportes finales</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirmación -->
+                    <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <span class="text-red-400 text-xl">🛑</span>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-red-800">
+                                    Confirmación requerida
+                                </h3>
+                                <p class="mt-2 text-sm text-red-700">
+                                    ¿Está seguro de que desea finalizar la elección "<strong>@Model.EleccionNombre</strong>"?
+                                    Esta acción cerrará permanentemente el proceso electoral y no podrá ser revertida.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="bg-gray-50 px-6 py-4 flex items-center justify-between">
+                <a asp-action="Index"
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancelar
+                </a>
+
+                <form asp-action="FinalizarEleccion" asp-route-id="@Model.EleccionId" method="post" class="inline">
+                    <button type="submit"
+                            onclick="return confirm('¿Está completamente seguro de que desea finalizar esta elección? Esta acción NO se puede deshacer.')"
+                            class="inline-flex items-center px-6 py-3 bg-red-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-red-700 active:bg-red-800 focus:outline-none focus:border-red-800 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        Sí, Finalizar Elección
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="mt-6 bg-blue-50 border border-blue-200 rounded-md p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <span class="text-blue-400 text-xl">ℹ️</span>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-800">
+                        ¿Qué sucede después de finalizar?
+                    </h3>
+                    <div class="mt-2 text-sm text-blue-700">
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Se calcularan automáticamente todos los resultados finales</li>
+                            <li>Se generarán reportes detallados por puesto y candidato</li>
+                            <li>Los datos quedarán disponibles para consulta histórica</li>
+                            <li>Se habilitará la opción para crear una nueva elección</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

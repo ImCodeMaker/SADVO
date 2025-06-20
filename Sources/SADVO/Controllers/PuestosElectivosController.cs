@@ -11,15 +11,18 @@ namespace SADVO.Controllers
 		private readonly IPuestosElectivosServices _puestosService;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
+		private readonly IEleccionesServices _eleccionesServices;
 
 		public PuestosElectivosController(
 			IPuestosElectivosServices puestosService,
 			IMapper mapper,
-			IUserSession userSession)
+			IUserSession userSession,
+			IEleccionesServices eleccionesServices)
 		{
 			_puestosService = puestosService;
 			_mapper = mapper;
 			_userSession = userSession;
+			_eleccionesServices = eleccionesServices;
 		}
 
 		private IActionResult CheckAuthorization()
@@ -38,12 +41,22 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var puestos = await _puestosService.GetAllAsync();
 			return View(_mapper.Map<List<PuestoElectivoViewModel>>(puestos));
 		}
 
 		public IActionResult Create()
 		{
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var authResult = CheckAuthorization();
 			return authResult ?? View();
 		}
@@ -52,6 +65,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var puesto = await _puestosService.GetByIdAsync(id);
 			if (puesto == null) return NotFound();
@@ -67,6 +85,11 @@ namespace SADVO.Controllers
 
 			if (!ModelState.IsValid)
 				return View(model);
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			try
 			{
@@ -92,6 +115,11 @@ namespace SADVO.Controllers
 			if (!ModelState.IsValid)
 				return View("Update", model);
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			try
 			{
 				var updateDto = _mapper.Map<UpdatePuestoElectivoDTO>(model);
@@ -111,6 +139,11 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var puesto = await _puestosService.GetByIdAsync(id);
 			if (puesto == null) return NotFound();
 
@@ -120,8 +153,14 @@ namespace SADVO.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ToggleEstado(int id)
 		{
+
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var puesto = await _puestosService.GetByIdAsync(id);
 			if (puesto == null) return NotFound();

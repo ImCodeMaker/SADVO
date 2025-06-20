@@ -5,14 +5,38 @@
 <section class="pt-10">
     <div class="text-center">
         <h1 class="text-4xl font-bold">SADVO - Centro de Votaciones 🇩🇴</h1>
-        <p class="text-md font-semibold">Para proseguir con la votacion, favor e ingresa tu documento de identidad.</p>
-    </div>
-    <div class="flex items-center justify-center mt-20 flex-col">
-            <form class="flex flex-col items-center space-y-4 mt-4" asp-action="Privacy" >
-            <label class="font-bold text-center">Ingresa tu cedula de identidad</label>
-                <input type="text" placeholder="001-0000000-1" class="px-10 h-12 w-96 border-2 border-black rounded-md placeholder:text-center" />
-                <button class="mt-6 bg-blue-500 text-white h-10 w-32 font-bold rounded-md hover:bg-blue-800" type="submit">Votar</button>
-            </form>
+        <p class="text-md font-semibold">Para proseguir con la votación, favor e ingresa tu documento de identidad.</p>
     </div>
 
+    <div class="flex items-center justify-center mt-20 flex-col">
+        @if (ViewBag.Error != null)
+        {
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form class="flex flex-col items-center space-y-4 mt-4" asp-action="Index" asp-controller="Home" method="post">
+            <label class="font-bold text-center">Ingresa tu cédula de identidad</label>
+            <input type="text"
+                   name="numeroCedula"
+                   placeholder="001-0000000-1"
+                   class="px-10 h-12 w-96 border-2 border-black rounded-md placeholder:text-center"
+                   pattern="[0-9]{3}-[0-9]{7}-[0-9]{1}"
+                   title="Formato: 001-0000000-1"
+                   required />
+            <button class="mt-6 bg-blue-500 text-white h-10 w-32 font-bold rounded-md hover:bg-blue-800"
+                    type="submit">
+                Votar
+            </button>
+        </form>
+
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-600 mb-2">¿Tienes una foto de tu cédula?</p>
+            <a asp-action="ScanCedula" asp-controller="Home"
+               class="text-blue-500 hover:text-blue-700 underline">
+                Escanear cédula con cámara
+            </a>
+        </div>
+    </div>
 </section>

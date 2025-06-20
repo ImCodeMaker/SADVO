@@ -22,7 +22,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-2 md:px-0">
                     @foreach (var candidato in Model)
                     {
-                        <div class="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 flex flex-col h-[500px] w-full">
+                        <div class="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 flex flex-col h-[520px] w-full">
 
                             <!-- Estado -->
                             <div class="absolute top-4 right-4">
@@ -40,6 +40,19 @@
                             <!-- Nombre -->
                             <h2 class="text-xl font-bold text-center text-gray-800 mb-1">
                                 @candidato.Nombre @candidato.Apellido
+                            </h2>
+
+                            <!-- Partido -->
+                            <h2 class="text-md font-normal text-center text-gray-800 mb-1">
+                                Perteneciente al Partido: @candidato.PartidoName
+                            </h2>
+
+                            <!-- Puesto Electivo -->
+                            <h2 class="text-md font-semibold text-center text-gray-600 mb-1">
+                                Puesto Electivo:
+                                <span class="@(candidato.TieneAsignacion ? "text-green-600" : "text-red-600")">
+                                    @(candidato.TieneAsignacion ? "Asignado" : "No asignado")
+                                </span>
                             </h2>
 
                             <!-- Acciones -->

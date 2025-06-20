@@ -1,0 +1,120 @@
+﻿@model AsignacionCandidatosViewModel
+@{
+    ViewData["Title"] = "Asignaciones de Candidatos";
+    Layout = "_LayoutDirigente";
+}
+
+<div class="min-h-screen bg-gray-50 p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Debug Info (puedes eliminar esto después) -->
+        <div class="bg-yellow-100 p-4 mb-4 rounded-lg">
+            <p class="font-semibold">Debug Info:</p>
+            <p>Total de asignaciones: @Model.Asignaciones?.Count</p>
+            @if (Model.Asignaciones != null)
+            {
+                foreach (var a in Model.Asignaciones)
+                {
+                    <p>@a.NombreCandidato @a.ApellidoCandidato - ID: @a.Id - Respaldos: @(a.PartidosQueRespaldan?.Count ?? 0)</p>
+                }
+            }
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Asignaciones de Candidatos</h1>
+
+            @if (Model.PuedeAgregar)
+            {
+                <a asp-action="Create"
+                   class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-200">
+                    <i class="fas fa-plus mr-2"></i> Nueva Asignación
+                </a>
+            }
+        </div>
+
+        <!-- Cards Grid -->
+        @if (Model.Asignaciones != null && Model.Asignaciones.Any())
+        {
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach (var asignacion in Model.Asignaciones)
+                {
+                    <!-- Verificación adicional para asegurar que es una asignación original -->
+                    @if (asignacion.PartidoRespaldaId == null)
+                    {
+                        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden">
+                            <!-- Card Header -->
+                            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                        <span class="text-white text-sm font-medium">Activo</span>
+                                    </div>
+                                    <div class="text-white text-xs opacity-75">
+                                        ID: @asignacion.Id
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-6">
+                                <!-- Candidate Info -->
+                                <div class="mb-4">
+                                    <div class="flex items-center space-x-3 mb-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-user text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900">
+                                                @asignacion.NombreCandidato @asignacion.ApellidoCandidato
+                                            </h3>
+                                            <p class="text-sm text-gray-500">@asignacion.PartidoConSiglas</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Position Info -->
+                                <div class="mb-4">
+                                    <div class="bg-gray-50 rounded-xl p-4">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="text-sm font-medium text-gray-700">Puesto Electivo</span>
+                                        </div>
+                                        <p class="text-indigo-900 font-semibold">@asignacion.NombrePuestoElectivo</p>
+                                    </div>
+                                </div>
+
+                                <!-- Respaldo Info -->
+                                @if (asignacion.PartidosQueRespaldan != null && asignacion.PartidosQueRespaldan.Any())
+                                {
+                                    <div class="mb-4">
+                                        <div class="bg-indigo-50 border-l-4 border-indigo-400 text-indigo-800 p-4 rounded-xl">
+                                            <p class="font-semibold mb-1">Respaldado también por:</p>
+                                            <ul class="list-disc pl-5 text-sm">
+                                                @foreach (var respaldo in asignacion.PartidosQueRespaldan)
+                                                {
+                                                    <li>@respaldo</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- Actions -->
+                                <div class="flex space-x-3 mt-4">
+                                    <a asp-action="ConfirmarEliminar" asp-route-id="@asignacion.Id"
+                                       class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition-colors duration-200 border border-red-200 hover:border-red-300">
+                                        Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center text-gray-500 mt-12">
+                <p class="text-lg font-medium">No hay asignaciones registradas.</p>
+            </div>
+        }
+    </div>
+</div>

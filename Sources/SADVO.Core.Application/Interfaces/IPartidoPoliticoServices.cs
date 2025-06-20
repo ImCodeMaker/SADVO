@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SADVO.Core.Application.Dtos.PartidosPoliticos;
+using SADVO.Core.Application.ViewModels.PartidosPoliticos;
 using SADVO.Core.Domain.Entities;
 
 namespace SADVO.Core.Application.Interfaces

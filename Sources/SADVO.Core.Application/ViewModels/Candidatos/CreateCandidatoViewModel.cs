@@ -11,5 +11,7 @@ namespace SADVO.Core.Application.ViewModels.Candidatos
 		[Display(Name = "Logo")]
 		[DataType(DataType.Upload)]
 		public IFormFile? LogoFile { get; set; }
+		public int? PartidoPoliticoId { get; set; }
+		public string? PartidoName { get; set; }
 	}
 }

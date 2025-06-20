@@ -1,0 +1,158 @@
+﻿@model SADVO.Core.Application.ViewModels.Elecciones.CreateEleccionViewModel
+
+@{
+    ViewData["Title"] = "Nueva Elección";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center py-12 px-4">
+    <div class="w-full max-w-md">
+
+        <!-- Header Card -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                <div class="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center">
+                    <div class="w-4 h-3 border-2 border-white rounded-sm"></div>
+                </div>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Nueva Elección</h1>
+            <p class="text-gray-600">Configure los detalles de la nueva elección</p>
+        </div>
+
+        <!-- Main Form Card -->
+        <div class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 p-8">
+
+            <!-- Error Messages -->
+            @if (Model?.ErroresValidacion?.Any() == true)
+            {
+                <div class="mb-6 p-4 bg-red-50/80 border border-red-200/50 rounded-2xl">
+                    <div class="text-red-800 font-medium mb-2">Se encontraron errores:</div>
+                    <ul class="text-red-700 text-sm space-y-1">
+                        @foreach (var error in Model.ErroresValidacion)
+                        {
+                            <li class="flex items-start">
+                                <span class="inline-block w-1 h-1 bg-red-400 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                @error
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="mb-6 p-4 bg-red-50/80 border border-red-200/50 rounded-2xl">
+                    <div class="text-red-800 font-medium mb-2">Errores de validación:</div>
+                    <ul class="text-red-700 text-sm space-y-1">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li class="flex items-start">
+                                <span class="inline-block w-1 h-1 bg-red-400 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                @error.ErrorMessage
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <!-- Form -->
+            <form asp-action="Create" method="post" class="space-y-6">
+
+                <!-- Nombre Field -->
+                <div class="space-y-2">
+                    <label asp-for="Nombre" class="block text-sm font-semibold text-gray-800">
+                        Nombre de la elección
+                        <span class="text-red-500 ml-1">*</span>
+                    </label>
+                    <div class="relative">
+                        <input asp-for="Nombre"
+                               placeholder="Ej: Elecciones Generales 2025"
+                               class="w-full px-4 py-4 bg-gray-50/50 border-0 rounded-2xl text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 @(ViewData.ModelState["Nombre"]?.Errors.Count > 0 ? "ring-2 ring-red-300" : "")" />
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Nombre" class="text-xs text-red-600 ml-1"></span>
+                </div>
+
+                <!-- Año Field -->
+                <div class="space-y-2">
+                    <label asp-for="Año" class="block text-sm font-semibold text-gray-800">
+                        Año de la elección
+                        <span class="text-red-500 ml-1">*</span>
+                    </label>
+                    <div class="relative">
+                        <input asp-for="Año"
+                               type="number"
+                               placeholder="Ej: 2025"
+                               class="w-full px-4 py-4 bg-gray-50/50 border-0 rounded-2xl text-gray-900 placeholder-gray-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 @(ViewData.ModelState["Añio"]?.Errors.Count > 0 ? "ring-2 ring-red-300" : "")" />
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Año" class="text-xs text-red-600 ml-1"></span>
+                </div>
+
+                <!-- Fecha Field -->
+                <div class="space-y-2">
+                    <label asp-for="FechaRealizacion" class="block text-sm font-semibold text-gray-800">
+                        Fecha y hora de realización
+                        <span class="text-red-500 ml-1">*</span>
+                    </label>
+                    <div class="relative">
+                        <input asp-for="FechaRealizacion"
+                               type="datetime-local"
+                               value="@Model.FechaRealizacion.ToString("yyyy-MM-ddTHH:mm")"
+                               class="w-full px-4 py-4 bg-gray-50/50 border-0 rounded-2xl text-gray-900 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 @(ViewData.ModelState["FechaRealizacion"]?.Errors.Count > 0 ? "ring-2 ring-red-300" : "")" />
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="FechaRealizacion" class="text-xs text-red-600 ml-1"></span>
+                </div>
+
+                <!-- Info Card -->
+                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4">
+                    <div class="text-blue-800 font-medium text-sm mb-3">Información importante</div>
+                    <div class="space-y-2 text-blue-700 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span>Solo puede existir una elección activa a la vez</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span>La elección se activará automáticamente al crearla</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span>Asegúrese de tener candidatos y puestos definidos</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span>La fecha predeterminada es la actual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-6">
+                    <a asp-action="Index"
+                       class="flex-1 flex items-center justify-center px-6 py-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-2xl transition-all duration-200 hover:scale-[0.98]">
+                        Cancelar
+                    </a>
+                    <button type="submit"
+                            class="flex-1 flex items-center justify-center px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-2xl transition-all duration-200 hover:scale-[0.98] shadow-lg hover:shadow-xl">
+                        Crear Elección
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8">
+            <p class="text-gray-500 text-sm">
+                Sistema de Administración de Votaciones Online
+            </p>
+        </div>
+    </div>
+</div>

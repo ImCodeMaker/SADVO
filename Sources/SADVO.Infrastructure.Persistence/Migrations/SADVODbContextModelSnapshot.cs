@@ -31,8 +31,12 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Estado")
-                        .HasMaxLength(10)
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("EstadoAlianza")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaRespuesta")
                         .HasColumnType("datetime2");
@@ -80,6 +84,9 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     b.Property<int>("PartidoPoliticoId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PartidoRespaldaId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PartidosPoliticosId")
                         .HasColumnType("int");
 
@@ -91,6 +98,8 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                     b.HasIndex("CandidatoId");
 
                     b.HasIndex("PartidoPoliticoId");
+
+                    b.HasIndex("PartidoRespaldaId");
 
                     b.HasIndex("PartidosPoliticosId");
 
@@ -163,10 +172,19 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("PartidoName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PartidoPoliticoId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PartidosPoliticosId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PartidoPoliticoId");
 
                     b.HasIndex("PartidosPoliticosId");
 
@@ -224,14 +242,14 @@ namespace SADVO.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Año")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Estado")
                         .HasMaxLength(50)
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaFinalizacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaRealizacion")
@@ -472,7 +490,7 @@ namespace SADVO.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("SADVO.Core.Domain.Entities.AsignacionCandidatos", b =>
                 {
                     b.HasOne("SADVO.Core.Domain.Entities.Candidatos", "Candidato")
-                        .WithMany("asignacionCandidato")
+                        .WithMany("Asignaciones")
                         .HasForeignKey("CandidatoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -482,6 +500,11 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .HasForeignKey("PartidoPoliticoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("SADVO.Core.Domain.Entities.PartidosPoliticos", "PartidoQueRespalda")
+                        .WithMany()
+                        .HasForeignKey("PartidoRespaldaId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SADVO.Core.Domain.Entities.PartidosPoliticos", null)
                         .WithMany("AsignacionCandidatos")
@@ -494,6 +517,8 @@ namespace SADVO.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Candidato");
+
+                    b.Navigation("PartidoQueRespalda");
 
                     b.Navigation("PartidosPoliticos");
 
@@ -521,9 +546,17 @@ namespace SADVO.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("SADVO.Core.Domain.Entities.Candidatos", b =>
                 {
+                    b.HasOne("SADVO.Core.Domain.Entities.PartidosPoliticos", "PartidoPolitico")
+                        .WithMany()
+                        .HasForeignKey("PartidoPoliticoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("SADVO.Core.Domain.Entities.PartidosPoliticos", null)
                         .WithMany("Candidatos")
                         .HasForeignKey("PartidosPoliticosId");
+
+                    b.Navigation("PartidoPolitico");
                 });
 
             modelBuilder.Entity("SADVO.Core.Domain.Entities.HistorialVotaciones", b =>
@@ -590,7 +623,7 @@ namespace SADVO.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("SADVO.Core.Domain.Entities.Candidatos", b =>
                 {
-                    b.Navigation("asignacionCandidato");
+                    b.Navigation("Asignaciones");
                 });
 
             modelBuilder.Entity("SADVO.Core.Domain.Entities.Ciudadanos", b =>

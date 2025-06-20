@@ -1,0 +1,130 @@
+﻿@model SADVO.Core.Application.ViewModels.ResultadosOCRViewModel
+
+@{
+    ViewData["Title"] = "Resultados del Escaneo de Cédula";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+
+            <!-- Header -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4><i class="fas fa-search"></i> Resultados del Escaneo OCR</h4>
+                </div>
+            </div>
+
+            @if (Model.Exitoso)
+            {
+                <!-- Resultado Exitoso -->
+                <div class="alert alert-success">
+                    <h5><i class="fas fa-check-circle"></i> ¡Escaneo Exitoso!</h5>
+                    <p>Se ha extraído información de la cédula correctamente.</p>
+                </div>
+
+                <!-- Información Extraída -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5><i class="fas fa-id-card"></i> Información Extraída</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Número de Cédula:</strong>
+                                <p class="text-primary fs-4">@Model.NumeroCedula</p>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Confianza:</strong>
+                                <p>
+                                    <span class="badge bg-@Model.ClaseEstado fs-6">
+                                        @Model.ConfianzaPorcentaje (@Model.EstadoConfianza)
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Confirmación -->
+                <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-edit"></i> Confirmar Información</h5>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="ConfirmarCedula" asp-controller="Home" method="post" asp-antiforgery="true">
+                            <div class="mb-3">
+                                <label asp-for="CedulaConfirmada" class="form-label">
+                                    Confirma o corrige el número de cédula:
+                                </label>
+                                <input asp-for="CedulaConfirmada"
+                                       class="form-control form-control-lg"
+                                       value="@Model.NumeroCedula"
+                                       placeholder="000-0000000-0">
+                                <span asp-validation-for="CedulaConfirmada" class="text-danger"></span>
+                                <div class="form-text">
+                                    Formato: 000-0000000-0 (puedes editarlo si es necesario)
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a asp-action="ScanCedula" asp-controller="Home" class="btn btn-secondary me-md-2">
+                                    <i class="fas fa-arrow-left"></i> Escanear Otra Vez
+                                </a>
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-check"></i> Continuar a Votaciones
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Resultado con Error -->
+                <div class="alert alert-danger">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Error en el Escaneo</h5>
+                    <p>@Model.ErrorMessage</p>
+                </div>
+            }
+
+            <!-- Texto Completo Extraído -->
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-file-text"></i> Texto Completo Extraído (para depuración)</h5>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.TextoCompleto))
+                    {
+                        <div class="bg-light p-3 rounded">
+                            <small class="text-muted">Todo el texto que detectó el OCR:</small>
+                            <pre class="mt-2 mb-0 text-dark">@Model.TextoCompleto</pre>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No se extrajo texto o no está disponible.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="mt-4 text-center">
+                <a asp-action="ScanCedula" asp-controller="Home" class="btn btn-outline-primary">
+                    <i class="fas fa-camera"></i> Escanear Nueva Cédula
+                </a>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary">
+                    <i class="fas fa-home"></i> Ir al Inicio
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

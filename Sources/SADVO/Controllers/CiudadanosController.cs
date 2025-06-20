@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SADVO.Core.Application.Dtos.Ciudadanos;
 using SADVO.Core.Application.Interfaces;
+using SADVO.Core.Application.Services;
 using SADVO.Core.Application.ViewModels.Ciudadanos;
 
 namespace SADVO.Controllers
@@ -11,15 +12,18 @@ namespace SADVO.Controllers
 		private readonly ICiudadanosServices _ciudadanosService;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
+		private readonly IEleccionesServices _eleccionesServices;
 
 		public CiudadanosController(
 			ICiudadanosServices ciudadanosService,
 			IMapper mapper,
-			IUserSession userSession)
+			IUserSession userSession,
+			IEleccionesServices eleccionesServices)
 		{
 			_ciudadanosService = ciudadanosService;
 			_mapper = mapper;
 			_userSession = userSession;
+			_eleccionesServices = eleccionesServices;
 		}
 
 		private IActionResult CheckAuthorization()
@@ -38,12 +42,22 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var ciudadanos = await _ciudadanosService.GetAllAsync();
 			return View(_mapper.Map<List<CiudadanosViewModel>>(ciudadanos));
 		}
 
 		public IActionResult Create()
 		{
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var authResult = CheckAuthorization();
 			return authResult ?? View();
 		}
@@ -52,6 +66,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var ciudadano = await _ciudadanosService.GetByIdAsync(id);
 			if (ciudadano == null) return NotFound();
@@ -64,6 +83,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			if (!ModelState.IsValid)
 				return View(model);
@@ -89,6 +113,11 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			if (!ModelState.IsValid)
 				return View("Update", model);
 
@@ -111,6 +140,11 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var ciudadano = await _ciudadanosService.GetByIdAsync(id);
 			if (ciudadano == null) return NotFound();
 
@@ -122,6 +156,11 @@ namespace SADVO.Controllers
 		{
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var ciudadano = await _ciudadanosService.GetByIdAsync(id);
 			if (ciudadano == null) return NotFound();

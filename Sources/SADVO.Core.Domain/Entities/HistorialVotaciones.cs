@@ -11,8 +11,8 @@ namespace SADVO.Core.Domain.Entities
 		public required bool EmailEnviado { get; set; }
 
 		#region Relacion muchos a uno - Un Historial puede tener varias Elecciones y varios Ciudadanos
-		public required Elecciones Eleccion { get; set;  }
-		public required Ciudadanos Ciudadano { get; set; }
+		public Elecciones? Eleccion { get; set;  }
+		public Ciudadanos? Ciudadano { get; set; }
 		#endregion 
 	}
 }

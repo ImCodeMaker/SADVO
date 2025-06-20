@@ -14,12 +14,14 @@ namespace SADVO.Controllers
 		private readonly IUserServices _userServices;
 		private readonly IMapper _mapper;
 		private readonly IUserSession _userSession;
+		private readonly IEleccionesServices _eleccionesServices;
 
-		public UsuariosController(IUserServices userServices, IMapper mapper, IUserSession userSession)
+		public UsuariosController(IUserServices userServices, IMapper mapper, IUserSession userSession, IEleccionesServices eleccionesServices)
 		{
 			_userServices = userServices;
 			_mapper = mapper;
 			_userSession = userSession;
+			_eleccionesServices = eleccionesServices;
 		}
 
 		private IActionResult RedirectIfNotAuthenticated()
@@ -38,6 +40,11 @@ namespace SADVO.Controllers
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var users = await _userServices.GetAllAsync();
 			return View(_mapper.Map<List<UsuarioViewModel>>(users));
 		}
@@ -45,6 +52,12 @@ namespace SADVO.Controllers
 		public IActionResult Create()
 		{
 			var authCheck = RedirectIfNotAuthenticated();
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			return authCheck ?? View();
 		}
 
@@ -52,6 +65,11 @@ namespace SADVO.Controllers
 		{
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var user = await _userServices.GetByIdAsync(id);
 			if (user == null) return NotFound();
@@ -64,6 +82,11 @@ namespace SADVO.Controllers
 		{
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			if (!ModelState.IsValid)
 				return View(model);
@@ -87,6 +110,11 @@ namespace SADVO.Controllers
 			var authResult = RedirectIfNotAuthenticated();
 			if (authResult != null) return authResult;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			if (!ModelState.IsValid)
 				return View("Update", model);
 
@@ -109,6 +137,11 @@ namespace SADVO.Controllers
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
 
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
+
 			var user = await _userServices.GetByIdAsync(id);
 			return user == null ? NotFound() : View("ConfirmarEstado", _mapper.Map<UsuarioViewModel>(user));
 		}
@@ -118,6 +151,11 @@ namespace SADVO.Controllers
 		{
 			var authCheck = RedirectIfNotAuthenticated();
 			if (authCheck != null) return authCheck;
+
+			if (_eleccionesServices.GetEleccionActivaAsync != null)
+			{
+				return RedirectToAction("PeriodoElectoral", "Auth");
+			}
 
 			var user = await _userServices.GetByIdAsync(id);
 			if (user == null) return NotFound();

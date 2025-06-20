@@ -7,8 +7,8 @@ namespace SADVO.Core.Domain.Entities
 		public required string Nombre { get; set; }
 		public required DateTime FechaRealizacion { get; set; }
 		public required bool Estado { get; set; } = true;
+		public required int Año { get; set; }
 		public DateTime FechaCreacion { get; set; }
-		public DateTime FechaFinalizacion { get; set; }
 
 		#region Relacion uno a muchos  - Una eleccion Puede tener varios historiales y votos
 		public ICollection<HistorialVotaciones> HistorialVotaciones { get; set; } = new List<HistorialVotaciones>();
