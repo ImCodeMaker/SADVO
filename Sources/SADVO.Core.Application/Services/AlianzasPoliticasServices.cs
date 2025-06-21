@@ -82,11 +82,9 @@ namespace SADVO.Core.Application.Services
 		{
 			if (createDto == null) throw new ArgumentNullException(nameof(createDto));
 
-			// Validar que no exista una relación pendiente
 			if (await ExisteRelacionPendienteAsync(createDto.PartidoSolicitanteId, createDto.PartidoDestinoId))
 				return false;
 
-			// Validar que no sea el mismo partido
 			if (createDto.PartidoSolicitanteId == createDto.PartidoDestinoId)
 				return false;
 

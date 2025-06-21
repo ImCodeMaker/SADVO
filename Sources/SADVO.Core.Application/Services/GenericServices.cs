@@ -33,11 +33,9 @@ namespace SADVO.Core.Application.Services
 		{
 			if (updateDto == null) throw new ArgumentNullException(nameof(updateDto));
 
-			// Obtener la entidad existente
 			var existingEntity = await _repository.GetById(id);
 			if (existingEntity == null) return false;
 
-			// Aplicar las actualizaciones
 			_mapper.Map(updateDto, existingEntity);
 			await _repository.UpdateAsync(id, existingEntity);
 

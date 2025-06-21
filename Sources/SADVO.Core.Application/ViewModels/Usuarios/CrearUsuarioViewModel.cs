@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SADVO.Core.Application.ViewModels.Usuarios
 {
+	public enum UserRole
+	{
+		Administrador = 1,
+		Dirigente = 2
+	}
 	public class CrearUsuarioViewModel 
 	{
 		[Required(ErrorMessage = "El nombre es obligatorio.")]
@@ -30,7 +35,7 @@ namespace SADVO.Core.Application.ViewModels.Usuarios
 		[Compare("Contraseña", ErrorMessage = "Las contraseñas no coinciden.")]
 		[DataType(DataType.Password)]
 		public required string ConfirmarContraseña { get; set; }
-		public string? Rol { get; set; } = "Dirigente";
+		public UserRole Rol { get; set; } 
 		public required bool Estado { get; set; } = true;
 
 	}

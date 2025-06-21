@@ -20,6 +20,9 @@ namespace SADVO.Core.Domain.Interfaces
 		Task<List<AsignacionCandidatos>> GetRespaldosEntrePartidosAsync(int partidoId1, int partidoId2);
 		Task<AsignacionCandidatos?> GetAsignacionDelCandidatoAsync(int candidatoId);
 		Task<List<AsignacionCandidatos>> GetAsignacionesConAliadosAsync(int partidoId);
+		Task<List<AsignacionCandidatos>> GetAsignacionesConPuestosInactivosAsync();
+		Task<bool> DesactivarAsignacionesPorPuestoInactivoAsync(int puestoElectivoId);
+		Task<bool> LiberarAsignacionesDePuestosInactivosManualAsync();
 
 	}
 }

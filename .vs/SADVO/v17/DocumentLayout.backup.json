@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\votacion\\votar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\votacion\\votar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{90FC8E3D-9236-48C7-A2F3-F72661B05548}|Sources\\SADVO\\SADVO.csproj|solutionrelative:sources\\sadvo\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3C3F96A-21CF-4EAC-92B8-338BC3A1E0A3}|Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj|c:\\users\\teudy encarnacion\\documents\\projects\\sadvo\\sources\\sadvo.core.application\\viewmodels\\usuarios\\crearusuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3C3F96A-21CF-4EAC-92B8-338BC3A1E0A3}|Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj|solutionrelative:sources\\sadvo.core.application\\viewmodels\\usuarios\\crearusuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +27,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Votar.cshtml",
-              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\Votacion\\Votar.cshtml",
-              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\Votacion\\Votar.cshtml",
-              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\Votacion\\Votar.cshtml",
-              "RelativeToolTip": "Sources\\SADVO\\Views\\Votacion\\Votar.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\Usuarios\\Create.cshtml",
+              "RelativeDocumentMoniker": "Sources\\SADVO\\Views\\Usuarios\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO\\Views\\Usuarios\\Create.cshtml",
+              "RelativeToolTip": "Sources\\SADVO\\Views\\Usuarios\\Create.cshtml",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAF8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-20T18:43:43.556Z",
+              "WhenOpened": "2025-06-21T03:07:43.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CrearUsuarioViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\ViewModels\\Usuarios\\CrearUsuarioViewModel.cs",
+              "RelativeDocumentMoniker": "Sources\\SADVO.Core.Application\\ViewModels\\Usuarios\\CrearUsuarioViewModel.cs",
+              "ToolTip": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\ViewModels\\Usuarios\\CrearUsuarioViewModel.cs",
+              "RelativeToolTip": "Sources\\SADVO.Core.Application\\ViewModels\\Usuarios\\CrearUsuarioViewModel.cs",
+              "ViewState": "AgIAABgAAACAy8zMzMwOwCUAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T03:07:01.906Z",
               "EditorCaption": ""
             }
           ]

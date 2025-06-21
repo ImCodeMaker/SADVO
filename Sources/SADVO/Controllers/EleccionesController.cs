@@ -50,7 +50,6 @@ namespace SADVO.Controllers
 			var authResult = CheckAuthorization();
 			if (authResult != null) return authResult;
 
-			// Verificar que no hay elección activa
 			var eleccionActiva = await _eleccionesService.GetEleccionActivaAsync();
 			if (eleccionActiva != null)
 			{
@@ -58,10 +57,9 @@ namespace SADVO.Controllers
 				return RedirectToAction("Index");
 			}
 
-			// Crear el modelo permitiendo diferentes años
 			var model = new CreateEleccionViewModel
 			{
-				Año = DateTime.Now.Year // Valor por defecto, pero editable
+				Año = DateTime.Now.Year 
 			};
 
 			return View(model);
@@ -81,16 +79,16 @@ namespace SADVO.Controllers
 			try
 			{
 				var dto = _mapper.Map<CrearEleccionDTO>(model);
-				var result = await _eleccionesService.CreateEleccionWithValidationAsync(dto);
+				var (success, errors) = await _eleccionesService.CreateEleccionWithValidationAsync(dto);
 
-				if (result)
+				if (success)
 				{
 					TempData["Success"] = $"La elección '{model.Nombre}' ha sido creada exitosamente.";
 					return RedirectToAction("Index");
 				}
 				else
 				{
-					model.ErroresValidacion.Add("Error al crear la elección. Inténtelo nuevamente.");
+					model.ErroresValidacion.AddRange(errors);
 					return View(model);
 				}
 			}
@@ -147,11 +145,9 @@ namespace SADVO.Controllers
 		{
 			try
 			{
-				// Verificar autorización
 				var authResult = CheckAuthorization();
 				if (authResult != null) return authResult;
 
-				// Obtener la elección
 				var eleccion = await _eleccionesService.GetByIdAsync(id);
 				if (eleccion == null)
 				{
@@ -159,22 +155,18 @@ namespace SADVO.Controllers
 					return RedirectToAction("Index");
 				}
 
-				// Verificar que la elección esté finalizada
 				if (eleccion.EsActiva)
 				{
 					TempData["Error"] = "No se pueden ver los resultados de una elección activa.";
 					return RedirectToAction("Index");
 				}
 
-				// Obtener los resultados de la elección
 				var resultados = await _eleccionesService.GetResultadosEleccionAsync(id);
 				if (resultados == null || !resultados.Any())
 				{
 					TempData["Warning"] = "Esta elección no tiene votos registrados aún.";
-					// Aún así mostramos la vista pero con datos vacíos
 				}
 
-				// Crear el ViewModel
 				var viewModel = new ResultadosEleccionViewModel
 				{
 					EleccionId = eleccion.Id,
@@ -183,7 +175,6 @@ namespace SADVO.Controllers
 					FechaFinalizacion = eleccion.FechaFinalizacion
 				};
 
-				// Agrupar resultados por puesto si existen
 				if (resultados != null && resultados.Any())
 				{
 					var resultadosPorPuesto = resultados.GroupBy(r => new { r.PuestoElectivoId, r.PuestoElectivoNombre })
@@ -193,7 +184,7 @@ namespace SADVO.Controllers
 							PuestoNombre = g.Key.PuestoElectivoNombre,
 							TotalVotos = g.Sum(r => r.CantidadVotos),
 							Candidatos = g.OrderByDescending(r => r.CantidadVotos)
-									   .ThenBy(r => r.CandidatoNombre) // Orden secundario por nombre
+									   .ThenBy(r => r.CandidatoNombre) 
 									   .Select((r, index) => new ResultadoCandidatoViewModel
 									   {
 										   CandidatoId = r.CandidatoId,
@@ -201,16 +192,15 @@ namespace SADVO.Controllers
 										   PartidoPoliticoNombre = r.PartidoPoliticoNombre,
 										   CantidadVotos = r.CantidadVotos,
 										   Porcentaje = Math.Round(r.Porcentaje, 2),
-										   EsGanador = index == 0 && r.CantidadVotos > 0, // Solo es ganador si tiene votos
+										   EsGanador = index == 0 && r.CantidadVotos > 0, 
 										   Posicion = index + 1
 									   }).ToList()
 						})
-						.OrderBy(p => p.PuestoNombre) // Ordenar puestos alfabéticamente
+						.OrderBy(p => p.PuestoNombre) 
 						.ToList();
 
 					viewModel.ResultadosPorPuesto = resultadosPorPuesto;
 
-					// Calcular estadísticas generales
 					viewModel.TotalCandidatos = resultados.Count;
 					viewModel.TotalVotosEmitidos = resultados.Sum(r => r.CantidadVotos);
 					viewModel.TotalPuestosDisputados = resultadosPorPuesto.Count;
@@ -227,9 +217,6 @@ namespace SADVO.Controllers
 			}
 			catch (Exception ex)
 			{
-				// Log del error (si tienes sistema de logging)
-				// _logger.LogError(ex, "Error al cargar resultados de elección {EleccionId}", id);
-
 				TempData["Error"] = "Ocurrió un error al cargar los resultados de la elección. Por favor, intente nuevamente.";
 				return RedirectToAction("Index");
 			}

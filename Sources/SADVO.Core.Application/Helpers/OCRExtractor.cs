@@ -69,7 +69,7 @@ namespace SADVO.Core.Application.Services
 			}
 		}
 
-		private static Bitmap PreprocesarImagen(System.Drawing.Image originalImage)
+		private static Bitmap PreprocesarImagen(Image originalImage)
 		{
 			var newWidth = originalImage.Width < 800 ? originalImage.Width * 2 : originalImage.Width;
 			var newHeight = originalImage.Height < 600 ? originalImage.Height * 2 : originalImage.Height;

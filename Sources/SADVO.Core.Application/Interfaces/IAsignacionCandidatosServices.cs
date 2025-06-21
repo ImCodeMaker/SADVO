@@ -9,5 +9,8 @@ namespace SADVO.Core.Application.Interfaces
 		Task<List<AsignacionCandidatoDTO>> GetAsignacionesActivasAsync(int partidoId);
 		Task<bool> ValidarAsignacionCandidatoAsync(int candidatoId, int puestoElectivoId, int partidoId);
 		Task<AsignacionCandidatoDTO?> GetByIdWithIncludesAsync(int id);
+		Task<List<AsignacionCandidatoDTO>> GetAsignacionesConPuestosInactivosAsync();
+		Task<bool> LiberarAsignacionesDePuestosInactivosAsync();
+		Task<bool> DesactivarAsignacionesPorPuestoAsync(int puestoElectivoId);
 	}
 }

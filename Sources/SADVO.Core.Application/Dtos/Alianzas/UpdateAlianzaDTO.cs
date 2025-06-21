@@ -1,5 +1,4 @@
 ﻿using SADVO.Core.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace SADVO.Core.Application.Dtos.Alianzas
 {

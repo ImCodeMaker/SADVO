@@ -11,7 +11,7 @@ namespace SADVO.Core.Application.Interfaces
 		Task<bool> FinalizarEleccionAsync(int eleccionId);
 		Task<(bool isValid, List<string> errors)> ValidarCreacionEleccionAsync();
 		Task<List<ResultadoEleccionDTO>> GetResultadosEleccionAsync(int eleccionId);
-		Task<bool> CreateEleccionWithValidationAsync(CrearEleccionDTO dto);
+		Task<(bool success, List<string> errors)> CreateEleccionWithValidationAsync(CrearEleccionDTO dto);
 		Task<AniosDisponiblesDTO> GetAniosDisponiblesAsync();
 		Task<List<ResumenElectoralDTO>> GetResumenElectoralPorAnioAsync(int anio);
 		Task<(bool isValid, List<string> errors)> ValidarCreacionEleccionConAnioAsync(CrearEleccionDTO dto);

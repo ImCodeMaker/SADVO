@@ -39,7 +39,6 @@ namespace SADVO.Core.Application.Services
 		{
 			var candidatos = new List<CandidatosDTO>();
 
-			// Candidatos del partido actual (sin cambios)
 			var candidatosPartido = await _candidatosRepository.GetCandidatosActivosByPartidoAsync(partidoId);
 			foreach (var candidato in candidatosPartido)
 			{
@@ -48,20 +47,15 @@ namespace SADVO.Core.Application.Services
 					candidatos.Add(_mapper.Map<CandidatosDTO>(candidato));
 				}
 			}
-
-			// NUEVA LÓGICA: Candidatos de partidos aliados para respaldar
 			var alianzas = await _alianzasRepository.GetAlianzasActivasAsync(partidoId);
 			foreach (var alianza in alianzas)
 			{
 				var partidoAliadoId = alianza.PartidoSolicitanteId == partidoId ?
 					alianza.PartidoDestinoId : alianza.PartidoSolicitanteId;
-
-				// Obtener candidatos ya asignados del partido aliado
 				var candidatosAsignadosAliado = await _asignacionRepository.GetCandidatosAsignadosDePartidoAsync(partidoAliadoId);
 
 				foreach (var candidatoAsignado in candidatosAsignadosAliado)
 				{
-					// Verificar que no esté ya respaldado por nuestro partido
 					if (!await _asignacionRepository.ExisteRespaldoAsync(candidatoAsignado.CandidatoId, candidatoAsignado.PuestoElectivoId, partidoId))
 					{
 						candidatos.Add(_mapper.Map<CandidatosDTO>(candidatoAsignado.Candidato));
@@ -74,10 +68,10 @@ namespace SADVO.Core.Application.Services
 
 		public async Task<List<PuestoElectivoDTO>> GetPuestosDisponiblesAsync(int partidoId, int? candidatoId = null)
 		{
-			// Si no hay candidato, devolver los puestos normales
 			if (!candidatoId.HasValue)
 			{
-				var puestosElectivos = await _puestosRepository.GetAllList();
+				var puestosElectivos = await _puestosRepository.GetPuestosElectivosActivesAsync();
+
 				var puestosDisponibles = new List<PuestoElectivoDTO>();
 
 				foreach (var puestos in puestosElectivos)
@@ -91,24 +85,20 @@ namespace SADVO.Core.Application.Services
 				return puestosDisponibles.OrderBy(p => p.Nombre).ToList();
 			}
 
-			// Si hay candidato, verificar si es de partido aliado
 			var esDePartidoAliado = await CandidatoPerteneceAPartidoAliado(candidatoId.Value, partidoId);
 
 			if (!esDePartidoAliado)
 			{
-				// Si no es de aliado, devolver los puestos normales
 				return await GetPuestosDisponiblesAsync(partidoId);
 			}
 
-			// Obtener asignación original del candidato
 			var asignacionOriginal = await _asignacionRepository.GetAsignacionDelCandidatoAsync(candidatoId.Value);
 
 			if (asignacionOriginal == null)
 			{
-				return new List<PuestoElectivoDTO>(); // No tiene asignación original
+				return new List<PuestoElectivoDTO>(); 
 			}
 
-			// Verificar que ese puesto esté disponible en este partido
 			var estaDisponible = !await _asignacionRepository.ExistePuestoAsignadoEnPartidoAsync(
 				asignacionOriginal.PuestoElectivoId, partidoId);
 
@@ -117,7 +107,6 @@ namespace SADVO.Core.Application.Services
 				return new List<PuestoElectivoDTO>();
 			}
 
-			// Obtener y retornar solo el puesto original
 			var puesto = await _puestosRepository.GetById(asignacionOriginal.PuestoElectivoId);
 			return new List<PuestoElectivoDTO> { _mapper.Map<PuestoElectivoDTO>(puesto) };
 		}
@@ -125,15 +114,12 @@ namespace SADVO.Core.Application.Services
 
 		public async Task<bool> ValidarCandidatoParaAsignacionAsync(int candidatoId, int puestoElectivoId, int partidoId)
 		{
-			// Validar que no existe el candidato asignado en el mismo partido
 			if (await _asignacionRepository.ExisteCandidatoAsignadoEnPartidoAsync(candidatoId, partidoId))
 				return false;
 
-			// Validar que no existe ya un candidato asignado a ese puesto en el partido
 			if (await _asignacionRepository.ExistePuestoAsignadoEnPartidoAsync(puestoElectivoId, partidoId))
 				return false;
 
-			// Validar candidato de partido aliado
 			var asignacionEnOtroPartido = await _asignacionRepository.GetAsignacionCandidatoEnOtroPartidoAsync(candidatoId, partidoId);
 			if (asignacionEnOtroPartido != null && asignacionEnOtroPartido.PuestoElectivoId != puestoElectivoId)
 				return false;

@@ -30,5 +30,14 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 				.ToListAsync();
 		}
 
+		public async Task<List<Candidatos>> GetCandidatosByPartidoAsync(int partidoId)
+		{
+			return await _context.Candidatos
+				.Where(c => c.PartidoPoliticoId == partidoId)
+				.OrderBy(c => c.Nombre)
+				.ThenBy(c => c.Apellido)
+				.ToListAsync();
+		}
+
 	}
 }

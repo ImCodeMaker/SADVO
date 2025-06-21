@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SADVO.Core.Application.Dtos.Candidatos;
-using SADVO.Core.Application.Dtos.PartidosPoliticos;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Application.ViewModels.Candidatos;
-using SADVO.Core.Application.ViewModels.PartidosPoliticos;
 
 namespace SADVO.Controllers
 {
@@ -28,7 +26,6 @@ namespace SADVO.Controllers
 			_eleccionesServices = eleccionesServices;
 		}
 
-		// Método helper para verificar autorización (como en tu otro controller)
 		private IActionResult CheckAuthorization()
 		{
 			if (!_userSession.hasUser())
@@ -48,7 +45,10 @@ namespace SADVO.Controllers
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
 
-			var dtoList = await _candidatosServices.GetAllAsync();
+			var user = _userSession.GetUserSession();
+			var dirigente = await _asignacionDirigentesServices.GetDirigente(user.Id);
+
+			var dtoList = await _candidatosServices.GetCandidatosByPartidoAsync(dirigente.PartidoPoliticoId);
 			var viewModelList = _mapper.Map<List<CandidatosViewModel>>(dtoList);
 
 			foreach (var vm in viewModelList)

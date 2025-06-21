@@ -10,8 +10,6 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 	{
 		private readonly SADVODbContext _context;
 
-		//Create
-
 		public GenericRepository(SADVODbContext context)
 		{
 			_context = context;
@@ -22,8 +20,6 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			await _context.SaveChangesAsync();
 			return entity;
 		}
-
-		//Get by id
 
 		public async Task UpdateEstadoAsync(int id, bool nuevoEstado)
 		{
@@ -39,7 +35,6 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			}
 		}
 
-		//Get all elements
 		public async Task<List<Entity>> GetAllList()
 		{
 			try
@@ -54,17 +49,15 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			}
 		}
 
-		//Get By Id
 		public async Task<Entity?> GetById(int Id)
 		{
 			return await _context.Set<Entity>().FindAsync(Id);
 		}
-		// Get as Query
+
 		public IQueryable<Entity> GetAllQuery()
 		{
 			return _context.Set<Entity>().AsQueryable();
 		}
-		// Update
 		public async Task<Entity?> UpdateAsync(int Id, Entity entity)
 		{
 			var entry = await _context.Set<Entity>().FindAsync(Id);
@@ -100,7 +93,5 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			}
 			return query;
 		}
-
-
 	}
 }

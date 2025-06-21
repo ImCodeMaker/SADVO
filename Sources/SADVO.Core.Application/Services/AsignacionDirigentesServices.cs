@@ -17,7 +17,6 @@ namespace SADVO.Core.Application.Services
 			: base(asignacionRepository, mapper)
 		{
 			_repository = asignacionRepository;
-			//_eleccionRepository = eleccionRepository;
 		}
 
 		public override async Task<bool> AddAsync(CreateAsignacionDirigentesDTO dto)
@@ -25,13 +24,12 @@ namespace SADVO.Core.Application.Services
 			if (dto == null)
 				throw new ArgumentNullException(nameof(dto));
 
-			//// No se puede crear una nueva relación si hay una elección activa
-			//if (await _eleccionRepository.ExisteEleccionActivaAsync())
-			//	throw new InvalidOperationException("No se pueden crear nuevas relaciones mientras exista una elección activa.");
+			var existingAssignment = await _repository.GetById(dto.UsuarioId);
 
-			//// Verificar que el dirigente no esté ya relacionado con otro partido
-			//if (await _repository.ExisteDirigenteAsignadoAsync(dto.UsuarioId))
-			//	throw new InvalidOperationException("Este dirigente ya está relacionado con otro partido político.");
+			if (existingAssignment != null)
+			{
+				throw new InvalidOperationException("Este usuario ya está asignado como dirigente a un partido político.");
+			}
 
 			return await base.AddAsync(dto);
 		}
@@ -41,10 +39,9 @@ namespace SADVO.Core.Application.Services
 			var getAllDirigentes = await _repository.GetAllList();
 			var dirigente = getAllDirigentes.FirstOrDefault(u => u.UsuarioId == userId);
 
-
-			if (dirigente!.Estado == false)
+			if (dirigente == null || dirigente.Estado == false)
 			{
-				throw new InvalidOperationException("Este usuario no esta relacionado con ningún partido político.");
+				throw new InvalidOperationException("Este usuario no está relacionado con ningún partido político.");
 			}
 
 			// Mapear la entidad al DTO
@@ -54,14 +51,9 @@ namespace SADVO.Core.Application.Services
 		public async Task<int?> GetPartidoIdByUserIdAsync(int userId)
 		{
 			var asignacion = await _repository.GetByUserIdWithPartidoAsync(userId);
-
 			if (asignacion == null)
 				return null;
-
 			return asignacion.PartidoPoliticoId;
 		}
-
-
-
 	}
 }

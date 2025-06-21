@@ -11,8 +11,8 @@ namespace SADVO.Core.Application.ViewModels.Ciudadanos
 		[DataType(DataType.EmailAddress)]
 		public required string Email { get; set; }
 		[Required(ErrorMessage = "Este campo es requerido")]
-		[MinLength(11, ErrorMessage = "El documento de identidad debe tener al menos 11 caracteres.")]
-		[MaxLength(11, ErrorMessage = "El documento de identidad debe tener al menos 11 caracteres.")]
+		[MinLength(13, ErrorMessage = "El documento de identidad debe tener al menos 11 caracteres.")]
+		[MaxLength(13, ErrorMessage = "El documento de identidad debe tener al menos 11 caracteres.")]
 		public required string Documento_Identidad { get; set; }
 	}
 }

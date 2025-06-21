@@ -40,6 +40,3 @@ namespace SADVO.Infrastructure.Shared.Services
 		}
 	}
 }
-
-// Ejemplo de uso:
-// bool resultado = await EmailService.SendEmailAsync("usuario@ejemplo.com", "Asunto", "Mensaje");

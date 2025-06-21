@@ -1,5 +1,142 @@
-﻿@{
+﻿@model SADVO.Core.Application.ViewModels.Dirigente.DashboardDirigenteViewModel
+
+@{
     Layout = "_LayoutDirigente";
+    ViewData["Title"] = "Panel de Dirigente";
 }
 
-<h1>Bienvenido, Dirigente!</h1>
+
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Compact Header -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Panel de Administración</h1>
+                        <p class="text-gray-600">Centro de control de tu partido político</p>
+                    </div>
+                </div>
+
+                <!-- Current Party Status - Inline -->
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-2">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="text-sm text-gray-600 mb-1">Dirigiendo actualmente:</div>
+                    <div class="bg-blue-600 text-white px-4 py-2 rounded-lg">
+                        <span class="font-bold">@Model.PartidoPoliticoNombre</span>
+                        <p class="text-blue-100 text-xs mt-1">@Model.PartidoPoliticoSiglas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Candidatos Card -->
+            <div class="card-hover">
+                <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 h-full">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-blue-100 rounded-xl mb-4">
+                            <svg class="w-7 h-7 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Candidatos</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Gestiona los candidatos del partido</p>
+                        <div class="bg-blue-50 rounded-lg p-3 mb-4">
+                            <div class="text-2xl font-bold text-blue-600 stat-pulse">@Model.TotalCandidatos</div>
+                            <div class="text-xs text-blue-700">Candidatos Registrados</div>
+                        </div>
+                        <a asp-controller="Candidatos" asp-action="Index" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 text-sm">
+                            Ver Candidatos
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alianzas Card -->
+            <div class="card-hover">
+                <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 h-full">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-purple-100 rounded-xl mb-4">
+                            <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Alianzas</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Administra las alianzas estratégicas</p>
+                        <div class="bg-purple-50 rounded-lg p-3 mb-4">
+                            <div class="text-2xl font-bold text-purple-600 stat-pulse">5</div>
+                            <div class="text-xs text-purple-700">Alianzas Activas</div>
+                        </div>
+                        <a asp-controller="AlianzasPoliticas" asp-action="Index" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 text-sm">
+                            Gestionar Alianzas
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asignaciones Card -->
+            <div class="card-hover lg:col-span-2">
+                <div class="gradient-bg rounded-xl shadow-lg p-6 text-white h-full">
+                    <div class="flex items-center justify-between h-full">
+                        <div class="flex items-center space-x-4">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-xl">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold mb-1">Asignaciones Políticas</h2>
+                                <p class="text-white text-opacity-90 text-sm">
+                                    Gestiona las asignaciones de candidatos a puestos electivos
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <a asp-controller="AlianzasPoliticas" asp-action="Index"
+                               class="bg-white text-indigo-600 hover:bg-gray-50 font-medium py-2.5 px-6 rounded-lg transition-all duration-300 text-sm">
+                                Ir a Asignaciones
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Stats Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="card-hover">
+                <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center">
+                    <div class="text-3xl font-bold text-green-600 stat-pulse mb-2">@Model.TotalPuestosDisponibles</div>
+                    <div class="text-gray-600 font-medium">Puestos Disponibles</div>
+                    <div class="w-full bg-green-100 rounded-full h-2 mt-3">
+                        <div class="bg-green-600 h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-hover">
+                <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center">
+                    <div class="text-3xl font-bold text-orange-600 stat-pulse mb-2">@Model.CandidatosAsignados</div>
+                    <div class="text-gray-600 font-medium">Candidatos Asignados</div>
+                    <div class="w-full bg-orange-100 rounded-full h-2 mt-3">
+                        <div class="bg-orange-600 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

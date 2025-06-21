@@ -172,7 +172,6 @@ namespace SADVO.Controllers
 			return View("Confirmacion", model);
 		}
 
-		// POST: Aceptar alianza confirmada
 		[HttpPost]
 		public async Task<IActionResult> AceptarConfirmado(int id)
 		{
@@ -194,7 +193,6 @@ namespace SADVO.Controllers
 			return RedirectToAction("Index");
 		}
 
-		// GET: Confirmar rechazo de alianza
 		[HttpGet]
 		public async Task<IActionResult> ConfirmarRechazar(int id)
 		{
@@ -220,7 +218,6 @@ namespace SADVO.Controllers
 			return View("Confirmacion", model);
 		}
 
-		// POST: Rechazar alianza confirmada
 		[HttpPost]
 		public async Task<IActionResult> RechazarConfirmado(int id)
 		{
@@ -242,7 +239,6 @@ namespace SADVO.Controllers
 			return RedirectToAction("Index");
 		}
 
-		// GET: Confirmar eliminación de solicitud
 		[HttpGet]
 		public async Task<IActionResult> ConfirmarEliminar(int id)
 		{
@@ -268,7 +264,6 @@ namespace SADVO.Controllers
 			return View("Confirmacion", model);
 		}
 
-		// POST: Eliminar solicitud confirmada
 		[HttpPost]
 		public async Task<IActionResult> EliminarConfirmado(int id)
 		{
@@ -290,7 +285,6 @@ namespace SADVO.Controllers
 			return RedirectToAction("Index");
 		}
 
-		// GET: Confirmar romper alianza
 		[HttpGet]
 		public async Task<IActionResult> ConfirmarRomper(int id)
 		{
@@ -316,7 +310,6 @@ namespace SADVO.Controllers
 			return View("Confirmacion", model);
 		}
 
-		// POST: Romper alianza confirmada
 		[HttpPost]
 		public async Task<IActionResult> RomperConfirmado(int id)
 		{

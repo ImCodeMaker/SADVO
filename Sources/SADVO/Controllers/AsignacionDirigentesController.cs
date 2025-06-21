@@ -100,10 +100,8 @@ namespace SADVO.Controllers
 			{
 				var usuarios = await _usuariosService.GetActiveUsersAsync();
 				var partidos = await _partidosPoliticosService.GetActivePartidosAsync();
-
 				model.UsuariosActivos = _mapper.Map<List<UsuarioViewModel>>(usuarios);
 				model.PartidosActivos = _mapper.Map<List<PartidosPoliticosViewModel>>(partidos);
-
 				return View(model);
 			}
 
@@ -115,9 +113,24 @@ namespace SADVO.Controllers
 			}
 
 			model.UsuarioName = usuario.NombreUsuario;
-
 			var dto = _mapper.Map<CreateAsignacionDirigentesDTO>(model);
-			await _asignacionDirigentesService.AddAsync(dto);
+
+			try
+			{
+				await _asignacionDirigentesService.AddAsync(dto);
+			}
+			catch (InvalidOperationException ex)
+			{
+				// Capturar la excepción específica de duplicados
+				ModelState.AddModelError("", ex.Message);
+				return View(model);
+			}
+			catch (Exception ex)
+			{
+				// Capturar cualquier otra excepción
+				ModelState.AddModelError("", "Ocurrió un error al asignar el dirigente. Intente nuevamente.");
+				return View(model);
+			}
 
 			return RedirectToAction("Index");
 		}

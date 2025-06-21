@@ -9,8 +9,6 @@
 		public required bool Estado { get; set; }
 		public int? PartidoRespaldaId { get; set; }
 		public DateTime FechaAsignacion { get; set; }
-
-		// Propiedades navegacionales
 		public string NombreCandidato { get; set; } = string.Empty;
 		public string ApellidoCandidato { get; set; } = string.Empty;
 		public string NombreCompleto => $"{NombreCandidato} {ApellidoCandidato}";

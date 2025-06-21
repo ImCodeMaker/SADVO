@@ -10,19 +10,39 @@ namespace SADVO.Core.Application.Services
 	{
 		private readonly IVotacionRepository _votacionRepository;
 		private readonly IEmailServices _emailServices;
+		private readonly ICiudadanoSession _ciudadanoSession;
 		private readonly IMapper _mapper;
 		private readonly IVotacionHelperServices _votacionHelper;
 
-		public VotacionService(IVotacionRepository votacionRepository, IMapper mapper, IEmailServices emailServices, IVotacionHelperServices votacionHelper)
+		public VotacionService(IVotacionRepository votacionRepository, IMapper mapper, IEmailServices emailServices, IVotacionHelperServices votacionHelper, ICiudadanoSession ciudadanoSession)
 		{
 			_votacionRepository = votacionRepository;
 			_mapper = mapper;
 			_emailServices = emailServices;
 			_votacionHelper = votacionHelper;
+			_ciudadanoSession = ciudadanoSession;
+		}
+
+		// Método privado para validar si hay un ciudadano en sesión
+		private bool ValidarCiudadanoEnSesion()
+		{
+			var ciudadano = _ciudadanoSession.GetCiudadanoSession();
+			return ciudadano != null && ciudadano.Id > 0;
 		}
 
 		public async Task<EleccionVotacionDTO?> GetEleccionParaVotarAsync(int ciudadanoId)
 		{
+			if (!ValidarCiudadanoEnSesion())
+			{
+				return null;
+			}
+
+			var ciudadanoSesion = _ciudadanoSession.GetCiudadanoSession();
+			if (ciudadanoSesion!.Id != ciudadanoId)
+			{
+				return null;
+			}
+
 			var eleccion = await _votacionRepository.GetEleccionActivaAsync();
 			if (eleccion == null)
 				return null;
@@ -91,14 +111,25 @@ namespace SADVO.Core.Application.Services
 
 			try
 			{
-				// 1. Validar que los datos del DTO sean válidos
+				if (!ValidarCiudadanoEnSesion())
+				{
+					resultado.Errores.Add("Acceso no autorizado. Debe iniciar sesión como ciudadano para votar.");
+					return resultado;
+				}
+
+				var ciudadanoSesion = _ciudadanoSession.GetCiudadanoSession();
+				if (ciudadanoSesion!.Id != dto.CiudadanoId)
+				{
+					resultado.Errores.Add("No tiene autorización para realizar esta acción.");
+					return resultado;
+				}
+
 				if (dto.EleccionId <= 0 || dto.CiudadanoId <= 0 || dto.PuestoElectivoId <= 0 || dto.CandidatoId <= 0)
 				{
 					resultado.Errores.Add("Los datos del voto no son válidos. Por favor, verifica tu selección.");
 					return resultado;
 				}
 
-				// 2. Verificar elección activa
 				var eleccion = await _votacionRepository.GetEleccionActivaAsync();
 				if (eleccion == null)
 				{
@@ -112,14 +143,12 @@ namespace SADVO.Core.Application.Services
 					return resultado;
 				}
 
-				// 3. Verificar si ya votó en este puesto
 				if (await _votacionRepository.YaVotoEnPuestoAsync(dto.CiudadanoId, dto.EleccionId, dto.PuestoElectivoId))
 				{
 					resultado.Errores.Add("Ya has emitido tu voto para este puesto electivo. Tu participación ya fue registrada.");
 					return resultado;
 				}
 
-				// 4. Crear el voto
 				var voto = new Votos
 				{
 					Id = 0,
@@ -131,7 +160,6 @@ namespace SADVO.Core.Application.Services
 					FechaVoto = DateTime.Now
 				};
 
-				// 5. Registrar el voto
 				var votoRegistrado = await _votacionRepository.RegistrarVotoAsync(voto);
 				if (!votoRegistrado)
 				{
@@ -139,11 +167,9 @@ namespace SADVO.Core.Application.Services
 					return resultado;
 				}
 
-				// 6. CAMBIO IMPORTANTE: Solo actualizar historial si completó TODOS los puestos
 				var eleccionCompleta = await GetEleccionParaVotarAsync(dto.CiudadanoId);
 				bool votoCompleto = eleccionCompleta?.YaVotoCompleto ?? false;
 
-				// Solo crear/actualizar historial si ya votó en todos los puestos
 				if (votoCompleto)
 				{
 					var historial = new HistorialVotaciones
@@ -157,10 +183,6 @@ namespace SADVO.Core.Application.Services
 					};
 
 					var historialRegistrado = await _votacionRepository.RegistrarHistorialVotacionAsync(historial);
-					if (!historialRegistrado)
-					{
-						Console.WriteLine("Advertencia: No se pudo actualizar el historial de votaciones");
-					}
 				}
 
 				resultado.Exitoso = true;
@@ -198,6 +220,17 @@ namespace SADVO.Core.Application.Services
 
 		public async Task<bool> PuedeVotarAsync(int ciudadanoId)
 		{
+			if (!ValidarCiudadanoEnSesion())
+			{
+				return false;
+			}
+
+			var ciudadanoSesion = _ciudadanoSession.GetCiudadanoSession();
+			if (ciudadanoSesion!.Id != ciudadanoId)
+			{
+				return false;
+			}
+
 			var eleccion = await _votacionRepository.GetEleccionActivaAsync();
 			if (eleccion == null)
 				return false;

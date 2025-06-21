@@ -65,9 +65,6 @@ namespace SADVO.Core.Application.Services
 
 			return true;
 		}
-
-
-
 	}
 
 }

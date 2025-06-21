@@ -57,18 +57,12 @@ namespace SADVO.Controllers
 			if (partidoId == null)
 				return RedirectToAction("Index", "Home");
 
-			// Obtener TODAS las asignaciones (propias + respaldos)
 			var todasAsignaciones = await _helperService.GetAsignacionesConAliadosAsync(partidoId.Value);
 
-			// Debug info
-			Console.WriteLine($"Total de asignaciones: {todasAsignaciones.Count}");
-
-			// Filtrar para obtener SOLO las asignaciones ORIGINALES (no respaldos)
 			var asignacionesOriginales = todasAsignaciones
 				.Where(a => a.PartidoRespaldaId == null)
 				.ToList();
 
-			// Para cada asignación original, obtener sus respaldos
 			var asignacionesAgrupadas = new List<AsignacionCandidatoViewModel>();
 
 			foreach (var original in asignacionesOriginales)
@@ -86,9 +80,6 @@ namespace SADVO.Controllers
 					.ToList();
 
 				viewModel.PartidosQueRespaldan = respaldos;
-
-				// Debug info
-				Console.WriteLine($"{original.NombreCompleto} - ID: {original.CandidatoId} - Respaldos: {respaldos.Count}");
 
 				asignacionesAgrupadas.Add(viewModel);
 			}
@@ -154,7 +145,6 @@ namespace SADVO.Controllers
 					model.CandidatosDisponibles = _mapper.Map<List<CandidatosViewModel>>(
 						await _helperService.GetCandidatosDisponiblesAsync(partidoId.Value));
 
-					// Aquí pasamos también model.CandidatoId para filtrar puestos correctamente
 					model.PuestosDisponibles = _mapper.Map<List<PuestoElectivoViewModel>>(
 						await _helperService.GetPuestosDisponiblesAsync(partidoId.Value, model.CandidatoId));
 				}

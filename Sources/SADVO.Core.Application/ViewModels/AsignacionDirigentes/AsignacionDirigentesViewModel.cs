@@ -1,6 +1,4 @@
-﻿using SADVO.Core.Application.ViewModels.Common;
-
-namespace SADVO.Core.Application.ViewModels.AsignacionDirigentes
+﻿namespace SADVO.Core.Application.ViewModels.AsignacionDirigentes
 {
 	public class AsignacionDirigentesViewModel 
 	{

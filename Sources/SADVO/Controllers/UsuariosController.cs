@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SADVO.Core.Application.Dtos.Ciudadanos;
 using SADVO.Core.Application.Dtos.Usuarios;
 using SADVO.Core.Application.Interfaces;
-using SADVO.Core.Application.Services;
-using SADVO.Core.Application.ViewModels.Ciudadanos;
 using SADVO.Core.Application.ViewModels.Usuarios;
 
 namespace SADVO.Controllers

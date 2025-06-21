@@ -6,5 +6,6 @@ namespace SADVO.Core.Domain.Interfaces
 	{
 		Task<Candidatos?> GetCandidatoConAsignacionesAsync(int candidatoId);
 		Task<List<Candidatos>> GetCandidatosActivosByPartidoAsync(int partidoId);
+		Task<List<Candidatos>> GetCandidatosByPartidoAsync(int partidoId);
 	}
 }

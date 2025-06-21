@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5j6co4eVZJQ=",
+  "dgSpecHash": "ciLbnNMtb3M=",
   "success": true,
   "projectFilePath": "C:\\Users\\Teudy Encarnacion\\Documents\\Projects\\SADVO\\Sources\\SADVO.Core.Application\\SADVO.Core.Application.csproj",
   "expectedPackageFiles": [
@@ -48,8 +48,7 @@
     "C:\\Users\\Teudy Encarnacion\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\Teudy Encarnacion\\.nuget\\packages\\system.reflection.metadata\\8.0.1\\system.reflection.metadata.8.0.1.nupkg.sha512",
     "C:\\Users\\Teudy Encarnacion\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
-    "C:\\Users\\Teudy Encarnacion\\.nuget\\packages\\tesseract\\5.2.0\\tesseract.5.2.0.nupkg.sha512",
-    "C:\\Users\\Teudy Encarnacion\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.301\\microsoft.net.sdk.compilers.toolset.9.0.301.nupkg.sha512"
+    "C:\\Users\\Teudy Encarnacion\\.nuget\\packages\\tesseract\\5.2.0\\tesseract.5.2.0.nupkg.sha512"
   ],
   "logs": []
 }

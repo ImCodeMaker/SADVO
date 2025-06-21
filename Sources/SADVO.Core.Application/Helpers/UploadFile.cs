@@ -43,7 +43,6 @@ namespace SADVO.Core.Application.Helpers
 				return imagePath;
 			}
 
-			// Use GUID for folder structure instead of ID
 			Guid folderGuid = Guid.NewGuid();
 			string basePath = $"Images/{folderName}/{folderGuid}";
 			string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", basePath);

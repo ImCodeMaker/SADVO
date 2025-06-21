@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using SADVO.Core.Application.Dtos.Candidatos;
 using SADVO.Core.Application.Helpers;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Domain.Entities;
 using SADVO.Core.Domain.Interfaces;
-using AutoMapper.QueryableExtensions;
 
 namespace SADVO.Core.Application.Services
 {
@@ -74,6 +72,10 @@ namespace SADVO.Core.Application.Services
 			return candidato.Asignaciones != null && candidato.Asignaciones.Any();
 		}
 
-
+		public async Task<List<CandidatosDTO>> GetCandidatosByPartidoAsync(int partidoId)
+		{
+			var entities = await _candidatosRepository.GetCandidatosByPartidoAsync(partidoId);
+			return _mapper.Map<List<CandidatosDTO>>(entities);
+		}
 	}
 }

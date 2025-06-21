@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SADVO.Core.Application.Dtos.Ciudadanos;
 using SADVO.Core.Application.Dtos.PartidosPoliticos;
 using SADVO.Core.Application.Interfaces;
-using SADVO.Core.Application.ViewModels.Ciudadanos;
 using SADVO.Core.Application.ViewModels.PartidosPoliticos;
 
 namespace SADVO.Controllers
@@ -24,7 +22,6 @@ namespace SADVO.Controllers
 
 		}
 
-		// Método helper para verificar autorización (como en tu otro controller)
 		private IActionResult CheckAuthorization()
 		{
 			if (!_userSession.hasUser())
@@ -49,7 +46,6 @@ namespace SADVO.Controllers
 			return View(viewModelList);
 		}
 
-		// GET: Create
 		public async Task<IActionResult> Create()
 		{
 			if (await _eleccionesServices.HayEleccionActivaAsync())
@@ -61,7 +57,6 @@ namespace SADVO.Controllers
 			return authResult ?? View();
 		}
 
-		// POST: Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CrearPartidosPoliticosViewModel partidosPoliticosViewModel)
@@ -97,7 +92,6 @@ namespace SADVO.Controllers
 			}
 		}
 
-		// GET: Update (cambiamos el nombre del método para que coincida con tu patrón)
 		public async Task<IActionResult> Update(int id)
 		{
 			var authResult = CheckAuthorization();
@@ -108,7 +102,6 @@ namespace SADVO.Controllers
 				return RedirectToAction("PeriodoElectoral", "Auth");
 			}
 
-			// Debug: Verificar que el ID llega correctamente
 			if (id <= 0)
 			{
 				TempData["Error"] = "ID inválido.";
@@ -124,7 +117,6 @@ namespace SADVO.Controllers
 					return NotFound();
 				}
 
-				// FIXED: Map to UpdatePartidosPoliticosViewModel instead of PartidosPoliticosViewModel
 				var mappedEntity = _mapper.Map<UpdatePartidosPoliticosViewModel>(getPartidoPoliticoId);
 
 				if (mappedEntity == null)
@@ -142,7 +134,6 @@ namespace SADVO.Controllers
 			}
 		}
 
-		// POST: Edit (este método procesa la edición)
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(int id, UpdatePartidosPoliticosViewModel vm)
@@ -157,7 +148,6 @@ namespace SADVO.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				// IMPORTANTE: Devolver la vista "Update" con el modelo
 				return View("Update", vm);
 			}
 
@@ -165,7 +155,6 @@ namespace SADVO.Controllers
 			{
 				var dto = _mapper.Map<UpdatePartidoPoliticoDTO>(vm);
 
-				// ✅ USAR EL NUEVO MÉTODO que maneja archivos
 				bool updated = await _partidoPoliticoServices.UpdateAsync(id, dto, vm.LogoFile);
 
 				if (updated)
@@ -182,12 +171,12 @@ namespace SADVO.Controllers
 			catch (InvalidOperationException ex)
 			{
 				ModelState.AddModelError(string.Empty, ex.Message);
-				return View("Update", vm); // Devolver la vista "Update"
+				return View("Update", vm); 
 			}
 			catch (Exception ex)
 			{
 				ModelState.AddModelError(string.Empty, "Error al actualizar el partido político: " + ex.Message);
-				return View("Update", vm); // Devolver la vista "Update"
+				return View("Update", vm);
 			}
 		}
 
@@ -218,7 +207,6 @@ namespace SADVO.Controllers
 			}
 		}
 
-		// POST: Toggle Estado
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ToggleEstado(int id)

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SADVO.Core.Application.Dtos.Votacion;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Application.ViewModels.Votacion;
-using System.Security.Claims;
 
 namespace SADVO.Web.Controllers
 {
@@ -23,15 +22,34 @@ namespace SADVO.Web.Controllers
 			_mapper = mapper;
 		}
 
+		// Método privado para validar ciudadano en sesión
+		private bool ValidarCiudadanoEnSesion()
+		{
+			var ciudadano = _ciudadanoSession.GetCiudadanoSession();
+			return ciudadano != null && ciudadano.Id > 0;
+		}
+
+		private IActionResult AccesoNoAutorizado()
+		{
+			TempData["Error"] = "Debe iniciar sesión como ciudadano para acceder a la votación.";
+			return RedirectToAction("Index", "Home");
+		}
+
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
+			// Validar que hay un ciudadano en sesión
+			if (!ValidarCiudadanoEnSesion())
+				return AccesoNoAutorizado();
+
 			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
 				var eleccionDto = await _votacionService.GetEleccionParaVotarAsync(Ciudadano.Id);
 				if (eleccionDto == null)
 				{
+					HttpContext.Session.Remove("Ciudadano");
+					HttpContext.Session.Clear();
 					TempData["Info"] = "No hay elecciones activas disponibles en este momento.";
 				}
 
@@ -48,6 +66,10 @@ namespace SADVO.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> VerificarEstado()
 		{
+			// Validar que hay un ciudadano en sesión
+			if (!ValidarCiudadanoEnSesion())
+				return AccesoNoAutorizado();
+
 			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
@@ -79,6 +101,10 @@ namespace SADVO.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Votar()
 		{
+			// Validar que hay un ciudadano en sesión
+			if (!ValidarCiudadanoEnSesion())
+				return AccesoNoAutorizado();
+
 			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
@@ -110,6 +136,10 @@ namespace SADVO.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> RegistrarVoto(RegistrarVotoViewModel viewModel)
 		{
+			// Validar que hay un ciudadano en sesión
+			if (!ValidarCiudadanoEnSesion())
+				return AccesoNoAutorizado();
+
 			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			if (!ModelState.IsValid)
 			{
@@ -120,6 +150,9 @@ namespace SADVO.Web.Controllers
 			try
 			{
 				var registrarVotoDto = _mapper.Map<RegistrarVotoDTO>(viewModel);
+				// Asegurar que el CiudadanoId sea el de la sesión
+				registrarVotoDto.CiudadanoId = Ciudadano.Id;
+
 				var resultado = await _votacionService.RegistrarVotoAsync(registrarVotoDto);
 
 				if (resultado.Exitoso)
@@ -135,6 +168,9 @@ namespace SADVO.Web.Controllers
 					}
 					else
 					{
+						// Limpiar sesión cuando complete toda la votación
+						HttpContext.Session.Remove("User");
+						HttpContext.Session.Clear();
 						return RedirectToAction("Confirmacion");
 					}
 				}
@@ -154,6 +190,10 @@ namespace SADVO.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ConfirmarVoto(int eleccionId, int puestoElectivoId, int candidatoId)
 		{
+			// Validar que hay un ciudadano en sesión
+			if (!ValidarCiudadanoEnSesion())
+				return AccesoNoAutorizado();
+
 			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			try
 			{
@@ -190,7 +230,7 @@ namespace SADVO.Web.Controllers
 					EleccionId = eleccionId,
 					PuestoElectivoId = puestoElectivoId,
 					CandidatoId = candidatoId,
-					CiudadanoId = Ciudadano.Id, 
+					CiudadanoId = Ciudadano.Id,
 					PartidoPoliticoId = candidato.PartidoPrincipalId
 				};
 
@@ -212,6 +252,10 @@ namespace SADVO.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ConfirmarVoto(RegistrarVotoViewModel model)
 		{
+			// Validar que hay un ciudadano en sesión
+			if (!ValidarCiudadanoEnSesion())
+				return AccesoNoAutorizado();
+
 			var Ciudadano = _ciudadanoSession.GetCiudadanoSession();
 			if (!ModelState.IsValid)
 			{
@@ -219,6 +263,7 @@ namespace SADVO.Web.Controllers
 				return RedirectToAction("Votar");
 			}
 
+			// Asegurar que el CiudadanoId sea el de la sesión
 			model.CiudadanoId = Ciudadano.Id;
 
 			try
@@ -238,6 +283,9 @@ namespace SADVO.Web.Controllers
 					}
 					else
 					{
+						// Limpiar sesión cuando complete toda la votación
+						HttpContext.Session.Remove("User");
+						HttpContext.Session.Clear();
 						return RedirectToAction("Confirmacion");
 					}
 				}
@@ -257,12 +305,18 @@ namespace SADVO.Web.Controllers
 		[HttpGet]
 		public IActionResult Confirmacion()
 		{
+			HttpContext.Session.Remove("Ciudadano");
+			HttpContext.Session.Clear();
 			return View();
 		}
 
 		[HttpGet]
 		public IActionResult NoEleccionesActivas()
 		{
+			HttpContext.Session.Clear();
+			if (!ValidarCiudadanoEnSesion())
+				return AccesoNoAutorizado();
+
 			return View();
 		}
 

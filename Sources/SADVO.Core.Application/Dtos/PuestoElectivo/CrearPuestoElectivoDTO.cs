@@ -1,6 +1,4 @@
-﻿using SADVO.Core.Application.Dtos.Common;
-
-namespace SADVO.Core.Application.Dtos.PuestoElectivo
+﻿namespace SADVO.Core.Application.Dtos.PuestoElectivo
 {
 	public class CrearPuestoElectivoDTO
 	{

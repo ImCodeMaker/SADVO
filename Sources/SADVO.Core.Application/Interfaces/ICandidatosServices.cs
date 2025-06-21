@@ -10,6 +10,7 @@ namespace SADVO.Core.Application.Interfaces
 		Task<bool> AddCandidato(CrearCandidatosDTO dto, IFormFile? logoFile, int PartidoId, string PartidoName);
 		Task<bool> UpdateAsync(int id, UpdateCandidatoDTO dto, IFormFile? logoFile = null);
 		Task<bool> TienePuestoElectivo(int candidatoId);
+		Task<List<CandidatosDTO>> GetCandidatosByPartidoAsync(int partidoId);
 
 	}
 }

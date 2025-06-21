@@ -16,20 +16,18 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 
 		public async Task<List<AsignacionCandidatos>> GetCandidatosParaVotacionAsync(int eleccionId)
 		{
-			// Obtener la elección activa
 			var eleccion = await _context.Elecciones
 				.FirstOrDefaultAsync(e => e.Id == eleccionId && e.Estado == true);
 
 			if (eleccion == null)
 				return new List<AsignacionCandidatos>();
 
-			// Obtener todas las asignaciones originales (sin respaldos)
 			var asignacionesOriginales = await _context.AsignacionCandidatos
 				.Include(a => a.Candidato)
 				.Include(a => a.puestosElectivos)
 				.Include(a => a.PartidosPoliticos)
 				.Where(a => a.Estado == true &&
-						   a.PartidoRespaldaId == null && // Solo asignaciones originales
+						   a.PartidoRespaldaId == null && 
 						   a.Candidato.Estado == true &&
 						   a.puestosElectivos.Estado == true &&
 						   a.PartidosPoliticos.Estado == true)
@@ -109,13 +107,11 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 				return false;
 			}
 		}
-
 		public async Task<Elecciones?> GetEleccionActivaAsync()
 		{
 			return await _context.Elecciones
 				.FirstOrDefaultAsync(e => e.Estado == true );
 		}
-
 		public async Task<List<int>> GetPuestosVotadosPorCiudadanoAsync(int ciudadanoId, int eleccionId)
 		{
 			return await _context.Votos

@@ -14,8 +14,28 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			_context = context;
 		}
 
+		// Método privado para liberar asignaciones de puestos inactivos
+		private async Task LiberarAsignacionesDePuestosInactivosAsync()
+		{
+			var asignacionesAfectadas = await _context.AsignacionCandidatos
+				.Where(a => a.Estado == true && a.puestosElectivos.Estado == false)
+				.ToListAsync();
+
+			if (asignacionesAfectadas.Any())
+			{
+				foreach (var asignacion in asignacionesAfectadas)
+				{
+					asignacion.Estado = false;
+				}
+				await _context.SaveChangesAsync();
+			}
+		}
+
 		public async Task<List<AsignacionCandidatos>> GetAsignacionesByPartidoAsync(int partidoId)
 		{
+			// Primero liberar asignaciones de puestos inactivos
+			await LiberarAsignacionesDePuestosInactivosAsync();
+
 			return await _context.AsignacionCandidatos
 				.Include(a => a.Candidato)
 				.Include(a => a.puestosElectivos)
@@ -28,6 +48,9 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 
 		public async Task<List<AsignacionCandidatos>> GetAsignacionesActivasAsync(int partidoId)
 		{
+			// Primero liberar asignaciones de puestos inactivos
+			await LiberarAsignacionesDePuestosInactivosAsync();
+
 			return await _context.AsignacionCandidatos
 				.Include(a => a.Candidato)
 				.Include(a => a.puestosElectivos)
@@ -80,12 +103,15 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 
 		public async Task<List<AsignacionCandidatos>> GetCandidatosAsignadosDePartidoAsync(int partidoId)
 		{
+			// Primero liberar asignaciones de puestos inactivos
+			await LiberarAsignacionesDePuestosInactivosAsync();
+
 			return await _context.AsignacionCandidatos
 				.Include(a => a.Candidato)
 				.Include(a => a.puestosElectivos)
 				.Where(a => a.PartidoPoliticoId == partidoId &&
 						   a.Estado == true &&
-						   a.PartidoRespaldaId == null) // Solo asignaciones originales
+						   a.PartidoRespaldaId == null)
 				.ToListAsync();
 		}
 
@@ -94,10 +120,11 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 			return await _context.AsignacionCandidatos
 				.Where(x => x.CandidatoId == candidatoId &&
 							x.PuestoElectivoId == puestoId &&
-							x.Estado) 
-				.OrderBy(x => x.PartidoRespaldaId != null) 
+							x.Estado)
+				.OrderBy(x => x.PartidoRespaldaId != null)
 				.FirstOrDefaultAsync();
 		}
+
 		public async Task<bool> ExisteRespaldoAsync(int candidatoId, int puestoElectivoId, int partidoRespaldaId)
 		{
 			return await _context.AsignacionCandidatos
@@ -138,7 +165,8 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 
 		public async Task<List<int>> GetCandidatosNoDisponiblesParaPartidoAsync(int partidoId)
 		{
-			// Obtener candidatos ya asignados en este partido
+			await LiberarAsignacionesDePuestosInactivosAsync();
+
 			var candidatosAsignados = await _context.AsignacionCandidatos
 				.Where(a => a.PartidoPoliticoId == partidoId &&
 						   a.Estado == true &&
@@ -151,7 +179,8 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 
 		public async Task<List<int>> GetPuestosNoDisponiblesParaPartidoAsync(int partidoId)
 		{
-			// Obtener puestos ya ocupados en este partido
+			await LiberarAsignacionesDePuestosInactivosAsync();
+
 			var puestosOcupados = await _context.AsignacionCandidatos
 				.Where(a => a.PartidoPoliticoId == partidoId &&
 						   a.Estado == true &&
@@ -170,6 +199,8 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 
 		public async Task<List<AsignacionCandidatos>> GetAsignacionesConAliadosAsync(int partidoId)
 		{
+			await LiberarAsignacionesDePuestosInactivosAsync();
+
 			var partidosAliadosIds = await _context.AlianzasPoliticas
 				.Where(a => (a.PartidoSolicitanteId == partidoId || a.PartidoDestinoId == partidoId) && a.Estado)
 				.Select(a => a.PartidoSolicitanteId == partidoId ? a.PartidoDestinoId : a.PartidoSolicitanteId)
@@ -181,8 +212,8 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 				.Include(a => a.Candidato)
 				.Include(a => a.puestosElectivos)
 				.Include(a => a.PartidosPoliticos)
-				.Include(a => a.PartidoQueRespalda) 
-				.Where(a => partidosAliadosIds.Contains(a.PartidoPoliticoId) && a.Estado) 
+				.Include(a => a.PartidoQueRespalda)
+				.Where(a => partidosAliadosIds.Contains(a.PartidoPoliticoId) && a.Estado)
 				.OrderBy(a => a.Candidato.Nombre)
 				.ThenBy(a => a.Candidato.Apellido)
 				.ToListAsync();
@@ -202,5 +233,37 @@ namespace SADVO.Infrastructure.Persistence.Repositories
 					))
 				.ToListAsync();
 		}
+		public async Task<List<AsignacionCandidatos>> GetAsignacionesConPuestosInactivosAsync()
+		{
+			return await _context.AsignacionCandidatos
+				.Include(a => a.Candidato)
+				.Include(a => a.puestosElectivos)
+				.Include(a => a.PartidosPoliticos)
+				.Where(a => a.Estado == true && a.puestosElectivos.Estado == false)
+				.ToListAsync();
+		}
+
+		public async Task<bool> DesactivarAsignacionesPorPuestoInactivoAsync(int puestoElectivoId)
+		{
+			var asignaciones = await _context.AsignacionCandidatos
+				.Where(a => a.PuestoElectivoId == puestoElectivoId && a.Estado == true)
+				.ToListAsync();
+
+			foreach (var asignacion in asignaciones)
+			{
+				asignacion.Estado = false;
+			}
+
+			await _context.SaveChangesAsync();
+			return asignaciones.Count > 0;
+		}
+
+		public async Task<bool> LiberarAsignacionesDePuestosInactivosManualAsync()
+		{
+			await LiberarAsignacionesDePuestosInactivosAsync();
+			return true;
+		}
+
+
 	}
 }

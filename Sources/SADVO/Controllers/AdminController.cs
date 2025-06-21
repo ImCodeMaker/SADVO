@@ -41,7 +41,6 @@ namespace SADVO.Controllers
 					viewModel.AñosDisponibles = aniosDisponibles.Años;
 					viewModel.AñoSeleccionado = aniosDisponibles.AñoMasReciente;
 
-					// Pasar SelectList por ViewBag
 					ViewBag.AniosSelectList = aniosDisponibles.Años
 						.Select(a => new SelectListItem
 						{

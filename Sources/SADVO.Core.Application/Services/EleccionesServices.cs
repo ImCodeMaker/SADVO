@@ -38,7 +38,6 @@ namespace SADVO.Core.Application.Services
 			var elecciones = await _eleccionesRepository.GetAllEleccionesOrderedAsync();
 			var eleccionesDto = _mapper.Map<List<EleccionDTO>>(elecciones);
 
-			// Agregar datos adicionales para cada elección
 			foreach (var eleccion in eleccionesDto)
 			{
 				if (eleccion.Estado && eleccion.FechaFinalizacion == default(DateTime))
@@ -46,7 +45,6 @@ namespace SADVO.Core.Application.Services
 					eleccion.EsActiva = true;
 				}
 
-				// Obtener cantidad de partidos y puestos si la elección tiene votos
 				var partidosCount = await _eleccionesRepository.GetPartidosCountByEleccionAsync(eleccion.Id);
 				var puestosCount = await _eleccionesRepository.GetPuestosCountByEleccionAsync(eleccion.Id);
 
@@ -66,7 +64,6 @@ namespace SADVO.Core.Application.Services
 		{
 			var errors = new List<string>();
 
-			// Verificar que hay al menos un puesto electivo activo
 			var puestosActivos = await _puestosRepository.GetAllList();
 			var puestosActivosFiltrados = puestosActivos.Where(p => p.Estado).ToList();
 
@@ -76,7 +73,6 @@ namespace SADVO.Core.Application.Services
 				return (false, errors);
 			}
 
-			// Verificar que hay al menos dos partidos políticos activos
 			var partidosActivos = await _partidosRepository.GetAllList();
 			var partidosActivosFiltrados = partidosActivos.Where(p => p.Estado).ToList();
 
@@ -86,7 +82,6 @@ namespace SADVO.Core.Application.Services
 				return (false, errors);
 			}
 
-			// Verificar que cada partido tiene candidatos para todos los puestos
 			var asignaciones = await _asignacionCandidatosRepository.GetAllList();
 			var asignacionesActivas = asignaciones.Where(a => a.Estado).ToList();
 
@@ -121,21 +116,26 @@ namespace SADVO.Core.Application.Services
 			return _mapper.Map<List<ResultadoEleccionDTO>>(resultados);
 		}
 
-		public async Task<bool> CreateEleccionWithValidationAsync(CrearEleccionDTO dto)
+		public async Task<(bool success, List<string> errors)> CreateEleccionWithValidationAsync(CrearEleccionDTO dto)
 		{
 			var (isValid, errors) = await ValidarCreacionEleccionConAnioAsync(dto);
 			if (!isValid)
 			{
-				return false;
+				return (false, errors);
 			}
 
-			var entity = _mapper.Map<Elecciones>(dto);
-			entity.FechaCreacion = DateTime.Now;
-			await _eleccionesRepository.AddAsync(entity);
-			return true;
+			try
+			{
+				var entity = _mapper.Map<Elecciones>(dto);
+				entity.FechaCreacion = DateTime.Now;
+				await _eleccionesRepository.AddAsync(entity);
+				return (true, new List<string>());
+			}
+			catch (Exception ex)
+			{
+				return (false, new List<string> { $"Error al guardar la elección: {ex.Message}" });
+			}
 		}
-
-		// NUEVOS MÉTODOS PARA RESUMEN ELECTORAL
 
 		public async Task<AniosDisponiblesDTO> GetAniosDisponiblesAsync()
 		{
@@ -185,14 +185,12 @@ namespace SADVO.Core.Application.Services
 				errors.AddRange(baseErrors);
 			}
 
-			// Validar que no exista ya una elección para ese año
 			var existeEleccionEnAnio = await _eleccionesRepository.ExisteEleccionEnAnioAsync(dto.Año);
 			if (existeEleccionEnAnio)
 			{
 				errors.Add($"Ya existe una elección registrada para el año {dto.Año}. Solo se permite una elección por año.");
 			}
 
-			// NUEVA VALIDACIÓN: Permitir años pasados y futuros con advertencia
 			var añoActual = DateTime.Now.Year;
 			if (dto.Año < añoActual - 10)
 			{

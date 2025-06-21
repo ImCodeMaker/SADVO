@@ -14,7 +14,7 @@ namespace SADVO.Core.Application.ViewModels.PartidosPoliticos
 		public required string Descripcion { get; set; }
 		public required string? Logo { get; set; }
 
-		// Archivo nuevo subido
+		[Required]
 		[Display(Name = "Logo")]
 		[DataType(DataType.Upload)]
 		public IFormFile? LogoFile { get; set; }

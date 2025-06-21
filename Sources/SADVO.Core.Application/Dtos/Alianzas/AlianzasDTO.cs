@@ -1,5 +1,4 @@
 ﻿using SADVO.Core.Domain.Entities;
-using System;
 
 namespace SADVO.Core.Application.Dtos.Alianzas
 {
@@ -12,14 +11,11 @@ namespace SADVO.Core.Application.Dtos.Alianzas
 		public EstadoAlianza EstadoAlianza { get; set; }
 		public DateTime FechaSolicitud { get; set; }
 		public DateTime? FechaRespuesta { get; set; }
-
-		// Propiedades de navegación
 		public string NombrePartidoSolicitante { get; set; } = string.Empty;
 		public string SiglasPartidoSolicitante { get; set; } = string.Empty;
 		public string NombrePartidoDestino { get; set; } = string.Empty;
 		public string SiglasPartidoDestino { get; set; } = string.Empty;
 
-		// Propiedades calculadas
 		public string EstadoTexto => EstadoAlianza switch
 		{
 			EstadoAlianza.EnEspera => "En espera de respuesta",

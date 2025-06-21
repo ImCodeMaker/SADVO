@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SADVO.Core.Application.Dtos.Ciudadanos;
 using SADVO.Core.Application.Interfaces;
-using SADVO.Core.Application.Services;
 using SADVO.Core.Application.ViewModels.Ciudadanos;
 
 namespace SADVO.Controllers

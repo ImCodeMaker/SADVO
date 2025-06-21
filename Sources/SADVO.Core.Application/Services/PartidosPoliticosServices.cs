@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using SADVO.Core.Application.Dtos.PartidosPoliticos;
-using SADVO.Core.Application.Dtos.Usuarios;
 using SADVO.Core.Application.Helpers;
 using SADVO.Core.Application.Interfaces;
 using SADVO.Core.Domain.Entities;
@@ -48,15 +46,12 @@ namespace SADVO.Core.Application.Services
 
 				_mapper.Map(dto, existingEntity);
 
-				// Si hay un nuevo archivo de logo, procesarlo
 				if (logoFile != null)
 				{
 					string logoPath = UploadFile.Upload(logoFile, id, "PartidosPoliticos");
 					existingEntity.Logo = logoPath;
 				}
-				// Si no hay nuevo archivo, mantener el logo existente (no cambiar)
 
-				// Actualizar la entidad
 				await _partidosPoliticosRepository.UpdateAsync(id, existingEntity);
 				return true;
 			}
